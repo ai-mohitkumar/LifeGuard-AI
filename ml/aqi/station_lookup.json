@@ -1,0 +1,3278 @@
+{
+  "Sri Vijaya Puram Port Blair ANPCC": {
+    "state": "Andaman and Nicobar Islands",
+    "city": "Sri Vijaya Puram",
+    "lat": 11.6234,
+    "lon": 92.7265
+  },
+  "Secretariat Amaravati APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Amaravati",
+    "lat": 16.514,
+    "lon": 80.516
+  },
+  "Gulzarpet Anantapur APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Anantapur",
+    "lat": 14.6778,
+    "lon": 77.6081
+  },
+  "Gangineni Cheruvu Chittoor APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Chittoor",
+    "lat": 13.2105,
+    "lon": 79.0956
+  },
+  "Yerramukkapalli Kadapa APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Kadapa",
+    "lat": 14.48,
+    "lon": 78.8235
+  },
+  "Anand Kala Kshetram Rajamahendravaram APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Rajamahendravaram",
+    "lat": 17.0052,
+    "lon": 81.7778
+  },
+  "Vaikuntapuram Tirupati APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Tirupati",
+    "lat": 13.6355,
+    "lon": 79.4199
+  },
+  "HB Colony Vijayawada APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Vijayawada",
+    "lat": 16.5074,
+    "lon": 80.6466
+  },
+  "Kanuru Vijayawada APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Vijayawada",
+    "lat": 16.5074,
+    "lon": 80.6466
+  },
+  "PWD Grounds Vijayawada APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Vijayawada",
+    "lat": 16.5074,
+    "lon": 80.6466
+  },
+  "Rajiv Gandhi Park Vijayawada APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Vijayawada",
+    "lat": 16.5074,
+    "lon": 80.6466
+  },
+  "GVM Corporation Visakhapatnam APPCB": {
+    "state": "Andhra Pradesh",
+    "city": "Visakhapatnam",
+    "lat": 17.6801,
+    "lon": 83.2016
+  },
+  "Naharlagun Naharlagun APSPCB": {
+    "state": "Arunachal Pradesh",
+    "city": "Naharlagun",
+    "lat": 27.1047,
+    "lon": 93.6952
+  },
+  "Central Academy for SFS Byrnihat PCBA": {
+    "state": "Assam",
+    "city": "Byrnihat",
+    "lat": 26.0468,
+    "lon": 91.8744
+  },
+  "IITG Guwahati PCBA": {
+    "state": "Assam",
+    "city": "Guwahati",
+    "lat": 26.1844,
+    "lon": 91.7458
+  },
+  "LGBI Airport Guwahati PCBA": {
+    "state": "Assam",
+    "city": "Guwahati",
+    "lat": 26.1844,
+    "lon": 91.7458
+  },
+  "Pan Bazaar Guwahati PCBA": {
+    "state": "Assam",
+    "city": "Guwahati",
+    "lat": 26.1844,
+    "lon": 91.7458
+  },
+  "Railway Colony Guwahati PCBA": {
+    "state": "Assam",
+    "city": "Guwahati",
+    "lat": 26.1844,
+    "lon": 91.7458
+  },
+  "Christianpatty Nagaon PCBA": {
+    "state": "Assam",
+    "city": "Nagaon",
+    "lat": 26.35,
+    "lon": 92.6667
+  },
+  "Bata Chowk Nalbari PCBA": {
+    "state": "Assam",
+    "city": "Nalbari",
+    "lat": 26.4394,
+    "lon": 91.4404
+  },
+  "Tarapur Silchar PCBA": {
+    "state": "Assam",
+    "city": "Silchar",
+    "lat": 24.8273,
+    "lon": 92.7979
+  },
+  "Girls College Sivasagar PCBA": {
+    "state": "Assam",
+    "city": "Sivasagar",
+    "lat": 26.1445,
+    "lon": 91.7362
+  },
+  "Kharahiya Basti Araria BSPCB": {
+    "state": "Bihar",
+    "city": "Araria",
+    "lat": 25.3605,
+    "lon": 86.693
+  },
+  "New DM Office Arrah BSPCB": {
+    "state": "Bihar",
+    "city": "Arrah",
+    "lat": 25.5563,
+    "lon": 84.6633
+  },
+  "Kamalnath Nagar Bettiah BSPCB": {
+    "state": "Bihar",
+    "city": "Bettiah",
+    "lat": 26.8023,
+    "lon": 84.5031
+  },
+  "DM Office Kachari Chowk Bhagalpur BSPCB": {
+    "state": "Bihar",
+    "city": "Bhagalpur",
+    "lat": 25.2445,
+    "lon": 86.9718
+  },
+  "Mayaganj Bhagalpur BSPCB": {
+    "state": "Bihar",
+    "city": "Bhagalpur",
+    "lat": 25.2445,
+    "lon": 86.9718
+  },
+  "D M Colony Bihar Sharif BSPCB": {
+    "state": "Bihar",
+    "city": "Bihar Sharif",
+    "lat": 25.2008,
+    "lon": 85.5239
+  },
+  "Town Hall Lal Bagh Darbhanga BSPCB": {
+    "state": "Bihar",
+    "city": "Darbhanga",
+    "lat": 26.1522,
+    "lon": 85.8971
+  },
+  "Collectorate Gaya BSPCB": {
+    "state": "Bihar",
+    "city": "Gaya",
+    "lat": 24.7969,
+    "lon": 85.0038
+  },
+  "Kareemganj Gaya BSPCB": {
+    "state": "Bihar",
+    "city": "Gaya",
+    "lat": 24.7969,
+    "lon": 85.0038
+  },
+  "SFTI Kusdihra Gaya BSPCB": {
+    "state": "Bihar",
+    "city": "Gaya",
+    "lat": 24.7969,
+    "lon": 85.0038
+  },
+  "Industrial Area Hajipur BSPCB": {
+    "state": "Bihar",
+    "city": "Hajipur",
+    "lat": 25.6854,
+    "lon": 85.2098
+  },
+  "Mirchaibari Katihar BSPCB": {
+    "state": "Bihar",
+    "city": "Katihar",
+    "lat": 25.5385,
+    "lon": 87.5704
+  },
+  "SDM Office Khagra Kishanganj BSPCB": {
+    "state": "Bihar",
+    "city": "Kishanganj",
+    "lat": 26.1022,
+    "lon": 87.9553
+  },
+  "Forest Rest House Manguraha BSPCB": {
+    "state": "Bihar",
+    "city": "Manguraha",
+    "lat": 26.9384,
+    "lon": 84.3944
+  },
+  "Gandak Colony Motihari BSPCB": {
+    "state": "Bihar",
+    "city": "Motihari",
+    "lat": 27.0983,
+    "lon": 84.5492
+  },
+  "Town Hall Munger BSPCB": {
+    "state": "Bihar",
+    "city": "Munger",
+    "lat": 25.3746,
+    "lon": 86.4745
+  },
+  "Buddha Colony Muzaffarpur BSPCB": {
+    "state": "Bihar",
+    "city": "Muzaffarpur",
+    "lat": 26.1226,
+    "lon": 85.3906
+  },
+  "MIT-Daudpur Kothi Muzaffarpur BSPCB": {
+    "state": "Bihar",
+    "city": "Muzaffarpur",
+    "lat": 26.1226,
+    "lon": 85.3906
+  },
+  "Muzaffarpur Collectorate Muzaffarpur BSPCB": {
+    "state": "Bihar",
+    "city": "Muzaffarpur",
+    "lat": 26.1226,
+    "lon": 85.3906
+  },
+  "DRM Office Danapur Patna BSPCB": {
+    "state": "Bihar",
+    "city": "Patna",
+    "lat": 25.5941,
+    "lon": 85.1356
+  },
+  "Govt. High School Shikarpur Patna BSPCB": {
+    "state": "Bihar",
+    "city": "Patna",
+    "lat": 25.5941,
+    "lon": 85.1356
+  },
+  "IGSC Planetarium Complex Patna BSPCB": {
+    "state": "Bihar",
+    "city": "Patna",
+    "lat": 25.5941,
+    "lon": 85.1356
+  },
+  "Muradpur Patna BSPCB": {
+    "state": "Bihar",
+    "city": "Patna",
+    "lat": 25.5941,
+    "lon": 85.1356
+  },
+  "Rajbansi Nagar Patna BSPCB": {
+    "state": "Bihar",
+    "city": "Patna",
+    "lat": 25.5941,
+    "lon": 85.1356
+  },
+  "Samanpura Patna BSPCB": {
+    "state": "Bihar",
+    "city": "Patna",
+    "lat": 25.5941,
+    "lon": 85.1356
+  },
+  "Dangi Tola Rajgir BSPCB": {
+    "state": "Bihar",
+    "city": "Rajgir",
+    "lat": 25.0283,
+    "lon": 85.4208
+  },
+  "Police Line Saharsa BSPCB": {
+    "state": "Bihar",
+    "city": "Saharsa",
+    "lat": 25.875,
+    "lon": 86.5961
+  },
+  "DM Office Kasipur Samastipur BSPCB": {
+    "state": "Bihar",
+    "city": "Samastipur",
+    "lat": 25.8622,
+    "lon": 85.7795
+  },
+  "Dada Peer Sasaram BSPCB": {
+    "state": "Bihar",
+    "city": "Sasaram",
+    "lat": 24.9494,
+    "lon": 84.0165
+  },
+  "Chitragupta Nagar Siwan BSPCB": {
+    "state": "Bihar",
+    "city": "Siwan",
+    "lat": 26.221,
+    "lon": 84.3561
+  },
+  "Sector 22 Chandigarh CPCC": {
+    "state": "Chandigarh",
+    "city": "Chandigarh",
+    "lat": 30.7363,
+    "lon": 76.7884
+  },
+  "Sector-25 Chandigarh CPCC": {
+    "state": "Chandigarh",
+    "city": "Chandigarh",
+    "lat": 30.7363,
+    "lon": 76.7884
+  },
+  "Sector-53 Chandigarh CPCC": {
+    "state": "Chandigarh",
+    "city": "Chandigarh",
+    "lat": 30.7363,
+    "lon": 76.7884
+  },
+  "32Bungalows Bhilai CECB": {
+    "state": "Chhattisgarh",
+    "city": "Bhilai",
+    "lat": 21.2092,
+    "lon": 81.4285
+  },
+  "Civic Center Bhilai Bhilai Steel Plant": {
+    "state": "Chhattisgarh",
+    "city": "Bhilai",
+    "lat": 21.2092,
+    "lon": 81.4285
+  },
+  "Hathkhoj Bhilai CECB": {
+    "state": "Chhattisgarh",
+    "city": "Bhilai",
+    "lat": 21.2092,
+    "lon": 81.4285
+  },
+  "Mangala Bilaspur NTPC": {
+    "state": "Chhattisgarh",
+    "city": "Bilaspur",
+    "lat": 22.08,
+    "lon": 82.1554
+  },
+  "Nawapara SECL Colony Chhal CECB": {
+    "state": "Chhattisgarh",
+    "city": "Chhal",
+    "lat": 22.104,
+    "lon": 83.144
+  },
+  "Rampur Korba CECB": {
+    "state": "Chhattisgarh",
+    "city": "Korba",
+    "lat": 22.3458,
+    "lon": 82.6963
+  },
+  "OP Jindal School Kunjemura CECB": {
+    "state": "Chhattisgarh",
+    "city": "Kunjemura",
+    "lat": 22.118,
+    "lon": 83.483
+  },
+  "Govt. Higher Secondary School Milupara CECB": {
+    "state": "Chhattisgarh",
+    "city": "Milupara",
+    "lat": 22.24,
+    "lon": 83.52
+  },
+  "AIIMS Raipur CECB": {
+    "state": "Chhattisgarh",
+    "city": "Raipur",
+    "lat": 21.2333,
+    "lon": 81.6333
+  },
+  "Bhatagaon New ISBT Raipur CECB": {
+    "state": "Chhattisgarh",
+    "city": "Raipur",
+    "lat": 21.2333,
+    "lon": 81.6333
+  },
+  "Krishak Nagar Raipur CECB": {
+    "state": "Chhattisgarh",
+    "city": "Raipur",
+    "lat": 21.2333,
+    "lon": 81.6333
+  },
+  "Siltara Phase-II Raipur CECB": {
+    "state": "Chhattisgarh",
+    "city": "Raipur",
+    "lat": 21.2333,
+    "lon": 81.6333
+  },
+  "OP Jindal Industrial Park Tumidih CECB": {
+    "state": "Chhattisgarh",
+    "city": "Tumidih",
+    "lat": 21.97,
+    "lon": 83.39
+  },
+  "Nani Daman DNHDD PCC": {
+    "state": "Dadra and Nagar Haveli and Daman and Diu",
+    "city": "Daman",
+    "lat": 20.3974,
+    "lon": 72.8328
+  },
+  "Silvassa Industrial Estate DNHDD PCC": {
+    "state": "Dadra and Nagar Haveli and Daman and Diu",
+    "city": "Silvassa",
+    "lat": 20.2738,
+    "lon": 73.0192
+  },
+  "Alipur Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Anand Vihar Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Ashok Vihar Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Aya Nagar Delhi IMD": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Bawana Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Burari Crossing Delhi IMD": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "CRRI Mathura Road Delhi IMD": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Chandni Chowk Delhi IITM": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "DTU Delhi CPCB": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Dr. Karni Singh Shooting Range Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Dwarka-Sector 8 Delhi DPCC ": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "IGI Airport (T3) Delhi IMD": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "IHBAS Dilshad Garden Delhi CPCB": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "ITO Delhi CPCB": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Jahangirpuri Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Jawaharlal Nehru Stadium Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Lodhi Road Delhi IITM": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Lodhi Road Delhi IMD": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Major Dhyan Chand National Stadium Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Mandir Marg Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Mundka Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "NSIT Dwarka Delhi CPCB": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Najafgarh Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Narela Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Nehru Nagar Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "North Campus DU Delhi IMD": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Okhla Phase-2 Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Patparganj Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Punjabi Bagh Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Pusa Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Pusa Delhi IMD": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "R K Puram Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Rohini Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Shadipur Delhi CPCB": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Sirifort Delhi CPCB": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Sonia Vihar Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Sri Aurobindo Marg Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Vivek Vihar Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Wazirpur Delhi DPCC": {
+    "state": "Delhi",
+    "city": "Delhi",
+    "lat": 28.6519,
+    "lon": 77.2315
+  },
+  "Margao South Goa GSPCB": {
+    "state": "Goa",
+    "city": "Margao",
+    "lat": 15.2832,
+    "lon": 73.9862
+  },
+  "Patto Centre Panaji GSPCB": {
+    "state": "Goa",
+    "city": "Panaji",
+    "lat": 15.4909,
+    "lon": 73.8278
+  },
+  "Vasco da Gama Vasco GSPCB": {
+    "state": "Goa",
+    "city": "Vasco da Gama",
+    "lat": 15.3982,
+    "lon": 73.8113
+  },
+  "Chandkheda Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "Gyaspur Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "Maninagar Ahmedabad GPCB": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "Raikhad Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "Rakhial Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "SAC ISRO Bopal Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "SAC ISRO Satellite Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "SVPI Airport Hansol Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "Sardar Vallabhbhai Patel Stadium Ahmedabad IITM": {
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "lat": 23.0258,
+    "lon": 72.5873
+  },
+  "GIDC Ankleshwar GPCB": {
+    "state": "Gujarat",
+    "city": "Ankleshwar",
+    "lat": 21.6324,
+    "lon": 72.99
+  },
+  "GIFT City Gandhinagar IITM": {
+    "state": "Gujarat",
+    "city": "Gandhinagar",
+    "lat": 23.2167,
+    "lon": 72.6833
+  },
+  "IIPHG Lekawada Gandhinagar IITM": {
+    "state": "Gujarat",
+    "city": "Gandhinagar",
+    "lat": 23.2167,
+    "lon": 72.6833
+  },
+  "Sector-10 Gandhinagar GPCB": {
+    "state": "Gujarat",
+    "city": "Gandhinagar",
+    "lat": 23.2167,
+    "lon": 72.6833
+  },
+  "GIDC Nandesari Nandesari Ind. Association": {
+    "state": "Gujarat",
+    "city": "Nandesari",
+    "lat": 22.405,
+    "lon": 73.095
+  },
+  "Science Center Surat SMC": {
+    "state": "Gujarat",
+    "city": "Surat",
+    "lat": 21.1959,
+    "lon": 72.8302
+  },
+  "Phase-1 GIDC Vapi GPCB": {
+    "state": "Gujarat",
+    "city": "Vapi",
+    "lat": 20.3717,
+    "lon": 72.9049
+  },
+  "Phase-4 GIDC Vatva GPCB": {
+    "state": "Gujarat",
+    "city": "Vatva",
+    "lat": 22.961,
+    "lon": 72.633
+  },
+  "Patti Mehar Ambala HSPCB": {
+    "state": "Haryana",
+    "city": "Ambala",
+    "lat": 30.361,
+    "lon": 76.7978
+  },
+  "Nathu Colony Ballabgarh HSPCB": {
+    "state": "Haryana",
+    "city": "Ballabgarh",
+    "lat": 28.3413,
+    "lon": 77.3193
+  },
+  "H.B. Colony Bhiwani HSPCB": {
+    "state": "Haryana",
+    "city": "Bhiwani",
+    "lat": 28.793,
+    "lon": 76.1397
+  },
+  "Mini Secretariat Charkhi Dadri HSPCB": {
+    "state": "Haryana",
+    "city": "Charkhi Dadri",
+    "lat": 28.5917,
+    "lon": 76.2716
+  },
+  "Municipal Corporation Office Dharuhera  HSPCB": {
+    "state": "Haryana",
+    "city": "Dharuhera",
+    "lat": 28.2067,
+    "lon": 76.7945
+  },
+  "New Industrial Town Faridabad HSPCB": {
+    "state": "Haryana",
+    "city": "Faridabad",
+    "lat": 28.4112,
+    "lon": 77.3132
+  },
+  "Sector 11 Faridabad HSPCB": {
+    "state": "Haryana",
+    "city": "Faridabad",
+    "lat": 28.4112,
+    "lon": 77.3132
+  },
+  "Sector 30 Faridabad HSPCB": {
+    "state": "Haryana",
+    "city": "Faridabad",
+    "lat": 28.4112,
+    "lon": 77.3132
+  },
+  "Sector- 16A Faridabad HSPCB": {
+    "state": "Haryana",
+    "city": "Faridabad",
+    "lat": 28.4112,
+    "lon": 77.3132
+  },
+  "Huda Sector Fatehabad HSPCB": {
+    "state": "Haryana",
+    "city": "Fatehabad",
+    "lat": 29.5153,
+    "lon": 75.4555
+  },
+  "NISE Gwal Pahari Gurugram IMD": {
+    "state": "Haryana",
+    "city": "Gurugram",
+    "lat": 28.4601,
+    "lon": 77.0263
+  },
+  "Sector-51 Gurugram HSPCB": {
+    "state": "Haryana",
+    "city": "Gurugram",
+    "lat": 28.4601,
+    "lon": 77.0263
+  },
+  "Teri Gram Gurugram HSPCB": {
+    "state": "Haryana",
+    "city": "Gurugram",
+    "lat": 28.4601,
+    "lon": 77.0263
+  },
+  "Vikas Sadan Gurugram HSPCB": {
+    "state": "Haryana",
+    "city": "Gurugram",
+    "lat": 28.4601,
+    "lon": 77.0263
+  },
+  "Urban Estate-II Hisar HSPCB": {
+    "state": "Haryana",
+    "city": "Hisar",
+    "lat": 29.1539,
+    "lon": 75.7229
+  },
+  "Police Lines Jind HSPCB": {
+    "state": "Haryana",
+    "city": "Jind",
+    "lat": 29.3158,
+    "lon": 76.315
+  },
+  "Rishi Nagar Kaithal HSPCB": {
+    "state": "Haryana",
+    "city": "Kaithal",
+    "lat": 29.8015,
+    "lon": 76.3996
+  },
+  "Sector-12 Karnal HSPCB": {
+    "state": "Haryana",
+    "city": "Karnal",
+    "lat": 29.692,
+    "lon": 76.9845
+  },
+  "Sector-7 Kurukshetra HSPCB": {
+    "state": "Haryana",
+    "city": "Kurukshetra ",
+    "lat": 29.9657,
+    "lon": 76.837
+  },
+  "General Hospital Mandikhera HSPCB": {
+    "state": "Haryana",
+    "city": "Mandikhera",
+    "lat": 27.8963,
+    "lon": 76.9916
+  },
+  "Sector-2 IMT Manesar HSPCB": {
+    "state": "Haryana",
+    "city": "Manesar",
+    "lat": 28.3515,
+    "lon": 76.9428
+  },
+  "Shastri Nagar Narnaul HSPCB": {
+    "state": "Haryana",
+    "city": "Narnaul",
+    "lat": 28.0444,
+    "lon": 76.1083
+  },
+  "Sector-6 Panchkula HSPCB ": {
+    "state": "Haryana",
+    "city": "Panchkula",
+    "lat": 30.6946,
+    "lon": 76.8504
+  },
+  "Sector-18 Panipat HSPCB": {
+    "state": "Haryana",
+    "city": "Panipat",
+    "lat": 29.3875,
+    "lon": 76.9682
+  },
+  "MD University Rohtak HSPCB": {
+    "state": "Haryana",
+    "city": "Rohtak",
+    "lat": 28.8945,
+    "lon": 76.5892
+  },
+  "F-Block Sirsa HSPCB": {
+    "state": "Haryana",
+    "city": "Sirsa",
+    "lat": 29.5349,
+    "lon": 75.029
+  },
+  "Murthal Sonipat HSPCB": {
+    "state": "Haryana",
+    "city": "Sonipat",
+    "lat": 28.9948,
+    "lon": 77.0194
+  },
+  "Adarsh Nagar Jaipur RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Anthoni Pillai Nagar Gummidipoondi TNPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Arya Nagar Bahadurgarh HSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Ashwini Nagar Haveri KSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Darshan Nagar Chhapra BSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Deen Dayal Nagar Sagar MPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Diwator Nagar Koppal KSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Dnyaneshwar Nagar Solapur MPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "FTI Kidwai Nagar Kanpur UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Gobind Pura Yamuna Nagar HSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Gurdeo Nagar Aurangabad BSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Indra Nagar Jhunjhunu RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Jawahar Nagar Puducherry PPCC": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Kashiram Nagar Moradabad UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Krishna Nagar Bharatpur RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Lajpat Nagar Moradabad UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Lal Bahadur Shastri Nagar Kalaburagi KSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Mahesh Nagar Malegaon MPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Mariam Nagar Purnia BSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Nagar Nigam Prayagraj UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Nehru Nagar Kanpur UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Pragati Nagar Pratapgarh RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Pratap Nagar Bhilwara RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Rajlaxmi Nagar Jhalawar RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Ramteerth Nagar Belgaum KSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Sahu Nagar Sawai Madhopur RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Sanjay Nagar Ghaziabad UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Sardar Patel Nagar Dhanbad JSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Shasthri Nagar Ratlam IPCA Lab": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Shastri Nagar Chittorgarh RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Shastri Nagar Jaipur RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Shastri Nagar Tonk RSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Shivaji Nagar Jhansi UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Shivaji Nagar Rishikesh UKPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Shyam Nagar Palwal HSPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Sidhi Vinayak Nagar Ulhasnagar MPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Sneh Nagar Nanded MPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "T T Nagar Bhopal MPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Transport Nagar Moradabad UPPCB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "Urja Nagar Korba CECB": {
+    "state": "Haryana",
+    "city": "Yamuna Nagar",
+    "lat": 30.128,
+    "lon": 77.2837
+  },
+  "HIMUDA Complex Phase-1 Baddi HPPCB": {
+    "state": "Himachal Pradesh",
+    "city": "Baddi",
+    "lat": 30.9578,
+    "lon": 76.7914
+  },
+  "Mall Road Shimla HPPCB": {
+    "state": "Himachal Pradesh",
+    "city": "Shimla",
+    "lat": 31.1048,
+    "lon": 77.1734
+  },
+  "Kachehri Road Jammu JKPCB": {
+    "state": "Jammu and Kashmir",
+    "city": "Jammu",
+    "lat": 32.7266,
+    "lon": 74.857
+  },
+  "Rajbagh Srinagar JKSPCB": {
+    "state": "Jammu and Kashmir",
+    "city": "Srinagar",
+    "lat": 34.0857,
+    "lon": 74.8055
+  },
+  "Kalakusuma Dhanbad DMC": {
+    "state": "Jharkhand",
+    "city": "Dhanbad",
+    "lat": 23.7976,
+    "lon": 86.4299
+  },
+  "Bistupur Jamshedpur JSPCB": {
+    "state": "Jharkhand",
+    "city": "Jamshedpur",
+    "lat": 22.8046,
+    "lon": 86.2029
+  },
+  "Tata Stadium Jorapokhar JSPCB": {
+    "state": "Jharkhand",
+    "city": "Jorapokhar",
+    "lat": 23.704,
+    "lon": 86.413
+  },
+  "Mohalbani Ghat Pathardih DMC": {
+    "state": "Jharkhand",
+    "city": "Pathardih",
+    "lat": 23.669,
+    "lon": 86.433
+  },
+  "Albert Ekka Chowk Ranchi JSPCB": {
+    "state": "Jharkhand",
+    "city": "Ranchi",
+    "lat": 23.3441,
+    "lon": 85.3096
+  },
+  "Vidayagiri Bagalkot KSPCB": {
+    "state": "Karnataka",
+    "city": "Bagalkot",
+    "lat": 16.1867,
+    "lon": 75.6961
+  },
+  "BTM Layout Bengaluru CPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "BWSSB Kadabesanahalli Bengaluru CPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Bapuji Nagar Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "City Railway Station Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Hebbal Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Hombegowda Nagar Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Jayanagar 5th Block Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Jigani Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Kasturi Nagar Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Peenya Bengaluru CPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "RVCE-Mailasandra Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Sanegurava Halli Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Shivapura Peenya Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Silk Board Bengaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Bengaluru",
+    "lat": 12.9719,
+    "lon": 77.5937
+  },
+  "Naubad Bidar KSPCB": {
+    "state": "Karnataka",
+    "city": "Bidar",
+    "lat": 17.908,
+    "lon": 77.5152
+  },
+  "Urban Chamarajanagar KSPCB": {
+    "state": "Karnataka",
+    "city": "Chamarajanagar",
+    "lat": 11.9231,
+    "lon": 76.9395
+  },
+  "Chikkaballapur Rural Chikkaballapur KSPCB": {
+    "state": "Karnataka",
+    "city": "Chikkaballapur",
+    "lat": 12.9716,
+    "lon": 77.5946
+  },
+  "Kalyana Nagara Chikkamagaluru KSPCB": {
+    "state": "Karnataka",
+    "city": "Chikkamagaluru",
+    "lat": 13.3223,
+    "lon": 75.774
+  },
+  "Devaraj Urs Badavane Davanagere KSPCB": {
+    "state": "Karnataka",
+    "city": "Davanagere",
+    "lat": 12.9716,
+    "lon": 77.5946
+  },
+  "Kalabhavan Dharwad KSPCB": {
+    "state": "Karnataka",
+    "city": "Dharwad",
+    "lat": 15.4601,
+    "lon": 75.0078
+  },
+  "Panchal Nagar Gadag KSPCB": {
+    "state": "Karnataka",
+    "city": "Gadag",
+    "lat": 15.4298,
+    "lon": 75.6297
+  },
+  "B.Katihalli Hassan KSPCB": {
+    "state": "Karnataka",
+    "city": "Hassan",
+    "lat": 13.0071,
+    "lon": 76.0962
+  },
+  "Deshpande Nagar Hubballi KSPCB": {
+    "state": "Karnataka",
+    "city": "Hubballi",
+    "lat": 15.3478,
+    "lon": 75.1338
+  },
+  "Lingaraj Nagar Hubballi KSPCB": {
+    "state": "Karnataka",
+    "city": "Hubballi",
+    "lat": 15.3478,
+    "lon": 75.1338
+  },
+  "KHB Colony Karwar KSPCB": {
+    "state": "Karnataka",
+    "city": "Karwar",
+    "lat": 14.8136,
+    "lon": 74.1297
+  },
+  "Tamaka Ind. Area Kolar KSPCB": {
+    "state": "Karnataka",
+    "city": "Kolar",
+    "lat": 13.1377,
+    "lon": 78.13
+  },
+  "Stuart Hill Madikeri KSPCB": {
+    "state": "Karnataka",
+    "city": "Madikeri",
+    "lat": 12.426,
+    "lon": 75.7382
+  },
+  "Kadri Mangalore KSPCB": {
+    "state": "Karnataka",
+    "city": "Mangalore",
+    "lat": 12.8465,
+    "lon": 74.8406
+  },
+  "Hebbal 1st Stage Mysuru KSPCB": {
+    "state": "Karnataka",
+    "city": "Mysuru",
+    "lat": 12.2979,
+    "lon": 76.6393
+  },
+  "Haji Colony Raichur KSPCB": {
+    "state": "Karnataka",
+    "city": "Raichur",
+    "lat": 16.2055,
+    "lon": 77.3557
+  },
+  "Mahatma Basaveswar Colony Kalaburgi KSPCB": {
+    "state": "Karnataka",
+    "city": "Raichur",
+    "lat": 16.2055,
+    "lon": 77.3557
+  },
+  "Vijay Nagar Ramanagara KSPCB": {
+    "state": "Karnataka",
+    "city": "Ramanagara",
+    "lat": 17.0047,
+    "lon": 80.7108
+  },
+  "Vinoba Nagara Shivamogga KSPCB": {
+    "state": "Karnataka",
+    "city": "Shivamogga",
+    "lat": 13.9316,
+    "lon": 75.5679
+  },
+  "Thimmalapura Tumakuru KSPCB": {
+    "state": "Karnataka",
+    "city": "Tumakuru",
+    "lat": 13.3414,
+    "lon": 77.1022
+  },
+  "Brahmagiri Udupi KSPCB": {
+    "state": "Karnataka",
+    "city": "Udupi",
+    "lat": 13.3347,
+    "lon": 74.7462
+  },
+  "Ibrahimpur Vijayapura KSPCB": {
+    "state": "Karnataka",
+    "city": "Vijayapura",
+    "lat": 13.2972,
+    "lon": 77.8018
+  },
+  "Collector Office Yadgir KSPCB": {
+    "state": "Karnataka",
+    "city": "Yadgir",
+    "lat": 16.7701,
+    "lon": 77.1376
+  },
+  "Udyogamandal Eloor Kerala PCB": {
+    "state": "Kerala",
+    "city": "Eloor",
+    "lat": 10.077,
+    "lon": 76.303
+  },
+  "Kacheripady Ernakulam Kerala PCB": {
+    "state": "Kerala",
+    "city": "Ernakulam",
+    "lat": 9.9671,
+    "lon": 76.2904
+  },
+  "Thavakkara Kannur Kerala PCB": {
+    "state": "Kerala",
+    "city": "Kannur",
+    "lat": 11.8675,
+    "lon": 75.3576
+  },
+  "Vyttila Kochi Kerala PCB": {
+    "state": "Kerala",
+    "city": "Kochi",
+    "lat": 9.9399,
+    "lon": 76.2602
+  },
+  "Polayathode Kollam Kerala PCB": {
+    "state": "Kerala",
+    "city": "Kollam",
+    "lat": 8.8811,
+    "lon": 76.5847
+  },
+  "Palayam Kozhikode Kerala PCB": {
+    "state": "Kerala",
+    "city": "Kozhikode",
+    "lat": 11.248,
+    "lon": 75.7804
+  },
+  "Kariavattom Thiruvananthapuram Kerala PCB": {
+    "state": "Kerala",
+    "city": "Thiruvananthapuram",
+    "lat": 8.4855,
+    "lon": 76.9492
+  },
+  "Plammoodu Thiruvananthapuram Kerala PCB": {
+    "state": "Kerala",
+    "city": "Thiruvananthapuram",
+    "lat": 8.4855,
+    "lon": 76.9492
+  },
+  "Corporation Ground Thrissur Kerala PCB": {
+    "state": "Kerala",
+    "city": "Thrissur",
+    "lat": 10.5167,
+    "lon": 76.2167
+  },
+  "Kargil Town Ladakh LPCC": {
+    "state": "Ladakh",
+    "city": "Kargil",
+    "lat": 34.5539,
+    "lon": 76.1349
+  },
+  "Main Bazar Leh LPCC": {
+    "state": "Ladakh",
+    "city": "Leh",
+    "lat": 34.1526,
+    "lon": 77.5771
+  },
+  "Kavaratti Island Lakshadweep LPCC": {
+    "state": "Lakshadweep",
+    "city": "Kavaratti",
+    "lat": 10.5669,
+    "lon": 72.642
+  },
+  "Bhopal Chauraha Dewas MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Bhopal",
+    "lat": 23.2547,
+    "lon": 77.4029
+  },
+  "Idgah Hills Bhopal MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Bhopal",
+    "lat": 23.2547,
+    "lon": 77.4029
+  },
+  "Paryavaran Parisar Bhopal MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Bhopal",
+    "lat": 23.2547,
+    "lon": 77.4029
+  },
+  "Shrivastav Colony Damoh MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Damoh",
+    "lat": 23.8331,
+    "lon": 79.4419
+  },
+  "City Center Gwalior MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Gwalior",
+    "lat": 26.2298,
+    "lon": 78.1734
+  },
+  "Deen Dayal Nagar Gwalior MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Gwalior",
+    "lat": 26.2298,
+    "lon": 78.1734
+  },
+  "Maharaj Bada Gwalior MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Gwalior",
+    "lat": 26.2298,
+    "lon": 78.1734
+  },
+  "Phool Bagh Gwalior Mondelez Ind. Food": {
+    "state": "Madhya Pradesh",
+    "city": "Gwalior",
+    "lat": 26.2298,
+    "lon": 78.1734
+  },
+  "Chhoti Gwaltoli Indore MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Indore",
+    "lat": 22.7179,
+    "lon": 75.8333
+  },
+  "Maguda Nagar Indore IMC": {
+    "state": "Madhya Pradesh",
+    "city": "Indore",
+    "lat": 22.7179,
+    "lon": 75.8333
+  },
+  "Regional Park Indore IMC": {
+    "state": "Madhya Pradesh",
+    "city": "Indore",
+    "lat": 22.7179,
+    "lon": 75.8333
+  },
+  "Residency Area Indore IMC": {
+    "state": "Madhya Pradesh",
+    "city": "Indore",
+    "lat": 22.7179,
+    "lon": 75.8333
+  },
+  "Vijay Nagar Scheme-78 Indore Glenmark": {
+    "state": "Madhya Pradesh",
+    "city": "Indore",
+    "lat": 22.7179,
+    "lon": 75.8333
+  },
+  "Govindh Bhavan Colony Jabalpur JMC": {
+    "state": "Madhya Pradesh",
+    "city": "Jabalpur",
+    "lat": 23.167,
+    "lon": 79.9501
+  },
+  "Gupteshwar Jabalpur JMC": {
+    "state": "Madhya Pradesh",
+    "city": "Jabalpur",
+    "lat": 23.167,
+    "lon": 79.9501
+  },
+  "Marhatal Jabalpur MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Jabalpur",
+    "lat": 23.167,
+    "lon": 79.9501
+  },
+  "Suhagi Jabalpur JMC": {
+    "state": "Madhya Pradesh",
+    "city": "Jabalpur",
+    "lat": 23.167,
+    "lon": 79.9501
+  },
+  "Gole Bazar Katni MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Katni",
+    "lat": 23.8395,
+    "lon": 80.4054
+  },
+  "Sahilara Maihar KJS Cements": {
+    "state": "Madhya Pradesh",
+    "city": "Maihar",
+    "lat": 24.2659,
+    "lon": 80.7606
+  },
+  "Sector-D Industrial Area Mandideep MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Mandideep",
+    "lat": 23.091,
+    "lon": 77.523
+  },
+  "Sector-2 Industrial Area Pithampur MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Pithampur",
+    "lat": 22.613,
+    "lon": 75.682
+  },
+  "Civil Lines Sagar MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Sagar",
+    "lat": 23.8388,
+    "lon": 78.7387
+  },
+  "Bandhavgar Colony Satna Birla Cement": {
+    "state": "Madhya Pradesh",
+    "city": "Satna",
+    "lat": 24.5773,
+    "lon": 80.8272
+  },
+  "Suryakiran Bhawan NCL Singrauli MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Singrauli",
+    "lat": 24.1997,
+    "lon": 82.6753
+  },
+  "Mahakaleshwar Temple Ujjain MPPCB": {
+    "state": "Madhya Pradesh",
+    "city": "Ujjain",
+    "lat": 23.1824,
+    "lon": 75.7764
+  },
+  "Tarakpur Ahmednagar MPCB": {
+    "state": "Maharashtra",
+    "city": "Ahmednagar",
+    "lat": 23.5989,
+    "lon": 72.966
+  },
+  "Ramdaspeth Akola MPCB": {
+    "state": "Maharashtra",
+    "city": "Akola",
+    "lat": 20.7096,
+    "lon": 76.9981
+  },
+  "Shivneri Colony Amravati MPCB": {
+    "state": "Maharashtra",
+    "city": "Amravati",
+    "lat": 20.9333,
+    "lon": 77.75
+  },
+  "MIDC Chilkalthana Aurangabad MPCB": {
+    "state": "Maharashtra",
+    "city": "Aurangabad",
+    "lat": 19.8776,
+    "lon": 75.3423
+  },
+  "More Chowk Waluj Aurangabad MPCB": {
+    "state": "Maharashtra",
+    "city": "Aurangabad",
+    "lat": 19.8776,
+    "lon": 75.3423
+  },
+  "Rachnakar Colony Aurangabad MPCB": {
+    "state": "Maharashtra",
+    "city": "Aurangabad",
+    "lat": 19.8776,
+    "lon": 75.3423
+  },
+  "Katrap Badlapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Badlapur",
+    "lat": 19.1552,
+    "lon": 73.2655
+  },
+  "CBD Belapur Belapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Belapur",
+    "lat": 19.5646,
+    "lon": 74.6487
+  },
+  "Gokul Nagar Bhiwandi MPCB": {
+    "state": "Maharashtra",
+    "city": "Bhiwandi",
+    "lat": 19.3002,
+    "lon": 73.0588
+  },
+  "Khaira Boisar MPCB": {
+    "state": "Maharashtra",
+    "city": "Boisar",
+    "lat": 19.8036,
+    "lon": 72.7565
+  },
+  "Chauhan Colony Chandrapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Chandrapur",
+    "lat": 19.9508,
+    "lon": 79.2952
+  },
+  "MIDC Khutala Chandrapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Chandrapur",
+    "lat": 19.9508,
+    "lon": 79.2952
+  },
+  "Deopur Dhule MPCB": {
+    "state": "Maharashtra",
+    "city": "Dhule",
+    "lat": 20.9013,
+    "lon": 74.7774
+  },
+  "Prabhat Colony Jalgaon MPCB": {
+    "state": "Maharashtra",
+    "city": "Jalgaon",
+    "lat": 21.0029,
+    "lon": 75.566
+  },
+  "Old MIDC Jalna MPCB": {
+    "state": "Maharashtra",
+    "city": "Jalna",
+    "lat": 19.841,
+    "lon": 75.8864
+  },
+  "Khadakpada Kalyan MPCB": {
+    "state": "Maharashtra",
+    "city": "Kalyan",
+    "lat": 19.2437,
+    "lon": 73.1355
+  },
+  "Shivaji University Kolhapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Kolhapur",
+    "lat": 16.6956,
+    "lon": 74.2317
+  },
+  "Sinchan Bhavan Kolhapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Kolhapur",
+    "lat": 16.6956,
+    "lon": 74.2317
+  },
+  "Sawe Wadi Latur MPCB": {
+    "state": "Maharashtra",
+    "city": "Latur",
+    "lat": 18.3972,
+    "lon": 76.5678
+  },
+  "Kamble Tarf Birwadi Mahad MPCB": {
+    "state": "Maharashtra",
+    "city": "Mahad",
+    "lat": 18.0833,
+    "lon": 73.4167
+  },
+  "Bhayandar West Mira-Bhayandar MPCB": {
+    "state": "Maharashtra",
+    "city": "Mira-Bhayandar",
+    "lat": 19.076,
+    "lon": 72.8777
+  },
+  "Airoli Navi Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Bandra Kurla Complex Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Bandra Kurla Complex Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Bandra Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Borivali East Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Borivali East Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Byculla Mumbai BMC": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Chakala-Andheri East Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Chembur Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Chhatrapati Shivaji Intl. Airport (T2) Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Colaba Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Deonar Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Ghatkopar Mumbai BMC": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Kandivali East Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Kandivali West Mumbai BMC": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Kherwadi Bandra East Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Khindipada-Bhandup West Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Kopripada-Vashi Navi Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Kurla Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Mahape Navi Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Malad West Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Mazgaon Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Mindspace-Malad West Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Mulund West Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Navy Nagar-Colaba Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Nerul Navi Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Powai Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Sanpada Navi Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Sector-19A Nerul Navi Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Sector-2E Kalamboli Navi Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Sewri Mumbai BMC": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Shivaji Nagar Mumbai BMC": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Siddharth Nagar-Worli Mumbai IITM": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Sion Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Tondare-Taloja Navi Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Vasai West Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Vile Parle West Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Worli Mumbai MPCB": {
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "lat": 19.0728,
+    "lon": 72.8826
+  },
+  "Ambazari Nagpur MPCB": {
+    "state": "Maharashtra",
+    "city": "Nagpur",
+    "lat": 21.1463,
+    "lon": 79.0849
+  },
+  "Mahal Nagpur MPCB": {
+    "state": "Maharashtra",
+    "city": "Nagpur",
+    "lat": 21.1463,
+    "lon": 79.0849
+  },
+  "Opp GPO Civil Lines Nagpur MPCB": {
+    "state": "Maharashtra",
+    "city": "Nagpur",
+    "lat": 21.1463,
+    "lon": 79.0849
+  },
+  "Ram Nagar Nagpur MPCB": {
+    "state": "Maharashtra",
+    "city": "Nagpur",
+    "lat": 21.1463,
+    "lon": 79.0849
+  },
+  "Gangapur Road Nashik MPCB": {
+    "state": "Maharashtra",
+    "city": "Nashik",
+    "lat": 19.9973,
+    "lon": 73.791
+  },
+  "Hirawadi Nashik MPCB": {
+    "state": "Maharashtra",
+    "city": "Nashik",
+    "lat": 19.9973,
+    "lon": 73.791
+  },
+  "MIDC Ambad Nashik MPCB": {
+    "state": "Maharashtra",
+    "city": "Nashik",
+    "lat": 19.9973,
+    "lon": 73.791
+  },
+  "Pandav Nagari Nashik MPCB": {
+    "state": "Maharashtra",
+    "city": "Nashik",
+    "lat": 19.9973,
+    "lon": 73.791
+  },
+  "Masoom Colony Parbhani MPCB": {
+    "state": "Maharashtra",
+    "city": "Parbhani",
+    "lat": 19.2686,
+    "lon": 76.7708
+  },
+  "Gavalinagar Pimpri Chinchwad MPCB": {
+    "state": "Maharashtra",
+    "city": "Pimpri-Chinchwad",
+    "lat": 18.6187,
+    "lon": 73.8037
+  },
+  "Park Street Wakad Pimpri Chinchwad MPCB": {
+    "state": "Maharashtra",
+    "city": "Pimpri-Chinchwad",
+    "lat": 18.6187,
+    "lon": 73.8037
+  },
+  "Thergaon Pimpri Chinchwad MPCB": {
+    "state": "Maharashtra",
+    "city": "Pimpri-Chinchwad",
+    "lat": 18.6187,
+    "lon": 73.8037
+  },
+  "Alandi Pune IITM": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Bhosari Pune IITM": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Hadapsar Pune IITM": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Karve Road Pune MPCB": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Katraj Dairy Pune MPCB": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "MIT-Kothrud Pune IITM": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Mhada Colony Pune IITM": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Revenue Colony-Shivajinagar Pune IITM": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Savitribai Phule Pune University Pune MPCB": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Transport Nagar-Nigdi Pune IITM": {
+    "state": "Maharashtra",
+    "city": "Pune",
+    "lat": 18.5196,
+    "lon": 73.8554
+  },
+  "Vijay Nagar Sangli MPCB": {
+    "state": "Maharashtra",
+    "city": "Sangli",
+    "lat": 16.8544,
+    "lon": 74.5642
+  },
+  "Ratandeep Housing Society Solapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Solapur",
+    "lat": 17.6715,
+    "lon": 75.9104
+  },
+  "Solapur Solapur MPCB": {
+    "state": "Maharashtra",
+    "city": "Solapur",
+    "lat": 17.6715,
+    "lon": 75.9104
+  },
+  "Kasarvadavali Thane MPCB": {
+    "state": "Maharashtra",
+    "city": "Thane",
+    "lat": 19.197,
+    "lon": 72.9635
+  },
+  "Upvan Fort Thane MPCB": {
+    "state": "Maharashtra",
+    "city": "Thane",
+    "lat": 19.197,
+    "lon": 72.9635
+  },
+  "Bolinj Virar MPCB": {
+    "state": "Maharashtra",
+    "city": "Virar",
+    "lat": 19.4559,
+    "lon": 72.8114
+  },
+  "DM College of Science Imphal Manipur PCB": {
+    "state": "Manipur",
+    "city": "Imphal",
+    "lat": 24.8081,
+    "lon": 93.9442
+  },
+  "Manipur University Imphal Manipur PCB": {
+    "state": "Manipur",
+    "city": "Imphal",
+    "lat": 24.8081,
+    "lon": 93.9442
+  },
+  "JN Stadium Shillong Meghalaya PCB": {
+    "state": "Meghalaya",
+    "city": "Shillong",
+    "lat": 25.5689,
+    "lon": 91.8831
+  },
+  "Lumpyngngad Shillong Meghalaya PCB": {
+    "state": "Meghalaya",
+    "city": "Shillong",
+    "lat": 25.5689,
+    "lon": 91.8831
+  },
+  "Sikulpuikawn Aizawl Mizoram PCB": {
+    "state": "Mizoram",
+    "city": "Aizawl",
+    "lat": 23.7289,
+    "lon": 92.7179
+  },
+  "Dhobinalla Dimapur NPCB": {
+    "state": "Nagaland",
+    "city": "Dimapur",
+    "lat": 25.9091,
+    "lon": 93.7266
+  },
+  "PWD Junction Kohima NPCB": {
+    "state": "Nagaland",
+    "city": "Kohima",
+    "lat": 25.6751,
+    "lon": 94.1086
+  },
+  "Hakimapada Angul OSPCB": {
+    "state": "Odisha",
+    "city": "Angul",
+    "lat": 20.8409,
+    "lon": 85.1019
+  },
+  "Kalidaspur Balasore OSPCB": {
+    "state": "Odisha",
+    "city": "Balasore",
+    "lat": 21.4927,
+    "lon": 86.9335
+  },
+  "Forest Office Barbil OSPCB": {
+    "state": "Odisha",
+    "city": "Barbil",
+    "lat": 22.1019,
+    "lon": 85.3775
+  },
+  "Meher Colony Baripada OSPCB": {
+    "state": "Odisha",
+    "city": "Baripada",
+    "lat": 21.9346,
+    "lon": 86.7285
+  },
+  "Lingraj Mandir Bhubaneswar OSPCB": {
+    "state": "Odisha",
+    "city": "Bhubaneswar",
+    "lat": 20.2724,
+    "lon": 85.8338
+  },
+  "Patia Bhubaneswar OSPCB": {
+    "state": "Odisha",
+    "city": "Bhubaneswar",
+    "lat": 20.2724,
+    "lon": 85.8338
+  },
+  "Tata Township Bileipada OSPCB": {
+    "state": "Odisha",
+    "city": "Bileipada",
+    "lat": 20.2961,
+    "lon": 85.8245
+  },
+  "GM Office Brajrajnagar OSPCB": {
+    "state": "Odisha",
+    "city": "Brajrajnagar",
+    "lat": 21.8167,
+    "lon": 83.9167
+  },
+  "Ferro Chrome Colony Byasanagar OSPCB": {
+    "state": "Odisha",
+    "city": "Byasanagar",
+    "lat": 20.9557,
+    "lon": 86.1264
+  },
+  "CDA Area Cuttack OSPCB": {
+    "state": "Odisha",
+    "city": "Cuttack",
+    "lat": 20.465,
+    "lon": 85.8793
+  },
+  "Jagamohanpur Keonjhar OSPCB": {
+    "state": "Odisha",
+    "city": "Keonjhar",
+    "lat": 21.6318,
+    "lon": 85.5969
+  },
+  "Dabuna Nayagarh OSPCB": {
+    "state": "Odisha",
+    "city": "Nayagarh",
+    "lat": 20.1288,
+    "lon": 85.0963
+  },
+  "Divisional Forest Office Rairangpur OSPCB": {
+    "state": "Odisha",
+    "city": "Rairangpur",
+    "lat": 22.2667,
+    "lon": 86.1739
+  },
+  "Fertilizer Township Rourkela OSPCB": {
+    "state": "Odisha",
+    "city": "Rourkela",
+    "lat": 22.225,
+    "lon": 84.8641
+  },
+  "Raghunathpali Rourkela OSPCB": {
+    "state": "Odisha",
+    "city": "Rourkela",
+    "lat": 22.225,
+    "lon": 84.8641
+  },
+  "Sector-2 Rourkela OSPCB": {
+    "state": "Odisha",
+    "city": "Rourkela",
+    "lat": 22.225,
+    "lon": 84.8641
+  },
+  "OMC Colony Suakati OSPCB": {
+    "state": "Odisha",
+    "city": "Suakati",
+    "lat": 21.6143,
+    "lon": 85.5154
+  },
+  "Talcher Coalfields Talcher OSPCB": {
+    "state": "Odisha",
+    "city": "Talcher",
+    "lat": 20.9493,
+    "lon": 85.2335
+  },
+  "Barsua Iron Ore Mines Tensa OSPCB": {
+    "state": "Odisha",
+    "city": "Tensa",
+    "lat": 21.8728,
+    "lon": 85.1713
+  },
+  "Karaikal Puducherry PPCC": {
+    "state": "Puducherry",
+    "city": "Karaikal",
+    "lat": 10.9254,
+    "lon": 79.838
+  },
+  "Lawspet Puducherry PPCC": {
+    "state": "Puducherry",
+    "city": "Puducherry",
+    "lat": 11.9416,
+    "lon": 79.8083
+  },
+  "Golden Temple Amritsar PPCB": {
+    "state": "Punjab",
+    "city": "Amritsar",
+    "lat": 31.6223,
+    "lon": 74.8753
+  },
+  "Hardev Nagar Bathinda PPCB": {
+    "state": "Punjab",
+    "city": "Bathinda",
+    "lat": 30.2075,
+    "lon": 74.9389
+  },
+  "Civil Line Jalandhar PPCB": {
+    "state": "Punjab",
+    "city": "Jalandhar",
+    "lat": 31.3256,
+    "lon": 75.5792
+  },
+  "Kalal Majra Khanna PPCB": {
+    "state": "Punjab",
+    "city": "Khanna",
+    "lat": 30.7055,
+    "lon": 76.222
+  },
+  "Punjab Agricultural University Ludhiana PPCB": {
+    "state": "Punjab",
+    "city": "Ludhiana",
+    "lat": 30.912,
+    "lon": 75.8538
+  },
+  "RIMT University Mandi Gobindgarh PPCB": {
+    "state": "Punjab",
+    "city": "Mandi Gobindgarh",
+    "lat": 30.901,
+    "lon": 75.8573
+  },
+  "Model Town Patiala PPCB": {
+    "state": "Punjab",
+    "city": "Patiala",
+    "lat": 30.3362,
+    "lon": 76.3922
+  },
+  "Ratanpura Rupnagar Ambuja Cements": {
+    "state": "Punjab",
+    "city": "Rupnagar",
+    "lat": 30.2101,
+    "lon": 73.9943
+  },
+  "Civil Lines  Ajmer RSPCB": {
+    "state": "Rajasthan",
+    "city": "Ajmer",
+    "lat": 26.4521,
+    "lon": 74.6387
+  },
+  "Moti Doongri Alwar RSPCB": {
+    "state": "Rajasthan",
+    "city": "Alwar",
+    "lat": 27.5625,
+    "lon": 76.625
+  },
+  "Rati Talai Banswara RSPCB": {
+    "state": "Rajasthan",
+    "city": "Banswara",
+    "lat": 23.5411,
+    "lon": 74.4425
+  },
+  "Bamboliya Baran RSPCB": {
+    "state": "Rajasthan",
+    "city": "Baran",
+    "lat": 25.1,
+    "lon": 76.5167
+  },
+  "Railway Colony Barmer RSPCB": {
+    "state": "Rajasthan",
+    "city": "Barmer",
+    "lat": 25.7457,
+    "lon": 71.3921
+  },
+  "RIICO Ind. Area III Bhiwadi RSPCB": {
+    "state": "Rajasthan",
+    "city": "Bhiwadi",
+    "lat": 28.2102,
+    "lon": 76.8606
+  },
+  "MM Ground Bikaner RSPCB": {
+    "state": "Rajasthan",
+    "city": "Bikaner",
+    "lat": 28.0176,
+    "lon": 73.3149
+  },
+  "New Colony Bundi RSPCB": {
+    "state": "Rajasthan",
+    "city": "Bundi",
+    "lat": 25.4385,
+    "lon": 75.6373
+  },
+  "Subash Chowk Churu RSPCB": {
+    "state": "Rajasthan",
+    "city": "Churu",
+    "lat": 28.3041,
+    "lon": 74.9672
+  },
+  "Khatikan Mohalla Dausa RSPCB": {
+    "state": "Rajasthan",
+    "city": "Dausa",
+    "lat": 26.89,
+    "lon": 76.3358
+  },
+  "Raja Ganj Dholpur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Dholpur",
+    "lat": 26.6929,
+    "lon": 77.8797
+  },
+  "Bhoiwada Dungarpur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Dungarpur",
+    "lat": 23.8431,
+    "lon": 73.7147
+  },
+  "Housing Board Hanumangarh RSPCB": {
+    "state": "Rajasthan",
+    "city": "Hanumangarh",
+    "lat": 29.5818,
+    "lon": 74.3294
+  },
+  "Mansarovar Sector-12 Jaipur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jaipur",
+    "lat": 26.9196,
+    "lon": 75.7878
+  },
+  "Police Commissionerate Jaipur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jaipur",
+    "lat": 26.9196,
+    "lon": 75.7878
+  },
+  "RIICO Sitapura Jaipur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jaipur",
+    "lat": 26.9196,
+    "lon": 75.7878
+  },
+  "Sector-2 Murlipura Jaipur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jaipur",
+    "lat": 26.9196,
+    "lon": 75.7878
+  },
+  "Sadar Bazar Jaisalmer RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jaisalmer",
+    "lat": 26.9176,
+    "lon": 70.9039
+  },
+  "Mudtra Sili Jalore RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jalore",
+    "lat": 25.3456,
+    "lon": 72.6156
+  },
+  "Collectorate Jodhpur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jodhpur",
+    "lat": 26.2684,
+    "lon": 73.0059
+  },
+  "Digari Kalan Jodhpur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jodhpur",
+    "lat": 26.2684,
+    "lon": 73.0059
+  },
+  "Jhalamand Jodhpur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jodhpur",
+    "lat": 26.2684,
+    "lon": 73.0059
+  },
+  "Mandor Jodhpur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jodhpur",
+    "lat": 26.2684,
+    "lon": 73.0059
+  },
+  "Samrat Ashok Udhyan Jodhpur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Jodhpur",
+    "lat": 26.2684,
+    "lon": 73.0059
+  },
+  "Satyawati Vihar Karauli RSPCB": {
+    "state": "Rajasthan",
+    "city": "Karauli",
+    "lat": 26.4983,
+    "lon": 77.0276
+  },
+  "Dhanmandi Kota RSPCB": {
+    "state": "Rajasthan",
+    "city": "Kota",
+    "lat": 25.1825,
+    "lon": 75.8391
+  },
+  "Nayapura Kota RSPCB": {
+    "state": "Rajasthan",
+    "city": "Kota",
+    "lat": 25.1825,
+    "lon": 75.8391
+  },
+  "Shrinath Puram Kota RSPCB": {
+    "state": "Rajasthan",
+    "city": "Kota",
+    "lat": 25.1825,
+    "lon": 75.8391
+  },
+  "Karni Colony Nagaur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Nagaur",
+    "lat": 27.2081,
+    "lon": 73.7111
+  },
+  "Indira Colony Vistar Pali RSPCB": {
+    "state": "Rajasthan",
+    "city": "Pali",
+    "lat": 25.7728,
+    "lon": 73.3234
+  },
+  "Dhoinda Rajsamand RSPCB": {
+    "state": "Rajasthan",
+    "city": "Rajsamand",
+    "lat": 25.0714,
+    "lon": 73.8798
+  },
+  "Radhakishan Pura Sikar RSPCB": {
+    "state": "Rajasthan",
+    "city": "Sikar",
+    "lat": 27.6121,
+    "lon": 75.14
+  },
+  "Vedhaynath Colony Sirohi RSPCB": {
+    "state": "Rajasthan",
+    "city": "Sirohi",
+    "lat": 24.8884,
+    "lon": 72.8479
+  },
+  "Old City Sri Ganganagar RSPCB": {
+    "state": "Rajasthan",
+    "city": "Sri Ganganagar",
+    "lat": 29.9201,
+    "lon": 73.875
+  },
+  "Ashok Nagar Udaipur RSPCB": {
+    "state": "Rajasthan",
+    "city": "Udaipur",
+    "lat": 24.5858,
+    "lon": 73.7135
+  },
+  "Zero Point GICI Gangtok SSPCB": {
+    "state": "Sikkim",
+    "city": "Gangtok",
+    "lat": 27.3257,
+    "lon": 88.6122
+  },
+  "Keelapalur Ariyalur TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Ariyalur",
+    "lat": 11.1385,
+    "lon": 79.0756
+  },
+  "Crescent University Chengalpattu TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chengalpattu",
+    "lat": 12.6918,
+    "lon": 79.9766
+  },
+  "Alandur Bus Depot Chennai CPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Arumbakkam Chennai TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Gandhi Nagar Ennore Chennai TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Kodungaiyur Chennai TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Manali Chennai CPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Manali Village Chennai TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Perungudi Chennai TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Royapuram Chennai TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "Velachery Res. Area Chennai CPCB": {
+    "state": "Tamil Nadu",
+    "city": "Chennai",
+    "lat": 13.0878,
+    "lon": 80.2785
+  },
+  "PSG College of Arts and Science Coimbatore TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Coimbatore",
+    "lat": 11.0055,
+    "lon": 76.9661
+  },
+  "SIDCO Kurichi Coimbatore TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Coimbatore",
+    "lat": 11.0055,
+    "lon": 76.9661
+  },
+  "Kudikadu Cuddalore TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Cuddalore",
+    "lat": 11.7562,
+    "lon": 79.7669
+  },
+  "Semmandalam Cuddalore TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Cuddalore",
+    "lat": 11.7562,
+    "lon": 79.7669
+  },
+  "Mendonsa Colony Dindigul TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Dindigul",
+    "lat": 10.369,
+    "lon": 77.9804
+  },
+  "SIPCOT Phase-1 Hosur TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Hosur",
+    "lat": 12.7365,
+    "lon": 77.8326
+  },
+  "Kilambi Kanchipuram TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Kanchipuram",
+    "lat": 12.8352,
+    "lon": 79.7001
+  },
+  "Bombay Castel Ooty TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Ooty",
+    "lat": 11.4134,
+    "lon": 76.6952
+  },
+  "Bharathidasan University Palkalaiperur TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Palkalaiperur",
+    "lat": 13.0827,
+    "lon": 80.2707
+  },
+  "Chalai Bazaar Ramanathapuram TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Ramanathapuram",
+    "lat": 9.3716,
+    "lon": 78.8308
+  },
+  "Sona College of Technology Salem TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Salem",
+    "lat": 11.6538,
+    "lon": 78.1554
+  },
+  "Meelavittan Thoothukudi TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Thoothukudi",
+    "lat": 8.7674,
+    "lon": 78.1342
+  },
+  "St Joseph College Tiruchirappalli TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Tiruchirappalli",
+    "lat": 10.8155,
+    "lon": 78.6965
+  },
+  "Kumaran College Tirupur TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Tirupur",
+    "lat": 11.1154,
+    "lon": 77.3546
+  },
+  "Vasanthapuram Vellore TNPCB": {
+    "state": "Tamil Nadu",
+    "city": "Vellore",
+    "lat": 12.9184,
+    "lon": 79.1325
+  },
+  "Bollaram Industrial Area Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Central University Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "ECIL Kapra Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "ICRISAT Patancheru Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "IDA Pashamylaram Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "IITH Kandi Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Kokapet Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Kompally Municipal Office Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Nacharam TSIIC IALA Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "New Malakpet Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Ramachandrapuram Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Sanathnagar Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Somajiguda Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Zoo Park Hyderabad TSPCB": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "lat": 17.384,
+    "lon": 78.4564
+  },
+  "Bardowali Agartala Tripura SPCB": {
+    "state": "Tripura",
+    "city": "Agartala",
+    "lat": 23.8361,
+    "lon": 91.2794
+  },
+  "Kunjaban Agartala Tripura SPCB": {
+    "state": "Tripura",
+    "city": "Agartala",
+    "lat": 23.8361,
+    "lon": 91.2794
+  },
+  "Manoharpur Agra UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Agra",
+    "lat": 27.1833,
+    "lon": 78.0167
+  },
+  "Rohta Agra UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Agra",
+    "lat": 27.1833,
+    "lon": 78.0167
+  },
+  "Sanjay Palace Agra UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Agra",
+    "lat": 27.1833,
+    "lon": 78.0167
+  },
+  "Sector-3B Avas Vikas Colony Agra UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Agra",
+    "lat": 27.1833,
+    "lon": 78.0167
+  },
+  "Shahjahan Garden Agra UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Agra",
+    "lat": 27.1833,
+    "lon": 78.0167
+  },
+  "Shastripuram Agra UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Agra",
+    "lat": 27.1833,
+    "lon": 78.0167
+  },
+  "New Collectorate Baghpat UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Baghpat",
+    "lat": 28.9448,
+    "lon": 77.2186
+  },
+  "Sardar Patel Inter College Baghpat UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Baghpat",
+    "lat": 28.9448,
+    "lon": 77.2186
+  },
+  "Civil Lines Bareilly UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Bareilly",
+    "lat": 28.3668,
+    "lon": 79.4317
+  },
+  "Rajendra Nagar Bareilly UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Bareilly",
+    "lat": 28.3668,
+    "lon": 79.4317
+  },
+  "Yamunapuram Bulandshahr UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Bulandshahr",
+    "lat": 28.4039,
+    "lon": 77.8577
+  },
+  "Nagla Bhau Firozabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Firozabad",
+    "lat": 27.1509,
+    "lon": 78.3978
+  },
+  "Vibhab Nagar Firozabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Firozabad",
+    "lat": 27.1509,
+    "lon": 78.3978
+  },
+  "Indirapuram Ghaziabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Ghaziabad",
+    "lat": 28.6654,
+    "lon": 77.4391
+  },
+  "Loni Ghaziabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Ghaziabad",
+    "lat": 28.6654,
+    "lon": 77.4391
+  },
+  "Vasundhara Ghaziabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Ghaziabad",
+    "lat": 28.6654,
+    "lon": 77.4391
+  },
+  "Madan Mohan Malaviya University of Technology Gorakhpur UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Gorakhpur",
+    "lat": 26.7663,
+    "lon": 83.3689
+  },
+  "Anand Vihar Hapur UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Hapur",
+    "lat": 28.7298,
+    "lon": 77.7807
+  },
+  "IITK Kanpur IITK": {
+    "state": "Uttar Pradesh",
+    "city": "Kanpur",
+    "lat": 26.4652,
+    "lon": 80.3498
+  },
+  "NSI Kalyanpur Kanpur UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Kanpur",
+    "lat": 26.4652,
+    "lon": 80.3498
+  },
+  "Kalindi Kunj Khurja UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Khurja",
+    "lat": 28.2538,
+    "lon": 77.8554
+  },
+  "B R Ambedkar University Lucknow UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Lucknow",
+    "lat": 26.8393,
+    "lon": 80.9231
+  },
+  "Gomti Nagar Lucknow UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Lucknow",
+    "lat": 26.8393,
+    "lon": 80.9231
+  },
+  "Kendriya Vidyalaya Lucknow CPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Lucknow",
+    "lat": 26.8393,
+    "lon": 80.9231
+  },
+  "Kukrail Picnic Spot-1 Lucknow UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Lucknow",
+    "lat": 26.8393,
+    "lon": 80.9231
+  },
+  "Lalbagh Lucknow CPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Lucknow",
+    "lat": 26.8393,
+    "lon": 80.9231
+  },
+  "Nishant Ganj Lucknow UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Lucknow",
+    "lat": 26.8393,
+    "lon": 80.9231
+  },
+  "Talkatora District Industries Center Lucknow CPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Lucknow",
+    "lat": 26.8393,
+    "lon": 80.9231
+  },
+  "Ganga Nagar Meerut UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Meerut",
+    "lat": 28.98,
+    "lon": 77.7064
+  },
+  "Jai Bhim Nagar Meerut UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Meerut",
+    "lat": 28.98,
+    "lon": 77.7064
+  },
+  "Pallavpuram Phase 2 Meerut UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Meerut",
+    "lat": 28.98,
+    "lon": 77.7064
+  },
+  "Buddhi Vihar Moradabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Moradabad",
+    "lat": 28.8389,
+    "lon": 78.7768
+  },
+  "Eco Herbal Park Moradabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Moradabad",
+    "lat": 28.8389,
+    "lon": 78.7768
+  },
+  "Employment Office Moradabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Moradabad",
+    "lat": 28.8389,
+    "lon": 78.7768
+  },
+  "Jigar Colony Moradabad UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Moradabad",
+    "lat": 28.8389,
+    "lon": 78.7768
+  },
+  "New Mandi Muzaffarnagar UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Muzaffarnagar",
+    "lat": 29.4709,
+    "lon": 77.7033
+  },
+  "Knowledge Park III Greater Noida UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Noida",
+    "lat": 28.58,
+    "lon": 77.33
+  },
+  "Knowledge Park V Greater Noida UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Noida",
+    "lat": 28.58,
+    "lon": 77.33
+  },
+  "Sector 125 Noida UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Noida",
+    "lat": 28.58,
+    "lon": 77.33
+  },
+  "Sector 62 Noida IMD": {
+    "state": "Uttar Pradesh",
+    "city": "Noida",
+    "lat": 28.58,
+    "lon": 77.33
+  },
+  "Sector-1 Noida UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Noida",
+    "lat": 28.58,
+    "lon": 77.33
+  },
+  "Sector-116 Noida UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Noida",
+    "lat": 28.58,
+    "lon": 77.33
+  },
+  "Jhunsi Prayagraj UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Prayagraj",
+    "lat": 25.4448,
+    "lon": 81.8432
+  },
+  "Motilal Nehru NIT Prayagraj UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Prayagraj",
+    "lat": 25.4448,
+    "lon": 81.8432
+  },
+  "Ardhali Bazar Varanasi UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Varanasi",
+    "lat": 25.3167,
+    "lon": 83.0104
+  },
+  "Bhelupur Varanasi UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Varanasi",
+    "lat": 25.3167,
+    "lon": 83.0104
+  },
+  "IESD Banaras Hindu University Varanasi UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Varanasi",
+    "lat": 25.3167,
+    "lon": 83.0104
+  },
+  "Maldahiya Varanasi UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Varanasi",
+    "lat": 25.3167,
+    "lon": 83.0104
+  },
+  "Omex Eternity Vrindavan UPPCB": {
+    "state": "Uttar Pradesh",
+    "city": "Vrindavan",
+    "lat": 27.5811,
+    "lon": 77.6966
+  },
+  "Doon University Dehradun UKPCB": {
+    "state": "Uttarakhand",
+    "city": "Dehradun",
+    "lat": 30.3244,
+    "lon": 78.0339
+  },
+  "Govt. Girls Inter College Kashipur UKPCB": {
+    "state": "Uttarakhand",
+    "city": "Kashipur",
+    "lat": 29.214,
+    "lon": 78.9569
+  },
+  "Asansol Court Area Asansol WBPCB": {
+    "state": "West Bengal",
+    "city": "Asansol",
+    "lat": 23.6833,
+    "lon": 86.9833
+  },
+  "SVSPA Campus Barrackpore WBPCB": {
+    "state": "West Bengal",
+    "city": "Barrackpore",
+    "lat": 22.5726,
+    "lon": 88.3639
+  },
+  "Priyambada Housing Estate Haldia WBPCB": {
+    "state": "West Bengal",
+    "city": "Haldia",
+    "lat": 22.0605,
+    "lon": 88.1098
+  },
+  "Belur Math Howrah WBPCB": {
+    "state": "West Bengal",
+    "city": "Howrah",
+    "lat": 22.5769,
+    "lon": 88.3186
+  },
+  "Ghusuri Howrah WBPCB": {
+    "state": "West Bengal",
+    "city": "Howrah",
+    "lat": 22.5769,
+    "lon": 88.3186
+  },
+  "Padmapukur Howrah WBPCB": {
+    "state": "West Bengal",
+    "city": "Howrah",
+    "lat": 22.5769,
+    "lon": 88.3186
+  },
+  "Ballygunge Kolkata WBPCB": {
+    "state": "West Bengal",
+    "city": "Kolkata",
+    "lat": 22.5626,
+    "lon": 88.363
+  },
+  "Bidhannagar Kolkata WBPCB": {
+    "state": "West Bengal",
+    "city": "Kolkata",
+    "lat": 22.5626,
+    "lon": 88.363
+  },
+  "Fort William Kolkata WBPCB": {
+    "state": "West Bengal",
+    "city": "Kolkata",
+    "lat": 22.5626,
+    "lon": 88.363
+  },
+  "Jadavpur Kolkata WBPCB": {
+    "state": "West Bengal",
+    "city": "Kolkata",
+    "lat": 22.5626,
+    "lon": 88.363
+  },
+  "Rabindra Bharati University Kolkata WBPCB": {
+    "state": "West Bengal",
+    "city": "Kolkata",
+    "lat": 22.5626,
+    "lon": 88.363
+  },
+  "Rabindra Sarobar Kolkata WBPCB": {
+    "state": "West Bengal",
+    "city": "Kolkata",
+    "lat": 22.5626,
+    "lon": 88.363
+  },
+  "Victoria Kolkata WBPCB": {
+    "state": "West Bengal",
+    "city": "Kolkata",
+    "lat": 22.5626,
+    "lon": 88.363
+  },
+  "Ward-32 Bapupara Siliguri WBPCB": {
+    "state": "West Bengal",
+    "city": "Siliguri",
+    "lat": 26.71,
+    "lon": 88.4285
+  }
+}

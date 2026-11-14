@@ -1,0 +1,283 @@
+[
+  {
+    "module": "scam",
+    "sub_model": "sms",
+    "model_name": "TF-IDF + Multinomial Naive Bayes",
+    "version": "1.0.0",
+    "dataset": {
+      "source_file": "SMSSpamCollection",
+      "raw_rows": 5574,
+      "deduplicated_rows": 5160,
+      "duplicates_removed": 414,
+      "scam_rate": 0.1244
+    },
+    "splits": {
+      "train_val_rows": 4128,
+      "test_rows": 1032
+    },
+    "thresholds": {
+      "suspicious_min": 0.0675,
+      "scam_min": 0.2034
+    },
+    "metrics": {
+      "test_at_0_50": {
+        "precision": 0.9909,
+        "recall": 0.8516,
+        "f1": 0.916,
+        "f2": 0.8762,
+        "pr_auc": 0.9642
+      },
+      "test_at_tuned_scam": {
+        "precision": 0.9435,
+        "recall": 0.9141,
+        "f1": 0.9286,
+        "f2": 0.9198,
+        "pr_auc": 0.9642
+      },
+      "test_alert_recall_including_suspicious": 0.9688,
+      "precision": 0.9435,
+      "recall": 0.9141,
+      "f1": 0.9286,
+      "pr_auc": 0.9642
+    },
+    "comparison_table": [
+      {
+        "model": "Baseline: Dummy (Most Frequent)",
+        "cv_pr_auc_mean": 0.1245,
+        "cv_pr_auc_std": 0.0005,
+        "cv_f1_mean": 0.0,
+        "cv_f2_mean": 0.0,
+        "cv_recall_mean": 0.0,
+        "cv_precision_mean": 0.0
+      },
+      {
+        "model": "TF-IDF + Logistic Regression",
+        "cv_pr_auc_mean": 0.9514,
+        "cv_pr_auc_std": 0.0229,
+        "cv_f1_mean": 0.914,
+        "cv_f2_mean": 0.9107,
+        "cv_recall_mean": 0.9086,
+        "cv_precision_mean": 0.9199
+      },
+      {
+        "model": "TF-IDF + Linear SVM (Calibrated)",
+        "cv_pr_auc_mean": 0.9627,
+        "cv_pr_auc_std": 0.0129,
+        "cv_f1_mean": 0.9209,
+        "cv_f2_mean": 0.911,
+        "cv_recall_mean": 0.9047,
+        "cv_precision_mean": 0.9385
+      },
+      {
+        "model": "TF-IDF + Multinomial Naive Bayes",
+        "cv_pr_auc_mean": 0.9666,
+        "cv_pr_auc_std": 0.0149,
+        "cv_f1_mean": 0.9008,
+        "cv_f2_mean": 0.8524,
+        "cv_recall_mean": 0.823,
+        "cv_precision_mean": 0.9955
+      }
+    ],
+    "error_analysis": {
+      "confusion_matrix_at_t_high": {
+        "tn": 897,
+        "fp": 7,
+        "fn": 11,
+        "tp": 117
+      },
+      "missed_scams_even_after_suspicious_band": 4,
+      "false_negatives_sample": [
+        {
+          "text": "Sorry I missed your call let's talk when you have the time. I'm on 07090201529",
+          "scam_prob": 0.0093
+        },
+        {
+          "text": "Babe: U want me dont u baby! Im nasty and have a thing 4 filthyguys. Fancy a rude time with a sexy bitch. How about we go slo n hard! Txt XXX SLO(4msgs)",
+          "scam_prob": 0.0116
+        },
+        {
+          "text": "CLAIRE here am havin borin time & am now alone U wanna cum over 2nite? Chat now 09099725823 hope 2 C U Luv CLAIRE xx Calls\u00a31/minmoremobsEMSPOBox45PO139WA",
+          "scam_prob": 0.0382
+        },
+        {
+          "text": "Guess who am I?This is the first time I created a web page WWW.ASJESUS.COM read all I wrote. I'm waiting for your opinions. I want to be your friend 1/1",
+          "scam_prob": 0.0566
+        },
+        {
+          "text": "dating:i have had two of these. Only started after i sent a text to talk sport radio last week. Any connection do you think or coincidence?",
+          "scam_prob": 0.0683
+        }
+      ],
+      "false_positives_sample": [
+        {
+          "text": "Nokia phone is lovly..",
+          "scam_prob": 0.6651
+        },
+        {
+          "text": "Have you laid your airtel line to rest?",
+          "scam_prob": 0.3771
+        },
+        {
+          "text": "K:)eng rocking in ashes:)",
+          "scam_prob": 0.3637
+        },
+        {
+          "text": "Are you free now?can i call now?",
+          "scam_prob": 0.3355
+        },
+        {
+          "text": "Unlimited texts. Limited minutes.",
+          "scam_prob": 0.2739
+        }
+      ]
+    },
+    "limitations": [
+      "Trained on UCI SMS Spam Collection (English messages from 2012); modern slang, regional languages, or newer UPI/OTP phishing templates may cause drift.",
+      "Lexical TF-IDF cannot resolve shortened URLs inside SMS messages or verify sender reputation.",
+      "Dual-threshold 'suspicious' zone is calibrated on out-of-fold validation probabilities rather than a separate human-labeled 3rd class."
+    ],
+    "artifact_path": "ml/scam/artifacts/sms_scam_bundle.joblib",
+    "trained_at": "2026-11-11T16:52:27.734399+00:00"
+  },
+  {
+    "module": "scam",
+    "sub_model": "url",
+    "model_name": "Lexical + XGBoost",
+    "version": "1.0.0",
+    "dataset": {
+      "source_file": "PhiUSIIL_Phishing_URL_Dataset.csv",
+      "raw_rows": 235795,
+      "deduplicated_rows": 235370,
+      "duplicates_removed": 425,
+      "unique_domains": 219094,
+      "scam_rate": 0.4271
+    },
+    "splits": {
+      "train_val_rows": 188784,
+      "test_rows": 46586
+    },
+    "thresholds": {
+      "suspicious_min": 0.1569,
+      "scam_min": 0.2069
+    },
+    "metrics": {
+      "test_at_0_50": {
+        "precision": 0.9995,
+        "recall": 0.9915,
+        "f1": 0.9955,
+        "f2": 0.9931,
+        "pr_auc": 0.9986
+      },
+      "test_at_tuned_scam": {
+        "precision": 0.9966,
+        "recall": 0.9932,
+        "f1": 0.9949,
+        "f2": 0.9939,
+        "pr_auc": 0.9986
+      },
+      "test_alert_recall_including_suspicious": 0.9934,
+      "precision": 0.9966,
+      "recall": 0.9932,
+      "f1": 0.9949,
+      "pr_auc": 0.9986
+    },
+    "comparison_table": [
+      {
+        "model": "Baseline: Dummy (Most Frequent)",
+        "cv_pr_auc_mean": 0.4285,
+        "cv_pr_auc_std": 0.0064,
+        "cv_f1_mean": 0.0,
+        "cv_f2_mean": 0.0,
+        "cv_recall_mean": 0.0,
+        "cv_precision_mean": 0.0
+      },
+      {
+        "model": "Lexical + Logistic Regression",
+        "cv_pr_auc_mean": 0.9965,
+        "cv_pr_auc_std": 0.0004,
+        "cv_f1_mean": 0.9797,
+        "cv_f2_mean": 0.9712,
+        "cv_recall_mean": 0.9657,
+        "cv_precision_mean": 0.9943
+      },
+      {
+        "model": "Lexical + Random Forest",
+        "cv_pr_auc_mean": 0.9981,
+        "cv_pr_auc_std": 0.0003,
+        "cv_f1_mean": 0.9946,
+        "cv_f2_mean": 0.9921,
+        "cv_recall_mean": 0.9904,
+        "cv_precision_mean": 0.9988
+      },
+      {
+        "model": "Lexical + XGBoost",
+        "cv_pr_auc_mean": 0.9982,
+        "cv_pr_auc_std": 0.0003,
+        "cv_f1_mean": 0.9947,
+        "cv_f2_mean": 0.992,
+        "cv_recall_mean": 0.9903,
+        "cv_precision_mean": 0.9991
+      }
+    ],
+    "error_analysis": {
+      "confusion_matrix_at_t_high": {
+        "tn": 26903,
+        "fp": 67,
+        "fn": 133,
+        "tp": 19483
+      },
+      "missed_scams_even_after_suspicious_band": 129,
+      "false_negatives_sample": [
+        {
+          "url": "https://www.mzone.com.ua",
+          "scam_prob": 0.0012
+        },
+        {
+          "url": "https://www.tkow.ink",
+          "scam_prob": 0.0015
+        },
+        {
+          "url": "https://www.zernina.com.ua",
+          "scam_prob": 0.0019
+        },
+        {
+          "url": "https://www.gtn.cl",
+          "scam_prob": 0.0022
+        },
+        {
+          "url": "https://www.zexdex.app",
+          "scam_prob": 0.0026
+        }
+      ],
+      "false_positives_sample": [
+        {
+          "url": "https://www.non-man-entry-tank-cleaning-oil-recovery.com",
+          "scam_prob": 0.9051
+        },
+        {
+          "url": "https://www.st-johntisbury.wilts.sch.uk",
+          "scam_prob": 0.8041
+        },
+        {
+          "url": "https://www.cisss-lanaudiere.gouv.qc.ca",
+          "scam_prob": 0.8041
+        },
+        {
+          "url": "https://www.springfieldeducationalfurniture.co.uk",
+          "scam_prob": 0.7126
+        },
+        {
+          "url": "https://www.check24-partnerprogramm.de",
+          "scam_prob": 0.7043
+        }
+      ]
+    },
+    "limitations": [
+      "Dataset artifact in PhiUSIIL: 100% of legitimate training URLs use HTTPS (`is_https=1`), so legitimate legacy `http://` URLs are flagged as elevated risk.",
+      "Model uses purely lexical URL features (no live webpage scraping, SSL certificate lookup, or WHOIS domain-age check) for safe offline inference.",
+      "Lookalike homograph attacks on short HTTPS domains (e.g., `https://paypa1.com`) may look lexically similar to legitimate short domains."
+    ],
+    "artifact_path": "ml/scam/artifacts/url_scam_bundle.joblib",
+    "trained_at": "2026-11-11T16:53:26.366956+00:00"
+  }
+]

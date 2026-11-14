@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --lg-bg: #f8fafc;
+    --lg-surface: #ffffff;
+    --lg-border: #e2e8f0;
+    --lg-text: #0f172a;
+    --lg-muted: #475569;
+  }
+
+  .dark {
+    --lg-bg: #0f172a;
+    --lg-surface: #1e293b;
+    --lg-border: rgba(148, 163, 184, 0.18);
+    --lg-text: #f8fafc;
+    --lg-muted: #94a3b8;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--lg-bg);
+    color: var(--lg-text);
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Poppins", system-ui, sans-serif;
+  }
+
+  .dark input:not([type="checkbox"]):not([type="radio"]),
+  .dark select,
+  .dark textarea {
+    background-color: #0f172a;
+    border-color: #334155;
+    color: #f8fafc;
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #64748b;
+  }
+}
+
+@layer utilities {
+  .font-numeric {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}

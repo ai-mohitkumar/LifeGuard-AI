@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="lgShieldGrad" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B3FD8" />
+      <stop offset="100%" stop-color="#14B8A6" />
+    </linearGradient>
+  </defs>
+  <!-- Rounded Geometric Shield -->
+  <path
+    d="M32 6L52 13.5V29.5C52 43.2 43.3 53.7 32 58C20.7 53.7 12 43.2 12 29.5V13.5L32 6Z"
+    fill="url(#lgShieldGrad)"
+  />
+  <!-- Neural-network checkmark in clean negative space -->
+  <path
+    d="M21.5 31.5L28.5 38.5L43 23.5"
+    stroke="#FFFFFF"
+    stroke-width="4.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="21.5" cy="31.5" r="2.9" fill="#FFFFFF" />
+  <circle cx="28.5" cy="38.5" r="2.9" fill="#FFFFFF" />
+  <circle cx="43" cy="23.5" r="2.9" fill="#FFFFFF" />
+</svg>

@@ -1,0 +1,344 @@
+[
+  {
+    "module": "price",
+    "sub_model": "car",
+    "model_name": "XGBoost Regressor",
+    "version": "1.0.0",
+    "dataset": {
+      "source_file": "car_details.csv",
+      "raw_rows": 4340,
+      "deduplicated_rows": 3577,
+      "duplicates_removed": 763,
+      "median_price_inr": 350000.0
+    },
+    "splits": {
+      "train_val_rows": 2861,
+      "test_rows": 716
+    },
+    "thresholds": {
+      "uncertainty_band_mae_inr": 88865.07
+    },
+    "metrics": {
+      "mae": 88865.07,
+      "rmse": 162507.01,
+      "r2": 0.8654
+    },
+    "comparison_table": [
+      {
+        "model": "Baseline: Dummy (Median)",
+        "cv_mae_mean": 276849.37,
+        "cv_mae_std": 12380.54,
+        "cv_rmse_mean": 532999.31,
+        "cv_rmse_std": 82698.8,
+        "cv_r2_mean": -0.0599,
+        "cv_r2_std": 0.0088
+      },
+      {
+        "model": "Ridge Regression (Baseline)",
+        "cv_mae_mean": 150908.58,
+        "cv_mae_std": 11700.45,
+        "cv_rmse_mean": 306769.76,
+        "cv_rmse_std": 85170.86,
+        "cv_r2_mean": 0.6564,
+        "cv_r2_std": 0.0782
+      },
+      {
+        "model": "Random Forest Regressor",
+        "cv_mae_mean": 123439.33,
+        "cv_mae_std": 12862.78,
+        "cv_rmse_mean": 275725.77,
+        "cv_rmse_std": 92439.0,
+        "cv_r2_mean": 0.7219,
+        "cv_r2_std": 0.0972
+      },
+      {
+        "model": "XGBoost Regressor",
+        "cv_mae_mean": 108062.33,
+        "cv_mae_std": 11921.05,
+        "cv_rmse_mean": 248750.52,
+        "cv_rmse_std": 87329.12,
+        "cv_r2_mean": 0.7743,
+        "cv_r2_std": 0.0848
+      },
+      {
+        "model": "LightGBM Regressor",
+        "cv_mae_mean": 139701.9,
+        "cv_mae_std": 11913.9,
+        "cv_rmse_mean": 301551.1,
+        "cv_rmse_std": 80962.57,
+        "cv_r2_mean": 0.667,
+        "cv_r2_std": 0.0725
+      }
+    ],
+    "error_analysis": {
+      "tier_mae": [
+        {
+          "tier": "Budget",
+          "count": 251,
+          "mae_inr": 45088.22
+        },
+        {
+          "tier": "Mid-range",
+          "count": 238,
+          "mae_inr": 65622.54
+        },
+        {
+          "tier": "Premium",
+          "count": 227,
+          "mae_inr": 161639.13
+        }
+      ],
+      "median_abs_error_inr": 51444.31,
+      "worst_residuals_sample": [
+        {
+          "name": "Volvo XC 90 D5 Inscription BSIV",
+          "year": 2017,
+          "actual_inr": 4500000.0,
+          "predicted_inr": 2489898.75,
+          "error_inr": -2010101.25
+        },
+        {
+          "name": "BMW 3 Series 320d Luxury Line",
+          "year": 2016,
+          "actual_inr": 2150000.0,
+          "predicted_inr": 3467114.5,
+          "error_inr": 1317114.5
+        },
+        {
+          "name": "BMW 3 Series 320d Luxury Line",
+          "year": 2015,
+          "actual_inr": 2200000.0,
+          "predicted_inr": 3454798.5,
+          "error_inr": 1254798.5
+        },
+        {
+          "name": "Hyundai Tucson 2.0 e-VGT 2WD AT GL",
+          "year": 2018,
+          "actual_inr": 1600000.0,
+          "predicted_inr": 2407052.5,
+          "error_inr": 807052.5
+        },
+        {
+          "name": "Volkswagen Jetta 1.9 TDI Trendline",
+          "year": 2009,
+          "actual_inr": 940000.0,
+          "predicted_inr": 234543.12,
+          "error_inr": -705456.88
+        }
+      ]
+    },
+    "limitations": [
+      "Trained on 2020-snapshot CarDekho listings (INR); post-2020 inflation and newer model trims are not reflected.",
+      "Only brand and primary model token are extracted from vehicle name; subtle trim/variant differences (e.g. VXI vs ZXI+) and accident/service history are unobserved.",
+      "Luxury cars (> Rs 25 Lakh) have fewer samples, resulting in wider absolute MAE in the premium bracket."
+    ],
+    "ui_options": {
+      "fuels": [
+        "CNG",
+        "Diesel",
+        "Electric",
+        "LPG",
+        "Petrol"
+      ],
+      "seller_types": [
+        "Dealer",
+        "Individual",
+        "Trustmark Dealer"
+      ],
+      "transmissions": [
+        "Automatic",
+        "Manual"
+      ],
+      "owners": [
+        "First Owner",
+        "Fourth & Above Owner",
+        "Second Owner",
+        "Test Drive Car",
+        "Third Owner"
+      ],
+      "year_min": 1992,
+      "year_max": 2020,
+      "sample_names": [
+        "Maruti Swift Dzire VDI",
+        "Maruti Alto 800 LXI",
+        "Maruti Alto LXi",
+        "Maruti Alto LX",
+        "Maruti Swift VDI BSIV",
+        "Hyundai EON Era Plus",
+        "Maruti Wagon R VXI BS IV",
+        "Maruti Swift VDI",
+        "Maruti Wagon R LXI Minor",
+        "Hyundai Santro Xing GLS",
+        "Maruti Alto K10 VXI",
+        "Maruti 800 AC"
+      ]
+    },
+    "artifact_path": "ml/price/artifacts/car_price_bundle.joblib",
+    "trained_at": "2026-11-11T17:00:28.650029+00:00"
+  },
+  {
+    "module": "price",
+    "sub_model": "bike",
+    "model_name": "XGBoost Regressor",
+    "version": "1.0.0",
+    "dataset": {
+      "source_file": "bike_details.csv",
+      "raw_rows": 1061,
+      "deduplicated_rows": 1055,
+      "duplicates_removed": 6,
+      "median_price_inr": 45000.0,
+      "ex_showroom_missing_imputed_in_pipeline": 433
+    },
+    "splits": {
+      "train_val_rows": 844,
+      "test_rows": 211
+    },
+    "thresholds": {
+      "uncertainty_band_mae_inr": 10925.74
+    },
+    "metrics": {
+      "mae": 10925.74,
+      "rmse": 16829.56,
+      "r2": 0.873
+    },
+    "comparison_table": [
+      {
+        "model": "Baseline: Dummy (Median)",
+        "cv_mae_mean": 31891.14,
+        "cv_mae_std": 4145.07,
+        "cv_rmse_mean": 58125.72,
+        "cv_rmse_std": 16817.04,
+        "cv_r2_mean": -0.0771,
+        "cv_r2_std": 0.0323
+      },
+      {
+        "model": "Ridge Regression (Baseline)",
+        "cv_mae_mean": 14887.03,
+        "cv_mae_std": 1666.25,
+        "cv_rmse_mean": 24384.11,
+        "cv_rmse_std": 5243.58,
+        "cv_r2_mean": 0.7983,
+        "cv_r2_std": 0.0487
+      },
+      {
+        "model": "Random Forest Regressor",
+        "cv_mae_mean": 11111.0,
+        "cv_mae_std": 1195.67,
+        "cv_rmse_mean": 23077.07,
+        "cv_rmse_std": 8092.2,
+        "cv_r2_mean": 0.8289,
+        "cv_r2_std": 0.0563
+      },
+      {
+        "model": "XGBoost Regressor",
+        "cv_mae_mean": 10621.49,
+        "cv_mae_std": 1577.48,
+        "cv_rmse_mean": 20261.72,
+        "cv_rmse_std": 8694.96,
+        "cv_r2_mean": 0.874,
+        "cv_r2_std": 0.0479
+      },
+      {
+        "model": "LightGBM Regressor",
+        "cv_mae_mean": 15629.69,
+        "cv_mae_std": 2376.7,
+        "cv_rmse_mean": 34167.31,
+        "cv_rmse_std": 14968.75,
+        "cv_r2_mean": 0.6463,
+        "cv_r2_std": 0.1153
+      }
+    ],
+    "error_analysis": {
+      "tier_mae": [
+        {
+          "tier": "Budget",
+          "count": 85,
+          "mae_inr": 7203.8
+        },
+        {
+          "tier": "Mid-range",
+          "count": 56,
+          "mae_inr": 7754.93
+        },
+        {
+          "tier": "Premium",
+          "count": 70,
+          "mae_inr": 17981.9
+        }
+      ],
+      "median_abs_error_inr": 8119.91,
+      "worst_residuals_sample": [
+        {
+          "name": "Royal Enfield Bullet 350 [2007-2011]",
+          "year": 2008,
+          "actual_inr": 180000.0,
+          "predicted_inr": 67453.59,
+          "error_inr": -112546.41
+        },
+        {
+          "name": "TVS Apache RR310",
+          "year": 2019,
+          "actual_inr": 200000.0,
+          "predicted_inr": 98855.34,
+          "error_inr": -101144.66
+        },
+        {
+          "name": "KTM 390 Duke ABS [2013-2016]",
+          "year": 2015,
+          "actual_inr": 180000.0,
+          "predicted_inr": 122427.34,
+          "error_inr": -57572.66
+        },
+        {
+          "name": "Royal Enfield Electra 5 S",
+          "year": 2006,
+          "actual_inr": 99000.0,
+          "predicted_inr": 53378.43,
+          "error_inr": -45621.57
+        },
+        {
+          "name": "Aprilia SR 125",
+          "year": 2019,
+          "actual_inr": 75000.0,
+          "predicted_inr": 112918.68,
+          "error_inr": 37918.68
+        }
+      ]
+    },
+    "limitations": [
+      "Dataset contains 1,055 unique bikes, with 41% missing ex_showroom_price (handled via median imputation + missingness indicator inside Pipeline).",
+      "Trained on 2020-snapshot listings; electric scooters and newer BS6 Phase-2 models are underrepresented.",
+      "Physical condition, city/state registration, and aftermarket accessories are not captured in tabular features."
+    ],
+    "ui_options": {
+      "seller_types": [
+        "Dealer",
+        "Individual"
+      ],
+      "owners": [
+        "1st owner",
+        "2nd owner",
+        "3rd owner",
+        "4th owner"
+      ],
+      "year_min": 1988,
+      "year_max": 2020,
+      "sample_names": [
+        "Bajaj Pulsar 150",
+        "Royal Enfield Classic 350",
+        "Honda Activa [2000-2015]",
+        "Honda CB Hornet 160R",
+        "Bajaj Pulsar 180",
+        "Royal Enfield Thunderbird 350",
+        "Hero Honda Splendor Plus",
+        "Bajaj Discover 125",
+        "Yamaha FZ S V 2.0",
+        "Honda Activa 3G",
+        "Honda Shine",
+        "Honda CB Unicorn 150"
+      ]
+    },
+    "artifact_path": "ml/price/artifacts/bike_price_bundle.joblib",
+    "trained_at": "2026-11-11T17:00:32.319644+00:00"
+  }
+]

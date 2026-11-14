@@ -1,0 +1,6 @@
+# Place raw datasets inside this folder (gitignored).
+# Recommended subfolders for later phases:
+#   data/scam/
+#   data/price/
+#   data/health/
+#   data/aqi/

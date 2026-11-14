@@ -1,0 +1,243 @@
+[
+  {
+    "module": "aqi",
+    "sub_model": "regressor",
+    "model_name": "Random Forest Regressor",
+    "version": "1.0.0",
+    "dataset": {
+      "source_file": "daily_air_quality.csv",
+      "consecutive_day_pairs": 17441,
+      "stations": 12,
+      "date_range": "2013-03-01 -> 2017-02-27"
+    },
+    "splits": {
+      "split_method": "strict_chronological_by_date",
+      "train_val_rows": 13947,
+      "train_val_dates": "2013-03-01 -> 2016-05-11",
+      "test_rows": 3494,
+      "test_dates": "2016-05-12 -> 2017-02-27"
+    },
+    "thresholds": {
+      "uncertainty_band_mae": 69.13
+    },
+    "metrics": {
+      "mae": 69.13,
+      "rmse": 88.7,
+      "r2": 0.3657
+    },
+    "comparison_table": [
+      {
+        "model": "Baseline: Persistence (t+1 = t)",
+        "cv_mae_mean": 72.7,
+        "cv_mae_std": 11.53,
+        "cv_rmse_mean": 103.47,
+        "cv_rmse_std": 14.78,
+        "cv_r2_mean": 0.0321,
+        "cv_r2_std": 0.1589
+      },
+      {
+        "model": "Ridge Regression (Baseline)",
+        "cv_mae_mean": 72.96,
+        "cv_mae_std": 7.82,
+        "cv_rmse_mean": 87.68,
+        "cv_rmse_std": 10.0,
+        "cv_r2_mean": 0.3063,
+        "cv_r2_std": 0.065
+      },
+      {
+        "model": "Random Forest Regressor",
+        "cv_mae_mean": 69.69,
+        "cv_mae_std": 4.13,
+        "cv_rmse_mean": 85.79,
+        "cv_rmse_std": 6.56,
+        "cv_r2_mean": 0.3284,
+        "cv_r2_std": 0.0896
+      },
+      {
+        "model": "XGBoost Regressor",
+        "cv_mae_mean": 70.28,
+        "cv_mae_std": 4.61,
+        "cv_rmse_mean": 86.38,
+        "cv_rmse_std": 6.85,
+        "cv_r2_mean": 0.3184,
+        "cv_r2_std": 0.0989
+      },
+      {
+        "model": "LightGBM Regressor",
+        "cv_mae_mean": 70.09,
+        "cv_mae_std": 4.46,
+        "cv_rmse_mean": 87.12,
+        "cv_rmse_std": 6.7,
+        "cv_r2_mean": 0.305,
+        "cv_r2_std": 0.1127
+      }
+    ],
+    "error_analysis": {
+      "seasonal_mae": {
+        "winter_haze_months_nov_feb": {
+          "count": 1428,
+          "mae": 76.14
+        },
+        "non_winter_months": {
+          "count": 2066,
+          "mae": 64.28
+        }
+      },
+      "median_abs_error": 56.13,
+      "worst_spikes_sample": [
+        {
+          "station": "Gucheng",
+          "date": "2017-01-27",
+          "today_aqi": 129.6,
+          "actual_next_aqi": 447.6,
+          "predicted_next_aqi": 95.2,
+          "abs_error": 352.4
+        },
+        {
+          "station": "Wanshouxigong",
+          "date": "2017-01-27",
+          "today_aqi": 147.9,
+          "actual_next_aqi": 464.7,
+          "predicted_next_aqi": 113.6,
+          "abs_error": 351.1
+        },
+        {
+          "station": "Dongsi",
+          "date": "2017-01-27",
+          "today_aqi": 116.1,
+          "actual_next_aqi": 449.5,
+          "predicted_next_aqi": 113.2,
+          "abs_error": 336.3
+        },
+        {
+          "station": "Nongzhanguan",
+          "date": "2017-01-27",
+          "today_aqi": 107.6,
+          "actual_next_aqi": 447.8,
+          "predicted_next_aqi": 116.4,
+          "abs_error": 331.4
+        },
+        {
+          "station": "Tiantan",
+          "date": "2017-01-27",
+          "today_aqi": 98.4,
+          "actual_next_aqi": 439.6,
+          "predicted_next_aqi": 120.0,
+          "abs_error": 319.5
+        }
+      ]
+    },
+    "limitations": [
+      "Trained on 2013\u20132017 Beijing 12-station daily records; city-specific emission profiles and future policy changes cause distribution drift over years.",
+      "Sudden synoptic pollution episodes (fireworks, sandstorms, abrupt stagnation inversions) produce larger residuals in winter haze months.",
+      "Forecast relies on today's pollutant and weather conditions rather than external numerical weather prediction (NWP) tomorrow-wind forecasts."
+    ],
+    "artifact_path": "ml/aqi/artifacts/aqi_regressor_bundle.joblib",
+    "trained_at": "2026-11-11T17:23:26.427127+00:00"
+  },
+  {
+    "module": "aqi",
+    "sub_model": "classifier",
+    "model_name": "Random Forest Classifier",
+    "version": "1.0.0",
+    "dataset": {
+      "source_file": "daily_air_quality.csv",
+      "consecutive_day_pairs": 17441,
+      "stations": 12,
+      "date_range": "2013-03-01 -> 2017-02-27"
+    },
+    "splits": {
+      "split_method": "strict_chronological_by_date",
+      "train_val_rows": 13947,
+      "train_val_dates": "2013-03-01 -> 2016-05-11",
+      "test_rows": 3494,
+      "test_dates": "2016-05-12 -> 2017-02-27"
+    },
+    "thresholds": {
+      "unhealthy_alert_min": 0.25
+    },
+    "metrics": {
+      "macro_f1": 0.3472,
+      "weighted_f1": 0.4443,
+      "accuracy": 0.4662,
+      "adjacent_1_accuracy": 0.7533,
+      "unhealthy_recall": 0.9603,
+      "unhealthy_pr_auc": 0.7388
+    },
+    "comparison_table": [
+      {
+        "model": "Baseline: Persistence Category",
+        "cv_macro_f1_mean": 0.3509,
+        "cv_macro_f1_std": 0.0518,
+        "cv_weighted_f1_mean": 0.4576,
+        "cv_accuracy_mean": 0.4575,
+        "cv_adjacent_acc_mean": 0.791,
+        "cv_unhealthy_recall_mean": 0.6776
+      },
+      {
+        "model": "Logistic Regression (Balanced)",
+        "cv_macro_f1_mean": 0.2945,
+        "cv_macro_f1_std": 0.0367,
+        "cv_weighted_f1_mean": 0.3985,
+        "cv_accuracy_mean": 0.3909,
+        "cv_adjacent_acc_mean": 0.7658,
+        "cv_unhealthy_recall_mean": 0.7216
+      },
+      {
+        "model": "Logistic Regression (SMOTE)",
+        "cv_macro_f1_mean": 0.2966,
+        "cv_macro_f1_std": 0.0386,
+        "cv_weighted_f1_mean": 0.4003,
+        "cv_accuracy_mean": 0.3928,
+        "cv_adjacent_acc_mean": 0.768,
+        "cv_unhealthy_recall_mean": 0.7158
+      },
+      {
+        "model": "Random Forest Classifier",
+        "cv_macro_f1_mean": 0.3516,
+        "cv_macro_f1_std": 0.0311,
+        "cv_weighted_f1_mean": 0.4818,
+        "cv_accuracy_mean": 0.5055,
+        "cv_adjacent_acc_mean": 0.7933,
+        "cv_unhealthy_recall_mean": 0.7596
+      },
+      {
+        "model": "XGBoost Classifier",
+        "cv_macro_f1_mean": 0.3206,
+        "cv_macro_f1_std": 0.0171,
+        "cv_weighted_f1_mean": 0.4729,
+        "cv_accuracy_mean": 0.5014,
+        "cv_adjacent_acc_mean": 0.7852,
+        "cv_unhealthy_recall_mean": 0.7252
+      },
+      {
+        "model": "LightGBM Classifier",
+        "cv_macro_f1_mean": 0.3358,
+        "cv_macro_f1_std": 0.0309,
+        "cv_weighted_f1_mean": 0.4704,
+        "cv_accuracy_mean": 0.4786,
+        "cv_adjacent_acc_mean": 0.7854,
+        "cv_unhealthy_recall_mean": 0.715
+      }
+    ],
+    "error_analysis": {
+      "per_class_f1": {
+        "Good": 0.0,
+        "Satisfactory": 0.5907,
+        "Moderate": 0.3047,
+        "Poor": 0.2296,
+        "Very Poor": 0.5503,
+        "Severe": 0.4078
+      },
+      "adjacent_1_accuracy": 0.7533,
+      "note": "Rare extremes (Good=41 test rows) have lower F1 due to boundary transitions near AQI 50, while adjacent-1 category accuracy remains high."
+    },
+    "limitations": [
+      "6-class CPCB category distribution is imbalanced (Good < 1% of station-days in industrial/urban Beijing), reducing exact Good vs Satisfactory boundary F1.",
+      "Boundary discretization around fixed AQI cutoffs (50, 100, 200, 300, 400) causes minor 1-tier label shifts; numeric AQI prediction should always be inspected alongside category.",
+      "Chronological generalization tested on May 2016\u2013Feb 2017 future window; multi-year air-policy changes require periodic retraining."
+    ],
+    "artifact_path": "ml/aqi/artifacts/aqi_classifier_bundle.joblib",
+    "trained_at": "2026-11-11T17:23:51.302362+00:00"
+  }
+]
