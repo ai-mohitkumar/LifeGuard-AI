@@ -7,12 +7,15 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Restore session on page refresh by verifying the stored JWT against /api/auth/me.
+  // Restore session on page refresh by verifying stored JWT or HttpOnly cookie against /api/auth/me.
   useEffect(() => {
-    const token = getStoredToken();
-    if (!token) {
-      setLoading(false);
-      return;
+    // Check if redirected from OAuth callback with ?auth_token=
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get("auth_token");
+    if (urlToken) {
+      setStoredToken(urlToken);
+      // Clean query parameter from URL without page reload
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
 
     authApi
@@ -32,22 +35,12 @@ export function AuthProvider({ children }) {
     return data.user;
   }
 
-  async function register(fullName, email, password) {
+  async function register(fullName, email, password, confirmPassword = "") {
     const data = await authApi.register({
       full_name: fullName,
       email,
       password,
-    });
-    setStoredToken(data.access_token);
-    setUser(data.user);
-    return data.user;
-  }
-
-  async function socialLogin(provider, email, fullName = "") {
-    const data = await authApi.socialLogin({
-      provider,
-      email,
-      full_name: fullName,
+      confirm_password: confirmPassword || password,
     });
     setStoredToken(data.access_token);
     setUser(data.user);
@@ -61,14 +54,20 @@ export function AuthProvider({ children }) {
     return data.user;
   }
 
-  function logout() {
-    setStoredToken(null);
-    setUser(null);
+  async function logout() {
+    try {
+      await authApi.logout();
+    } catch (_) {
+      // Safe fallback
+    } finally {
+      setStoredToken(null);
+      setUser(null);
+    }
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, register, socialLogin, googleLogin, logout }}
+      value={{ user, loading, login, register, googleLogin, logout }}
     >
       {children}
     </AuthContext.Provider>

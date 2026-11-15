@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, model_validator
 
 
 class HealthResponse(BaseModel):
@@ -17,6 +17,7 @@ class UserRegisterRequest(BaseModel):
     email: EmailStr = Field(..., examples=["aarav@example.com"])
     # bcrypt hashes up to 72 UTF-8 bytes; enforcing <= 72 bytes prevents silent truncation or ValueError.
     password: str = Field(..., min_length=8, max_length=72, examples=["StrongPass123"])
+    confirm_password: str | None = Field(default=None, min_length=8, max_length=72)
 
     @field_validator("full_name")
     @classmethod
@@ -32,6 +33,12 @@ class UserRegisterRequest(BaseModel):
         if len(value.encode("utf-8")) > 72:
             raise ValueError("Password must be at most 72 UTF-8 bytes.")
         return value
+
+    @model_validator(mode="after")
+    def validate_password_confirmation(self):
+        if self.confirm_password is not None and self.password != self.confirm_password:
+            raise ValueError("Password confirmation does not match password.")
+        return self
 
 
 class UserLoginRequest(BaseModel):

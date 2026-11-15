@@ -2,7 +2,7 @@
 
 from unittest.mock import patch
 import pytest
-from fastapi import HTTPException
+from fastapi import HTTPException, Response
 from pydantic import ValidationError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -105,7 +105,7 @@ def test_google_login_new_user_provisioning(mock_verify, db_session):
     }
 
     req = GoogleAuthRequest(id_token="valid.google.token.new.user")
-    response = google_auth(req, db_session)
+    response = google_auth(req, Response(), db_session)
 
     assert response.access_token is not None
     assert len(response.access_token) > 20
@@ -143,7 +143,7 @@ def test_google_login_existing_user(mock_verify, db_session):
     }
 
     req = GoogleAuthRequest(id_token="valid.google.token.existing.user")
-    response = google_auth(req, db_session)
+    response = google_auth(req, Response(), db_session)
 
     assert response.user.id == orig_id
     assert response.user.email == "doctor.jones@gmail.com"
@@ -160,7 +160,7 @@ def test_google_login_invalid_token(mock_verify, db_session):
 
     req = GoogleAuthRequest(id_token="tampered.or.invalid.token")
     with pytest.raises(HTTPException) as exc_info:
-        google_auth(req, db_session)
+        google_auth(req, Response(), db_session)
 
     assert exc_info.value.status_code == 401
     assert "Google authentication failed" in exc_info.value.detail
@@ -173,7 +173,7 @@ def test_google_login_unverified_email(mock_verify, db_session):
 
     req = GoogleAuthRequest(id_token="unverified.email.token")
     with pytest.raises(HTTPException) as exc_info:
-        google_auth(req, db_session)
+        google_auth(req, Response(), db_session)
 
     assert exc_info.value.status_code == 401
     assert "email is not verified" in exc_info.value.detail
@@ -209,7 +209,7 @@ def test_google_login_inactive_user(mock_verify, db_session):
 
     req = GoogleAuthRequest(id_token="valid.token.for.banned.user")
     with pytest.raises(HTTPException) as exc_info:
-        google_auth(req, db_session)
+        google_auth(req, Response(), db_session)
 
     assert exc_info.value.status_code == 403
     assert "account is inactive" in exc_info.value.detail

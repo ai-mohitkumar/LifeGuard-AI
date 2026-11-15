@@ -17,7 +17,6 @@ import {
   Sparkles,
   User,
   Wind,
-  X,
   Zap,
 } from "lucide-react";
 import BrandLogo from "../components/BrandLogo";
@@ -104,7 +103,6 @@ export default function LoginPage({
   onLogin,
   onRegister,
   onGoogleLogin,
-  onSocialLogin,
   loading = false,
   error = "",
 }) {
@@ -112,8 +110,10 @@ export default function LoginPage({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [localError, setLocalError] = useState("");
   const [externalErrorVisible, setExternalErrorVisible] = useState(Boolean(error));
 
@@ -126,25 +126,9 @@ export default function LoginPage({
     import.meta.env.VITE_GOOGLE_CLIENT_ID ||
     "981860772372-uvhn6fnfkfhpfskar3bk1i7de4fsp3b9.apps.googleusercontent.com";
 
-  // Social SSO Modal & Selection States
-  const [socialModal, setSocialModal] = useState(null); // null | "github" | "google"
-  const [customSocialEmail, setCustomSocialEmail] = useState("");
-  const [customSocialName, setCustomSocialName] = useState("");
-  const [socialSubmitting, setSocialSubmitting] = useState(false);
-
   useEffect(() => {
     setExternalErrorVisible(Boolean(error));
   }, [error]);
-
-  useEffect(() => {
-    function handleKeyDown(e) {
-      if (e.key === "Escape" && socialModal) {
-        setSocialModal(null);
-      }
-    }
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [socialModal]);
 
   // Initialize and render official Google Identity Services button
   useEffect(() => {
@@ -219,6 +203,7 @@ export default function LoginPage({
     setMode(nextMode);
     setLocalError("");
     setExternalErrorVisible(false);
+    setConfirmPassword("");
   }
 
   function clearErrors() {
@@ -229,28 +214,15 @@ export default function LoginPage({
   function handleDemoFill() {
     setEmail("mohit@lifeguard.ai");
     setPassword("Enterprise@2026");
+    setConfirmPassword("Enterprise@2026");
     setName("Mohit Kumar");
     clearErrors();
   }
 
-  async function handleExecuteSocial(provider, targetEmail, targetName) {
-    const cleanEmail = (targetEmail || "").trim();
-    if (!cleanEmail) {
-      setLocalError(`Please provide a valid ${provider === "google" ? "Google" : "GitHub"} email.`);
-      return;
-    }
+  function handleGitHubOAuth() {
     clearErrors();
-    setSocialSubmitting(true);
-    try {
-      if (typeof onSocialLogin === "function") {
-        await onSocialLogin(provider, cleanEmail, targetName || cleanEmail.split("@")[0]);
-        setSocialModal(null);
-      }
-    } catch (err) {
-      setLocalError(err.message || `Failed to sign in with ${provider}.`);
-    } finally {
-      setSocialSubmitting(false);
-    }
+    // Redirect browser to FastAPI GitHub OAuth initialization endpoint
+    window.location.href = "/api/auth/github/login";
   }
 
   async function handleSubmit(event) {
@@ -273,8 +245,12 @@ export default function LoginPage({
         setLocalError("Password must be at least 8 characters.");
         return;
       }
+      if (password !== confirmPassword) {
+        setLocalError("Passwords do not match. Please verify both fields.");
+        return;
+      }
       if (typeof onRegister === "function") {
-        await onRegister(trimmedName, trimmedEmail, password);
+        await onRegister(trimmedName, trimmedEmail, password, confirmPassword);
       }
     } else if (typeof onLogin === "function") {
       await onLogin(trimmedEmail, password);
@@ -421,17 +397,12 @@ export default function LoginPage({
 
                 <button
                   type="button"
-                  onClick={() => {
-                    setSocialModal("github");
-                    setCustomSocialEmail("");
-                    setCustomSocialName("");
-                    clearErrors();
-                  }}
-                  disabled={loading || socialSubmitting || googleAuthenticating}
+                  onClick={handleGitHubOAuth}
+                  disabled={loading || googleAuthenticating}
                   className="group flex min-h-[42px] items-center justify-center gap-2.5 rounded-xl border border-slate-700/80 bg-[#070D1A]/90 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-[#0E172A] hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400/40 disabled:opacity-50 shadow-sm"
                 >
                   <GitHubIcon className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110" />
-                  <span>Continue with GitHub</span>
+                  <span>{mode === "register" ? "Sign up with GitHub" : "Continue with GitHub"}</span>
                 </button>
               </div>
 
@@ -544,6 +515,43 @@ export default function LoginPage({
                 </div>
               </div>
 
+              {mode === "register" && (
+                <div>
+                  <label
+                    htmlFor="login-confirm-password"
+                    className="block text-xs font-semibold uppercase tracking-wider text-slate-300"
+                  >
+                    Confirm Password
+                  </label>
+                  <div className="relative mt-1.5">
+                    <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                    <input
+                      id="login-confirm-password"
+                      type={showConfirmPassword ? "text" : "password"}
+                      autoComplete="new-password"
+                      required
+                      minLength={8}
+                      maxLength={72}
+                      value={confirmPassword}
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value);
+                        clearErrors();
+                      }}
+                      placeholder="Repeat master password"
+                      className="w-full rounded-xl border border-slate-700/80 bg-[#070D1A] py-2.5 pl-10 pr-11 text-sm text-white placeholder:text-slate-500 focus:border-brand-indigo focus:outline-none focus:ring-2 focus:ring-brand-indigo/30"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                      className="absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 hover:bg-white/10 hover:text-white"
+                    >
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Remember Me & Demo Fill */}
               <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
                 <label className="flex items-center gap-2 cursor-pointer text-slate-300 select-none">
@@ -588,6 +596,33 @@ export default function LoginPage({
                 </span>
                 {!loading && <ArrowRight className="h-4 w-4 opacity-70" />}
               </button>
+
+              {/* Mode switch helper link */}
+              <div className="pt-2 text-center text-xs text-slate-400">
+                {mode === "login" ? (
+                  <span>
+                    Don't have an account?{" "}
+                    <button
+                      type="button"
+                      onClick={() => switchMode("register")}
+                      className="font-semibold text-brand-indigo-light hover:underline ml-1"
+                    >
+                      Create account
+                    </button>
+                  </span>
+                ) : (
+                  <span>
+                    Already registered?{" "}
+                    <button
+                      type="button"
+                      onClick={() => switchMode("login")}
+                      className="font-semibold text-brand-indigo-light hover:underline ml-1"
+                    >
+                      Sign in here
+                    </button>
+                  </span>
+                )}
+              </div>
             </form>
 
             {/* Compliance Footer */}
@@ -682,199 +717,6 @@ export default function LoginPage({
           </section>
         </div>
       </main>
-
-      {/* Social SSO Account Picker Modal */}
-      {socialModal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="social-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
-          onClick={() => !socialSubmitting && setSocialModal(null)}
-        >
-          <div
-            className="relative w-full max-w-md rounded-3xl border border-slate-700/80 bg-[#0B1222] p-6 shadow-[0_24px_64px_-16px_rgba(0,0,0,0.95)] ring-1 ring-white/10 sm:p-7"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Close Button */}
-            <button
-              type="button"
-              aria-label="Close dialog"
-              disabled={socialSubmitting}
-              onClick={() => setSocialModal(null)}
-              className="absolute right-5 top-5 inline-flex h-8 w-8 items-center justify-center rounded-xl text-slate-400 hover:bg-white/10 hover:text-white transition disabled:opacity-50"
-            >
-              <X className="h-4 w-4" />
-            </button>
-
-            {/* Modal Header */}
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-inner">
-                {socialModal === "google" ? (
-                  <GoogleIcon className="h-6 w-6" />
-                ) : (
-                  <GitHubIcon className="h-6 w-6 text-white" />
-                )}
-              </div>
-              <div>
-                <h2 id="social-modal-title" className="font-display text-lg font-bold text-white">
-                  {socialModal === "google" ? "Continue with Google" : "Continue with GitHub"}
-                </h2>
-                <p className="text-xs text-slate-400">
-                  Enterprise Single Sign-On for LifeGuard AI
-                </p>
-              </div>
-            </div>
-
-            {/* Error in modal if any */}
-            {localError && (
-              <div
-                role="alert"
-                className="mt-4 flex items-start gap-2 rounded-xl border border-red-500/35 bg-red-500/15 p-2.5 text-xs text-red-200"
-              >
-                <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-red-400" />
-                <span>{localError}</span>
-              </div>
-            )}
-
-            {/* Quick 1-Click Profile Card */}
-            <div className="mt-5">
-              <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                Fast Access Account (1-Click)
-              </label>
-              <button
-                type="button"
-                disabled={socialSubmitting}
-                onClick={() =>
-                  handleExecuteSocial(
-                    socialModal,
-                    socialModal === "google"
-                      ? "mohit.kumar@gmail.com"
-                      : "ai-mohitkumar@github.com",
-                    socialModal === "google" ? "Mohit Kumar" : "Mohit Kumar (@ai-mohitkumar)"
-                  )
-                }
-                className="mt-2 group flex w-full items-center justify-between gap-3 rounded-2xl border border-indigo-500/30 bg-indigo-500/10 p-3.5 text-left transition hover:border-indigo-400 hover:bg-indigo-500/20 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 disabled:opacity-50"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-indigo-600 to-teal-400 font-bold text-white shadow-sm">
-                    {socialModal === "google" ? "G" : "GH"}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-semibold text-white">
-                        {socialModal === "google" ? "Mohit Kumar" : "Mohit Kumar (@ai-mohitkumar)"}
-                      </span>
-                      <span className="rounded-full bg-indigo-500/20 px-2 py-0.5 text-[10px] font-semibold text-indigo-300">
-                        1-Click
-                      </span>
-                    </div>
-                    <p className="truncate text-xs text-slate-300">
-                      {socialModal === "google"
-                        ? "mohit.kumar@gmail.com"
-                        : "ai-mohitkumar@github.com"}
-                    </p>
-                  </div>
-                </div>
-                {socialSubmitting ? (
-                  <Loader2 className="h-4 w-4 animate-spin text-indigo-400 shrink-0" />
-                ) : (
-                  <ArrowRight className="h-4 w-4 text-indigo-400 transition-transform group-hover:translate-x-1 shrink-0" />
-                )}
-              </button>
-            </div>
-
-            {/* Divider */}
-            <div className="relative my-4 flex items-center justify-center">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-700/60" />
-              </div>
-              <div className="relative bg-[#0B1222] px-3 text-[11px] uppercase tracking-wider text-slate-500">
-                Or use your personal account
-              </div>
-            </div>
-
-            {/* Custom Account Input Form */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleExecuteSocial(
-                  socialModal,
-                  customSocialEmail,
-                  customSocialName || (customSocialEmail.split("@")[0] || "User")
-                );
-              }}
-              className="space-y-3"
-            >
-              <div>
-                <label
-                  htmlFor="social-email-input"
-                  className="block text-xs font-medium text-slate-300"
-                >
-                  {socialModal === "google"
-                    ? "Google Email Address"
-                    : "GitHub Username or Email"}
-                </label>
-                <div className="relative mt-1">
-                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  <input
-                    id="social-email-input"
-                    type={socialModal === "google" ? "email" : "text"}
-                    required
-                    disabled={socialSubmitting}
-                    value={customSocialEmail}
-                    onChange={(e) => setCustomSocialEmail(e.target.value)}
-                    placeholder={
-                      socialModal === "google"
-                        ? "your.email@gmail.com"
-                        : "github_username or user@github.com"
-                    }
-                    className="w-full rounded-xl border border-slate-700/80 bg-[#070D1A] py-2 pl-9 pr-3 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:border-brand-indigo focus:outline-none focus:ring-2 focus:ring-brand-indigo/30"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="social-name-input"
-                  className="block text-xs font-medium text-slate-300"
-                >
-                  Full Name (Optional)
-                </label>
-                <div className="relative mt-1">
-                  <User className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  <input
-                    id="social-name-input"
-                    type="text"
-                    disabled={socialSubmitting}
-                    value={customSocialName}
-                    onChange={(e) => setCustomSocialName(e.target.value)}
-                    placeholder="e.g. Alex Morgan"
-                    className="w-full rounded-xl border border-slate-700/80 bg-[#070D1A] py-2 pl-9 pr-3 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:border-brand-indigo focus:outline-none focus:ring-2 focus:ring-brand-indigo/30"
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={socialSubmitting || !customSocialEmail.trim()}
-                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-md transition hover:from-indigo-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 disabled:opacity-50"
-              >
-                {socialSubmitting ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <ShieldCheck className="h-4 w-4" />
-                )}
-                <span>
-                  {socialSubmitting
-                    ? "Authenticating Session..."
-                    : `Sign In with ${socialModal === "google" ? "Google" : "GitHub"}`}
-                </span>
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

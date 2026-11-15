@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 
 import bcrypt
 import jwt
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, Response, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
@@ -45,21 +45,55 @@ def create_access_token(subject: str, expires_minutes: int | None = None) -> str
     return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
+def set_auth_cookie(response: Response, token: str) -> None:
+    """Set secure HttpOnly authentication cookie on the response."""
+    max_age_seconds = settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
+    is_secure = settings.COOKIE_SECURE or (settings.ENVIRONMENT.lower() == "production")
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        max_age=max_age_seconds,
+        expires=max_age_seconds,
+        httponly=True,
+        secure=is_secure,
+        samesite="lax",
+        path="/",
+    )
+
+
+def clear_auth_cookie(response: Response) -> None:
+    """Clear the authentication cookie on logout."""
+    response.delete_cookie(
+        key="access_token",
+        path="/",
+        httponly=True,
+        samesite="lax",
+    )
+
+
 def get_current_user(
+    request: Request,
     credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
     db: Session = Depends(get_db),
 ) -> User:
-    """FastAPI dependency that validates the Bearer JWT and returns the active User."""
+    """FastAPI dependency that validates the JWT from Authorization header or HttpOnly cookie."""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
 
-    if credentials is None or not credentials.credentials:
+    # 1. Prefer Authorization: Bearer <token> header
+    token: str | None = None
+    if credentials is not None and credentials.credentials:
+        token = credentials.credentials
+    # 2. Fall back to secure HttpOnly cookie
+    elif request is not None and "access_token" in request.cookies:
+        token = request.cookies.get("access_token")
+
+    if not token:
         raise credentials_exception
 
-    token = credentials.credentials
     try:
         payload = jwt.decode(
             token,

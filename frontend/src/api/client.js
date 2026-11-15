@@ -29,6 +29,7 @@ export async function apiRequest(path, options = {}) {
   }
 
   const response = await fetch(path, {
+    credentials: "include",
     ...options,
     headers,
   });
@@ -64,16 +65,15 @@ export const authApi = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
-  socialLogin: (payload) =>
-    apiRequest("/api/auth/social-login", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    }),
   googleLogin: (idToken) =>
     apiRequest("/api/auth/google", {
       method: "POST",
       body: JSON.stringify({ id_token: idToken }),
     }),
+  logout: () =>
+    apiRequest("/api/auth/logout", {
+      method: "POST",
+    }).catch(() => ({ message: "Logged out" })),
   me: () => apiRequest("/api/auth/me"),
 };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -36,10 +36,19 @@ function ProtectedLayout({ children }) {
 }
 
 function PublicOnlyLogin() {
-  const { user, loading, login, register, socialLogin, googleLogin } = useAuth();
+  const { user, loading, login, register, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [authError, setAuthError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const err = params.get("auth_error");
+    if (err) {
+      setAuthError(decodeURIComponent(err));
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   if (loading) return null;
   if (user) return <Navigate to="/" replace />;
@@ -57,11 +66,11 @@ function PublicOnlyLogin() {
     }
   }
 
-  async function handleRegister(name, email, password) {
+  async function handleRegister(name, email, password, confirmPassword) {
     setAuthError("");
     setSubmitting(true);
     try {
-      await register(name, email, password);
+      await register(name, email, password, confirmPassword);
       navigate("/");
     } catch (err) {
       setAuthError(err.message || "Could not create account. Please try again.");
@@ -83,25 +92,11 @@ function PublicOnlyLogin() {
     }
   }
 
-  async function handleSocialLogin(provider, email, fullName) {
-    setAuthError("");
-    setSubmitting(true);
-    try {
-      await socialLogin(provider, email, fullName);
-      navigate("/");
-    } catch (err) {
-      setAuthError(err.message || `Failed to sign in with ${provider}.`);
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
   return (
     <LoginPage
       onLogin={handleLogin}
       onRegister={handleRegister}
       onGoogleLogin={handleGoogleLogin}
-      onSocialLogin={handleSocialLogin}
       loading={submitting}
       error={authError}
     />

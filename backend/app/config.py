@@ -33,6 +33,18 @@ class Settings(BaseSettings):
     # Google OAuth 2.0 Client ID for server-side token validation
     GOOGLE_CLIENT_ID: str = "981860772372-uvhn6fnfkfhpfskar3bk1i7de4fsp3b9.apps.googleusercontent.com"
 
+    # GitHub OAuth 2.0 Client Configuration
+    GITHUB_CLIENT_ID: str = ""
+    GITHUB_CLIENT_SECRET: str = ""
+    GITHUB_REDIRECT_URI: str = "http://localhost:8000/api/auth/github/callback"
+
+    # Frontend Application URL for OAuth redirects
+    FRONTEND_URL: str = "http://localhost:5173"
+
+    # Security & Cookie Session Environment
+    ENVIRONMENT: str = "development"
+    COOKIE_SECURE: bool = False
+
     # Path to the ml/ directory containing module artifacts and importable feature extractors
     ML_DIR: str = _default_ml_dir()
 
