@@ -221,8 +221,8 @@ export default function LoginPage({
 
   function handleGitHubOAuth() {
     clearErrors();
-    // Redirect browser to FastAPI GitHub OAuth initialization endpoint
-    window.location.href = "/api/auth/github/login";
+    const apiUrl = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+    window.location.href = `${apiUrl}/api/auth/github/login`;
   }
 
   async function handleSubmit(event) {

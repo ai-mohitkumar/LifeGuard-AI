@@ -4,6 +4,7 @@
  */
 
 const TOKEN_STORAGE_KEY = "lifeguard_access_token";
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
 
 export function getStoredToken() {
   return localStorage.getItem(TOKEN_STORAGE_KEY);
@@ -28,7 +29,9 @@ export async function apiRequest(path, options = {}) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(path, {
+  const fullUrl = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
+
+  const response = await fetch(fullUrl, {
     credentials: "include",
     ...options,
     headers,
