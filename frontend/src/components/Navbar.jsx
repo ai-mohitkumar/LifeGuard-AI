@@ -42,7 +42,7 @@ export default function Navbar() {
       .health()
       .then((res) => {
         if (active) {
-          setApiStatus(res.database === "connected" ? "online" : "degraded");
+          setApiStatus(res && res.database === "connected" ? "online" : "degraded");
         }
       })
       .catch(() => {

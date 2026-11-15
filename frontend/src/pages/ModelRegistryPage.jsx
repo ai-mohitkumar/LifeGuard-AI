@@ -84,7 +84,7 @@ export default function ModelRegistryPage() {
   useEffect(() => {
     platformApi
       .getModels()
-      .then((data) => setModels(data))
+      .then((data) => setModels(Array.isArray(data) ? data : []))
       .catch((err) => setError(err.message || "Failed to load model registry."))
       .finally(() => setLoading(false));
   }, []);

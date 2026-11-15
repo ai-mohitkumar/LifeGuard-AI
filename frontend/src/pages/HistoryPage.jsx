@@ -22,7 +22,7 @@ export default function HistoryPage() {
     setError("");
     try {
       const data = await platformApi.getHistory(mod);
-      setItems(data);
+      setItems(Array.isArray(data) ? data : []);
     } catch (err) {
       setError(err.message || "Failed to load prediction history.");
     } finally {
