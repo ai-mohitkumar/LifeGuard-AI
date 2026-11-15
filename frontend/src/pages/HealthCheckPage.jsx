@@ -263,13 +263,10 @@ export default function HealthCheckPage() {
       {/* Mandatory Medical Awareness Disclaimer */}
       <div
         role="alert"
-        className="flex items-center gap-2.5 rounded-card border border-teal-200 bg-teal-50/80 px-4 py-2.5 text-xs text-brand-teal-ink shadow-soft dark:border-teal-800/60 dark:bg-teal-950/40 dark:text-teal-200 sm:text-sm"
+        className="flex items-center gap-2 rounded-card border border-teal-200 bg-teal-50/80 px-3.5 py-2 text-xs text-brand-teal-ink shadow-soft dark:border-teal-800/60 dark:bg-teal-950/40 dark:text-teal-200"
       >
-        <AlertTriangle className="h-4 w-4 shrink-0 text-module-health" />
-        <p className="leading-snug">
-          <span className="font-display font-semibold">Awareness only, not medical advice: </span>
-          Consult a licensed doctor for diagnosis or treatment.
-        </p>
+        <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-module-health" />
+        <p>Awareness screening only · Consult a physician for medical advice.</p>
       </div>
 
       {/* Header + Form */}
@@ -283,7 +280,7 @@ export default function HealthCheckPage() {
               Diabetes &amp; Heart Risk Check
             </h1>
             <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-300">
-              Screen preventive risk from routine markers.
+              Screen preventive health indicators.
             </p>
           </div>
 
@@ -822,11 +819,10 @@ export default function HealthCheckPage() {
             <div className="flex h-full flex-col justify-center space-y-2 py-8 text-center">
               <HeartPulse className="mx-auto h-9 w-9 text-module-health" />
               <h2 className="font-display text-base font-semibold text-brand-navy dark:text-white">
-                Ready for {activeTab === "diabetes" ? "Diabetes" : "Heart"} Screening
+                {activeTab === "diabetes" ? "Diabetes" : "Heart"} Screening
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-300">
-                Submit clinical inputs or choose a sample profile above to see the calibrated
-                probability gauge, awareness tier, and top driving factors.
+                Enter values or select a sample above to screen.
               </p>
             </div>
           )}
@@ -837,11 +833,8 @@ export default function HealthCheckPage() {
           {driverPlotData.length > 0 && (
             <div>
               <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                Top Clinical Factors Driving This Screening Score
+                Clinical Drivers
               </h2>
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                Positive values elevate predicted awareness risk; negative values reduce risk.
-              </p>
               <PlotlyChart
                 data={driverPlotData}
                 layout={{
@@ -867,11 +860,8 @@ export default function HealthCheckPage() {
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                    Probability Calibration Curve ({activeTab === "diabetes" ? "Diabetes" : "Heart"})
+                    Calibration Curve
                   </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Reliability diagram comparing predicted probabilities against observed risk fractions.
-                  </p>
                 </div>
                 <div className="flex gap-2 text-xs">
                   <span className="font-numeric rounded-lg bg-slate-100 px-2.5 py-1 font-semibold text-slate-700 dark:bg-brand-navy dark:text-slate-200">

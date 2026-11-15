@@ -140,7 +140,7 @@ export default function ScamShieldPage() {
               SMS &amp; URL Check
             </h1>
             <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-300">
-              Check risky messages and links before you tap.
+              Verify message and link safety.
             </p>
           </div>
 
@@ -298,11 +298,11 @@ export default function ScamShieldPage() {
               />
             </div>
 
-            {/* Top 3 Reasons Card */}
+            {/* Key Signals Card */}
             {reasonsToDisplay.length > 0 && (
               <div className="rounded-xl border border-slate-200 bg-brand-offwhite p-4 dark:border-slate-700 dark:bg-brand-navy/60">
                 <h3 className="font-display text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">
-                  Top {reasonsToDisplay.length} Signals Flagged
+                  Key Signals
                 </h3>
                 <ul className="mt-2 space-y-1.5 text-xs text-slate-700 dark:text-slate-200">
                   {reasonsToDisplay.map((reason, idx) => (
@@ -324,7 +324,7 @@ export default function ScamShieldPage() {
               </div>
             )}
 
-            {/* Calm Safety Tip Card */}
+            {/* Safety Tip Card */}
             <div className="flex items-start gap-2.5 rounded-xl border border-red-200/70 bg-red-50/60 p-4 text-xs leading-relaxed text-slate-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-slate-200">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-module-scam" />
               <div>
@@ -342,7 +342,7 @@ export default function ScamShieldPage() {
             {result.extracted_features && (
               <div>
                 <h3 className="mb-2 font-display text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                  Extracted URL Lexical Features
+                  Lexical Features
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   {Object.entries(result.extracted_features).map(([k, v]) => (
@@ -370,13 +370,8 @@ export default function ScamShieldPage() {
           {/* Right: Plotly Explainability Chart */}
           <div className="rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-3">
             <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-              {result.sub_model === "sms"
-                ? "Top Words / N-grams Driving Prediction"
-                : "Top Lexical Feature SHAP Attributions"}
+              Feature Attributions
             </h2>
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Coral bars increase scam/phishing risk; green bars support safety.
-            </p>
 
             {plotData.length > 0 ? (
               <PlotlyChart

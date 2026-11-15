@@ -973,12 +973,10 @@ export default function AirAwarePage() {
               <div className="flex h-full flex-col justify-center space-y-2 py-8 text-center">
                 <Wind className="mx-auto h-9 w-9 text-module-aqi" />
                 <h2 className="font-display text-base font-semibold text-brand-navy dark:text-white">
-                  Ready to Forecast {selectedState}
+                  Forecast {selectedState}
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-300">
-                  Pick any State / UT and CPCB station, or inspect all{" "}
-                  {overview?.total_stations || 546} Indian stations at once in{" "}
-                  <strong>All-India Outlook</strong>.
+                  Select a station or switch to All-India Outlook.
                 </p>
               </div>
             )}
@@ -989,7 +987,7 @@ export default function AirAwarePage() {
             {probPlotData.length > 0 && (
               <div>
                 <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                  Next-Day CPCB Category Probabilities ({result.classifier_model_name})
+                  Category Probabilities
                 </h2>
                 <PlotlyChart
                   data={probPlotData}
@@ -1005,7 +1003,7 @@ export default function AirAwarePage() {
             {shapPlotData.length > 0 && (
               <div className="border-t border-slate-100 pt-4 dark:border-slate-800">
                 <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                  Top SHAP Atmospheric Drivers ({result.regressor_model_name})
+                  Atmospheric Drivers (SHAP)
                 </h2>
                 <PlotlyChart
                   data={shapPlotData}
@@ -1026,12 +1024,8 @@ export default function AirAwarePage() {
             {timelineData.length > 0 && (
               <div className={result ? "border-t border-slate-100 pt-4 dark:border-slate-800" : ""}>
                 <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                  Untouched Future Test Series ({timeline.station}
-                  {timeline.state ? `, ${timeline.state}` : ""}, Latest 45 Days)
+                  45-Day Test Timeline ({timeline.station})
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Chronological evaluation against observed next-day AQI in the held-out India window.
-                </p>
                 <PlotlyChart
                   data={timelineData}
                   layout={{
@@ -1075,10 +1069,10 @@ export default function AirAwarePage() {
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                  Predicted Next-Day AQI Across All {sortedStates.length || 36} Indian States &amp; UTs
+                  State &amp; UT Air Quality
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Latest snapshot date: {overview?.snapshot_date || "—"} · Colored by CPCB AQI tier
+                  Snapshot: {overview?.snapshot_date || "—"}
                 </p>
               </div>
             </div>
@@ -1104,11 +1098,8 @@ export default function AirAwarePage() {
             <div className="flex flex-col gap-3 border-b border-slate-100 p-5 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                  All-India Station Forecasts ({filteredIndiaStations.length} stations)
+                  Station Forecasts ({filteredIndiaStations.length})
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Click any station to open full SHAP drivers, probabilities, and CPCB health advice.
-                </p>
               </div>
               <div className="flex w-full flex-wrap gap-2 sm:w-auto">
                 <div className="relative w-full sm:w-56">

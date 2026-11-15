@@ -94,14 +94,13 @@ export default function ModelRegistryPage() {
       <div className="rounded-card border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-brand-surface">
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-brand-indigo dark:text-brand-indigo-light">
           <Database className="h-4 w-4" />
-          ML Governance &amp; Model Cards
+          ML Governance
         </span>
         <h1 className="mt-1 font-display text-2xl font-bold text-brand-navy dark:text-white">
           Model Registry
         </h1>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-          Active trained pipelines, cross-validation trajectory sparklines, untouched test metrics,
-          error analysis, and documented limitations.
+          Active models, benchmarks, and performance metrics.
         </p>
       </div>
 
@@ -126,11 +125,8 @@ export default function ModelRegistryPage() {
           <section className="overflow-hidden rounded-card border border-slate-200 bg-white shadow-soft dark:border-slate-800 dark:bg-brand-surface">
             <div className="border-b border-slate-100 px-6 py-4 dark:border-slate-800">
               <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-                Registered Pipelines Overview
+                Models Overview
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Summary table comparing active production models across all four LifeGuard AI modules.
-              </p>
             </div>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-200 text-left text-xs dark:divide-slate-800">
@@ -407,11 +403,7 @@ export default function ModelRegistryPage() {
                 {/* CV Comparison Table */}
                 <div>
                   <h3 className="mb-2 font-display text-sm font-semibold text-brand-navy dark:text-white">
-                    {isAqiReg || isAqiCls
-                      ? "Chronological Expanding-Window CV Comparison Table (No Random Split)"
-                      : isPrice
-                      ? "5-Fold Cross-Validation Comparison Table"
-                      : "Stratified Cross-Validation Comparison Table"}
+                    Validation Metrics
                   </h3>
                   <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
                     {isPrice ? (
@@ -664,7 +656,7 @@ export default function ModelRegistryPage() {
                 <div className="grid gap-4 lg:grid-cols-2">
                   <div className="rounded-xl border border-slate-200 bg-brand-offwhite p-4 dark:border-slate-800 dark:bg-brand-navy/60">
                     <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">
-                      Untouched Test Error Analysis
+                      Error Analysis
                     </h3>
 
                     {isPrice ? (
@@ -832,7 +824,7 @@ export default function ModelRegistryPage() {
                   <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-4 dark:border-amber-800/50 dark:bg-amber-950/30">
                     <h3 className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-verdict-warn-ink dark:text-amber-300">
                       <AlertCircle className="h-4 w-4" />
-                      Documented Limitations
+                      Limitations
                     </h3>
                     <ul className="mt-2 space-y-1.5 text-xs leading-relaxed text-slate-700 dark:text-slate-200">
                       {m.limitations.map((lim, idx) => (

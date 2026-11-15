@@ -46,10 +46,10 @@ export default function HistoryPage() {
         <div>
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-brand-indigo dark:text-brand-indigo-light">
             <History className="h-4 w-4" />
-            Per-User Log &amp; Ground Truth Feedback
+            History
           </span>
           <h1 className="mt-1 font-display text-2xl font-bold text-brand-navy dark:text-white">
-            Prediction History
+            Activity
           </h1>
         </div>
 
@@ -88,8 +88,7 @@ export default function HistoryPage() {
         </div>
       ) : items.length === 0 ? (
         <div className="rounded-card border border-slate-200 bg-white p-8 text-center text-sm text-slate-500 shadow-soft dark:border-slate-800 dark:bg-brand-surface dark:text-slate-400">
-          No checks saved yet. Test an SMS in Scam Shield, value a bike in Fair Price, or preview
-          tomorrow&apos;s air quality—your explained history will appear right here.
+          No activity yet. Run checks in any module to view history.
         </div>
       ) : (
         <div className="space-y-4">

@@ -529,23 +529,19 @@ export default function FairPricePage() {
 
             <div className="rounded-xl border border-slate-100 bg-brand-offwhite p-4 dark:border-slate-800 dark:bg-brand-navy/60">
               <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                Estimated Fair Market Resale Price
+                Fair Market Price
               </span>
               <div className="mt-1 font-numeric text-3xl font-extrabold tracking-tight text-brand-navy dark:text-white">
                 {formatInr(result.predicted_price_inr)}
               </div>
               <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                 <span className="font-numeric rounded-md bg-white px-2 py-1 font-medium text-slate-800 shadow-sm dark:bg-brand-surface dark:text-slate-100">
-                  Expected Range: {formatInr(result.price_range_low_inr)} –{" "}
-                  {formatInr(result.price_range_high_inr)}
+                  Range: {formatInr(result.price_range_low_inr)} – {formatInr(result.price_range_high_inr)}
                 </span>
                 <span className="font-numeric text-slate-500 dark:text-slate-400">
-                  (± {formatInr(result.uncertainty_mae_inr)} test MAE)
+                  (± {formatInr(result.uncertainty_mae_inr)} MAE)
                 </span>
               </div>
-              <p className="font-numeric mt-2 text-[11px] text-slate-500 dark:text-slate-400">
-                Dataset SHAP baseline before vehicle traits: {formatInr(result.baseline_price_inr)}
-              </p>
             </div>
 
             <p className="rounded-xl bg-brand-offwhite p-3.5 text-sm leading-relaxed text-slate-700 dark:bg-brand-navy/60 dark:text-slate-300">
@@ -555,7 +551,7 @@ export default function FairPricePage() {
             {result.extracted_features && (
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                  Pipeline-Engineered Features
+                  Vehicle Features
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   {Object.entries(result.extracted_features).map(([k, v]) => (
@@ -584,12 +580,8 @@ export default function FairPricePage() {
           {/* Right: SHAP Valuation Breakdown */}
           <div className="rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-3">
             <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
-              Top SHAP Feature Contributions (INR Impact)
+              Valuation Drivers
             </h2>
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Green bars increase estimated value above the dataset baseline; coral bars represent
-              depreciation or lower-tier downward adjustments.
-            </p>
 
             {plotData.length > 0 ? (
               <PlotlyChart
