@@ -64,6 +64,11 @@ export const authApi = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+  socialLogin: (payload) =>
+    apiRequest("/api/auth/social-login", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
   me: () => apiRequest("/api/auth/me"),
 };
 

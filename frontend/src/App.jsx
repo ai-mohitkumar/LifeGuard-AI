@@ -36,7 +36,7 @@ function ProtectedLayout({ children }) {
 }
 
 function PublicOnlyLogin() {
-  const { user, loading, login, register } = useAuth();
+  const { user, loading, login, register, socialLogin } = useAuth();
   const navigate = useNavigate();
   const [authError, setAuthError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -70,10 +70,24 @@ function PublicOnlyLogin() {
     }
   }
 
+  async function handleSocialLogin(provider, email, fullName) {
+    setAuthError("");
+    setSubmitting(true);
+    try {
+      await socialLogin(provider, email, fullName);
+      navigate("/");
+    } catch (err) {
+      setAuthError(err.message || `Failed to sign in with ${provider}.`);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <LoginPage
       onLogin={handleLogin}
       onRegister={handleRegister}
+      onSocialLogin={handleSocialLogin}
       loading={submitting}
       error={authError}
     />

@@ -13,6 +13,7 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.auth import (
     AuthTokenResponse,
+    SocialLoginRequest,
     UserLoginRequest,
     UserRegisterRequest,
     UserResponse,
@@ -66,6 +67,44 @@ def login_user(payload: UserLoginRequest, db: Session = Depends(get_db)) -> Auth
             detail="Invalid email or password.",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="This account is inactive.",
+        )
+
+    token = create_access_token(subject=str(user.id))
+    return AuthTokenResponse(
+        access_token=token,
+        user=UserResponse.model_validate(user),
+    )
+
+
+@router.post(
+    "/social-login",
+    response_model=AuthTokenResponse,
+    status_code=status.HTTP_200_OK,
+)
+def social_login(payload: SocialLoginRequest, db: Session = Depends(get_db)) -> AuthTokenResponse:
+    """Authenticate or auto-provision a user signing in with Google or GitHub."""
+    import secrets
+
+    normalized_email = payload.email.strip().lower()
+    user = db.query(User).filter(User.email == normalized_email).first()
+
+    if user is None:
+        provider_title = payload.provider.capitalize()
+        name = payload.full_name.strip() if payload.full_name else f"{normalized_email.split('@')[0].capitalize()} ({provider_title})"
+        random_pass = secrets.token_urlsafe(32)
+        user = User(
+            full_name=name,
+            email=normalized_email,
+            hashed_password=hash_password(random_pass),
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
 
     if not user.is_active:
         raise HTTPException(

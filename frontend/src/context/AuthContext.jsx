@@ -43,13 +43,24 @@ export function AuthProvider({ children }) {
     return data.user;
   }
 
+  async function socialLogin(provider, email, fullName = "") {
+    const data = await authApi.socialLogin({
+      provider,
+      email,
+      full_name: fullName,
+    });
+    setStoredToken(data.access_token);
+    setUser(data.user);
+    return data.user;
+  }
+
   function logout() {
     setStoredToken(null);
     setUser(null);
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, socialLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

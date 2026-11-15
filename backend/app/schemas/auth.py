@@ -39,6 +39,13 @@ class UserLoginRequest(BaseModel):
     password: str = Field(..., min_length=1, max_length=72, examples=["StrongPass123"])
 
 
+class SocialLoginRequest(BaseModel):
+    provider: str = Field(..., examples=["google", "github"])
+    email: EmailStr = Field(..., examples=["user@gmail.com"])
+    full_name: str = Field(default="", max_length=100)
+    avatar_url: str | None = None
+
+
 class UserResponse(BaseModel):
     id: int
     full_name: str
