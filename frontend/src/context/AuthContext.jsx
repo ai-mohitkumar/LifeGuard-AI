@@ -54,13 +54,22 @@ export function AuthProvider({ children }) {
     return data.user;
   }
 
+  async function googleLogin(idToken) {
+    const data = await authApi.googleLogin(idToken);
+    setStoredToken(data.access_token);
+    setUser(data.user);
+    return data.user;
+  }
+
   function logout() {
     setStoredToken(null);
     setUser(null);
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, socialLogin, logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, register, socialLogin, googleLogin, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -3,6 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.core.google_auth import verify_google_id_token
 from app.core.security import (
     create_access_token,
     get_current_user,
@@ -13,6 +14,7 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.auth import (
     AuthTokenResponse,
+    GoogleAuthRequest,
     SocialLoginRequest,
     UserLoginRequest,
     UserRegisterRequest,
@@ -67,6 +69,62 @@ def login_user(payload: UserLoginRequest, db: Session = Depends(get_db)) -> Auth
             detail="Invalid email or password.",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="This account is inactive.",
+        )
+
+    token = create_access_token(subject=str(user.id))
+    return AuthTokenResponse(
+        access_token=token,
+        user=UserResponse.model_validate(user),
+    )
+
+
+@router.post(
+    "/google",
+    response_model=AuthTokenResponse,
+    status_code=status.HTTP_200_OK,
+)
+def google_auth(payload: GoogleAuthRequest, db: Session = Depends(get_db)) -> AuthTokenResponse:
+    """Verify Google Identity Services ID token, authenticate or register user, and return JWT."""
+    import secrets
+
+    try:
+        idinfo = verify_google_id_token(payload.id_token)
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Google authentication failed: {exc}",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Google token verification error: {exc}",
+        )
+
+    # Server-verified email
+    email = idinfo["email"]
+    normalized_email = email.strip().lower()
+
+    # Find or auto-provision user
+    user = db.query(User).filter(User.email == normalized_email).first()
+
+    if user is None:
+        full_name = idinfo.get("name") or normalized_email.split("@")[0].capitalize()
+        random_pass = secrets.token_urlsafe(32)
+        user = User(
+            full_name=full_name.strip()[:100],
+            email=normalized_email,
+            hashed_password=hash_password(random_pass),
+            is_active=True,
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
 
     if not user.is_active:
         raise HTTPException(

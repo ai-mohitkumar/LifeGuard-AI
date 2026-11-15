@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     # Comma-separated frontend origins allowed by CORS
     CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
 
+    # Google OAuth 2.0 Client ID for server-side token validation
+    GOOGLE_CLIENT_ID: str = "981860772372-uvhn6fnfkfhpfskar3bk1i7de4fsp3b9.apps.googleusercontent.com"
+
     # Path to the ml/ directory containing module artifacts and importable feature extractors
     ML_DIR: str = _default_ml_dir()
 

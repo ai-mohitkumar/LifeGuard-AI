@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AlertCircle,
   ArrowRight,
@@ -103,6 +103,7 @@ const TELEMETRY_MODULES = [
 export default function LoginPage({
   onLogin,
   onRegister,
+  onGoogleLogin,
   onSocialLogin,
   loading = false,
   error = "",
@@ -116,8 +117,17 @@ export default function LoginPage({
   const [localError, setLocalError] = useState("");
   const [externalErrorVisible, setExternalErrorVisible] = useState(Boolean(error));
 
+  // Google Identity Services (GIS) States
+  const googleBtnContainerRef = useRef(null);
+  const [googleReady, setGoogleReady] = useState(false);
+  const [googleAuthenticating, setGoogleAuthenticating] = useState(false);
+
+  const GOOGLE_CLIENT_ID =
+    import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+    "981860772372-uvhn6fnfkfhpfskar3bk1i7de4fsp3b9.apps.googleusercontent.com";
+
   // Social SSO Modal & Selection States
-  const [socialModal, setSocialModal] = useState(null); // null | "google" | "github"
+  const [socialModal, setSocialModal] = useState(null); // null | "github" | "google"
   const [customSocialEmail, setCustomSocialEmail] = useState("");
   const [customSocialName, setCustomSocialName] = useState("");
   const [socialSubmitting, setSocialSubmitting] = useState(false);
@@ -135,6 +145,73 @@ export default function LoginPage({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [socialModal]);
+
+  // Initialize and render official Google Identity Services button
+  useEffect(() => {
+    let isMounted = true;
+
+    function renderGsiButton() {
+      if (!window.google?.accounts?.id || !googleBtnContainerRef.current) return false;
+
+      try {
+        window.google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: async (response) => {
+            if (!response?.credential) {
+              setLocalError("Google sign-in did not return a valid credential.");
+              return;
+            }
+            clearErrors();
+            setGoogleAuthenticating(true);
+            try {
+              if (typeof onGoogleLogin === "function") {
+                await onGoogleLogin(response.credential);
+              }
+            } catch (err) {
+              setLocalError(err.message || "Failed to authenticate with Google.");
+            } finally {
+              if (isMounted) setGoogleAuthenticating(false);
+            }
+          },
+          auto_select: false,
+          cancel_on_tap_outside: true,
+        });
+
+        googleBtnContainerRef.current.innerHTML = "";
+        window.google.accounts.id.renderButton(googleBtnContainerRef.current, {
+          type: "standard",
+          theme: "filled_black",
+          size: "large",
+          text: mode === "register" ? "signup_with" : "continue_with",
+          shape: "rectangular",
+          logo_alignment: "left",
+          width: 240,
+        });
+
+        if (isMounted) setGoogleReady(true);
+        return true;
+      } catch (err) {
+        console.warn("Failed to initialize Google Identity Services:", err);
+        return false;
+      }
+    }
+
+    if (!renderGsiButton()) {
+      const interval = setInterval(() => {
+        if (renderGsiButton()) {
+          clearInterval(interval);
+        }
+      }, 200);
+      return () => {
+        isMounted = false;
+        clearInterval(interval);
+      };
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [onGoogleLogin, mode, GOOGLE_CLIENT_ID]);
 
   const displayError = localError || (externalErrorVisible ? error : "");
 
@@ -304,21 +381,43 @@ export default function LoginPage({
 
             {/* Enterprise SSO Social Sign-In Buttons */}
             <div className="mt-5 space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSocialModal("google");
-                    setCustomSocialEmail("");
-                    setCustomSocialName("");
-                    clearErrors();
-                  }}
-                  disabled={loading || socialSubmitting}
-                  className="group flex min-h-[42px] items-center justify-center gap-2.5 rounded-xl border border-slate-700/80 bg-[#070D1A]/90 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-[#0E172A] hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400/40 disabled:opacity-50 shadow-sm"
-                >
-                  <GoogleIcon className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110" />
-                  <span>Continue with Google</span>
-                </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 items-center">
+                {/* Official Google Identity Services Button Container */}
+                <div className="relative flex min-h-[42px] items-center justify-center overflow-hidden rounded-xl border border-slate-700/80 bg-[#070D1A]/90 p-0.5 shadow-sm transition hover:border-slate-500">
+                  <div
+                    ref={googleBtnContainerRef}
+                    id="google-signin-btn-container"
+                    className="w-full flex items-center justify-center"
+                  />
+                  {(!googleReady || googleAuthenticating) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        clearErrors();
+                        if (window.google?.accounts?.id) {
+                          window.google.accounts.id.prompt();
+                        } else {
+                          setLocalError("Google Identity Services is initializing. Please check your network or browser settings.");
+                        }
+                      }}
+                      disabled={loading || googleAuthenticating}
+                      className="group absolute inset-0 flex items-center justify-center gap-2.5 bg-[#070D1A] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 transition hover:bg-[#0E172A] hover:text-white disabled:opacity-60"
+                    >
+                      {googleAuthenticating ? (
+                        <Loader2 className="h-4 w-4 animate-spin text-indigo-400" />
+                      ) : (
+                        <GoogleIcon className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110" />
+                      )}
+                      <span>
+                        {googleAuthenticating
+                          ? "Verifying Token..."
+                          : mode === "register"
+                          ? "Sign up with Google"
+                          : "Continue with Google"}
+                      </span>
+                    </button>
+                  )}
+                </div>
 
                 <button
                   type="button"
@@ -328,7 +427,7 @@ export default function LoginPage({
                     setCustomSocialName("");
                     clearErrors();
                   }}
-                  disabled={loading || socialSubmitting}
+                  disabled={loading || socialSubmitting || googleAuthenticating}
                   className="group flex min-h-[42px] items-center justify-center gap-2.5 rounded-xl border border-slate-700/80 bg-[#070D1A]/90 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-[#0E172A] hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400/40 disabled:opacity-50 shadow-sm"
                 >
                   <GitHubIcon className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110" />

@@ -39,6 +39,15 @@ class UserLoginRequest(BaseModel):
     password: str = Field(..., min_length=1, max_length=72, examples=["StrongPass123"])
 
 
+class GoogleAuthRequest(BaseModel):
+    id_token: str = Field(
+        ...,
+        min_length=10,
+        description="Google ID Token issued by Google Identity Services",
+        examples=["eyJhbGciOiJSUzI1NiIsImtpZCI6Ij..."],
+    )
+
+
 class SocialLoginRequest(BaseModel):
     provider: str = Field(..., examples=["google", "github"])
     email: EmailStr = Field(..., examples=["user@gmail.com"])
