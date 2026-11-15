@@ -9,6 +9,7 @@ export default defineConfig({
   server: {
     host: process.env.VITE_HOST || "::",
     port: 5173,
+    allowedHosts: true,
     proxy: {
       "/api": {
         target: apiProxyTarget,

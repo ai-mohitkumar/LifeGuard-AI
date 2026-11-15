@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertCircle,
   ArrowRight,
@@ -20,29 +20,6 @@ import {
   Zap,
 } from "lucide-react";
 import BrandLogo from "../components/BrandLogo";
-
-function GoogleIcon({ className = "h-4 w-4" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="#4285F4"
-        d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.15z"
-      />
-      <path
-        fill="#34A853"
-        d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.25 21.37 7.31 24 12 24z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M5.28 14.27a7.2 7.2 0 0 1 0-4.54V6.58H1.26a11.96 11.96 0 0 0 0 10.84l4.02-3.15z"
-      />
-      <path
-        fill="#EA4335"
-        d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.25 2.63 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
-      />
-    </svg>
-  );
-}
 
 function GitHubIcon({ className = "h-4 w-4" }) {
   return (
@@ -102,7 +79,6 @@ const TELEMETRY_MODULES = [
 export default function LoginPage({
   onLogin,
   onRegister,
-  onGoogleLogin,
   loading = false,
   error = "",
 }) {
@@ -117,85 +93,9 @@ export default function LoginPage({
   const [localError, setLocalError] = useState("");
   const [externalErrorVisible, setExternalErrorVisible] = useState(Boolean(error));
 
-  // Google Identity Services (GIS) States
-  const googleBtnContainerRef = useRef(null);
-  const [googleReady, setGoogleReady] = useState(false);
-  const [googleAuthenticating, setGoogleAuthenticating] = useState(false);
-
-  const GOOGLE_CLIENT_ID =
-    import.meta.env.VITE_GOOGLE_CLIENT_ID ||
-    "981860772372-uvhn6fnfkfhpfskar3bk1i7de4fsp3b9.apps.googleusercontent.com";
-
   useEffect(() => {
     setExternalErrorVisible(Boolean(error));
   }, [error]);
-
-  // Initialize and render official Google Identity Services button
-  useEffect(() => {
-    let isMounted = true;
-
-    function renderGsiButton() {
-      if (!window.google?.accounts?.id || !googleBtnContainerRef.current) return false;
-
-      try {
-        window.google.accounts.id.initialize({
-          client_id: GOOGLE_CLIENT_ID,
-          callback: async (response) => {
-            if (!response?.credential) {
-              setLocalError("Google sign-in did not return a valid credential.");
-              return;
-            }
-            clearErrors();
-            setGoogleAuthenticating(true);
-            try {
-              if (typeof onGoogleLogin === "function") {
-                await onGoogleLogin(response.credential);
-              }
-            } catch (err) {
-              setLocalError(err.message || "Failed to authenticate with Google.");
-            } finally {
-              if (isMounted) setGoogleAuthenticating(false);
-            }
-          },
-          auto_select: false,
-          cancel_on_tap_outside: true,
-        });
-
-        googleBtnContainerRef.current.innerHTML = "";
-        window.google.accounts.id.renderButton(googleBtnContainerRef.current, {
-          type: "standard",
-          theme: "filled_black",
-          size: "large",
-          text: mode === "register" ? "signup_with" : "continue_with",
-          shape: "rectangular",
-          logo_alignment: "left",
-          width: 240,
-        });
-
-        if (isMounted) setGoogleReady(true);
-        return true;
-      } catch (err) {
-        console.warn("Failed to initialize Google Identity Services:", err);
-        return false;
-      }
-    }
-
-    if (!renderGsiButton()) {
-      const interval = setInterval(() => {
-        if (renderGsiButton()) {
-          clearInterval(interval);
-        }
-      }, 200);
-      return () => {
-        isMounted = false;
-        clearInterval(interval);
-      };
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [onGoogleLogin, mode, GOOGLE_CLIENT_ID]);
 
   const displayError = localError || (externalErrorVisible ? error : "");
 
@@ -217,6 +117,13 @@ export default function LoginPage({
     setConfirmPassword("Enterprise@2026");
     setName("Mohit Kumar");
     clearErrors();
+  }
+
+  async function handleInstantDemo() {
+    clearErrors();
+    if (typeof onLogin === "function") {
+      await onLogin("mohit@lifeguard.ai", "Enterprise@2026");
+    }
   }
 
   function handleGitHubOAuth() {
@@ -355,50 +262,24 @@ export default function LoginPage({
               </div>
             )}
 
-            {/* Enterprise SSO Social Sign-In Buttons */}
+            {/* Fast Access & Social Sign-In */}
             <div className="mt-5 space-y-3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 items-center">
-                {/* Official Google Identity Services Button Container */}
-                <div className="relative flex min-h-[42px] items-center justify-center overflow-hidden rounded-xl border border-slate-700/80 bg-[#070D1A]/90 p-0.5 shadow-sm transition hover:border-slate-500">
-                  <div
-                    ref={googleBtnContainerRef}
-                    id="google-signin-btn-container"
-                    className="w-full flex items-center justify-center"
-                  />
-                  {(!googleReady || googleAuthenticating) && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        clearErrors();
-                        if (window.google?.accounts?.id) {
-                          window.google.accounts.id.prompt();
-                        } else {
-                          setLocalError("Google Identity Services is initializing. Please check your network or browser settings.");
-                        }
-                      }}
-                      disabled={loading || googleAuthenticating}
-                      className="group absolute inset-0 flex items-center justify-center gap-2.5 bg-[#070D1A] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 transition hover:bg-[#0E172A] hover:text-white disabled:opacity-60"
-                    >
-                      {googleAuthenticating ? (
-                        <Loader2 className="h-4 w-4 animate-spin text-indigo-400" />
-                      ) : (
-                        <GoogleIcon className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110" />
-                      )}
-                      <span>
-                        {googleAuthenticating
-                          ? "Verifying Token..."
-                          : mode === "register"
-                          ? "Sign up with Google"
-                          : "Continue with Google"}
-                      </span>
-                    </button>
-                  )}
-                </div>
+                {/* 1-Click Instant Demo Button */}
+                <button
+                  type="button"
+                  onClick={handleInstantDemo}
+                  disabled={loading}
+                  className="group flex min-h-[42px] items-center justify-center gap-2 rounded-xl border border-indigo-500/40 bg-indigo-500/10 px-4 py-2.5 text-xs sm:text-sm font-semibold text-indigo-200 transition hover:border-indigo-400 hover:bg-indigo-500/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400/40 disabled:opacity-50 shadow-sm"
+                >
+                  <Sparkles className="h-4 w-4 text-indigo-400 transition-transform group-hover:scale-110" />
+                  <span>1-Click Instant Access</span>
+                </button>
 
                 <button
                   type="button"
                   onClick={handleGitHubOAuth}
-                  disabled={loading || googleAuthenticating}
+                  disabled={loading}
                   className="group flex min-h-[42px] items-center justify-center gap-2.5 rounded-xl border border-slate-700/80 bg-[#070D1A]/90 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-[#0E172A] hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400/40 disabled:opacity-50 shadow-sm"
                 >
                   <GitHubIcon className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110" />

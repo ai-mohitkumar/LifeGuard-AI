@@ -36,7 +36,7 @@ function ProtectedLayout({ children }) {
 }
 
 function PublicOnlyLogin() {
-  const { user, loading, login, register, googleLogin } = useAuth();
+  const { user, loading, login, register } = useAuth();
   const navigate = useNavigate();
   const [authError, setAuthError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -79,24 +79,10 @@ function PublicOnlyLogin() {
     }
   }
 
-  async function handleGoogleLogin(idToken) {
-    setAuthError("");
-    setSubmitting(true);
-    try {
-      await googleLogin(idToken);
-      navigate("/");
-    } catch (err) {
-      setAuthError(err.message || "Google authentication failed. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
   return (
     <LoginPage
       onLogin={handleLogin}
       onRegister={handleRegister}
-      onGoogleLogin={handleGoogleLogin}
       loading={submitting}
       error={authError}
     />
