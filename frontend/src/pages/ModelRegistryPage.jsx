@@ -650,10 +650,10 @@ export default function ModelRegistryPage() {
                           : []),
                       ]}
                       layout={{
-                        margin: { l: 50, r: 16, t: 12, b: 44 },
+                        margin: { l: 45, r: 16, t: 12, b: 52 },
                         xaxis: { title: "Mean Predicted Probability", range: [0, 1] },
                         yaxis: { title: "Observed Fraction Positive", range: [0, 1] },
-                        legend: { orientation: "h", y: -0.25 },
+                        legend: { orientation: "h", y: -0.3, x: 0 },
                       }}
                       className="h-64 w-full"
                     />
@@ -670,7 +670,7 @@ export default function ModelRegistryPage() {
                     {isPrice ? (
                       <>
                         {m.error_analysis?.tier_mae?.length > 0 && (
-                          <div className="mt-2 grid grid-cols-3 gap-2 text-xs">
+                          <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
                             {m.error_analysis.tier_mae.map((t) => (
                               <div
                                 key={t.tier}
@@ -753,7 +753,7 @@ export default function ModelRegistryPage() {
                     ) : isAqiCls ? (
                       <>
                         {m.error_analysis?.per_class_f1 && (
-                          <div className="mt-2 grid grid-cols-3 gap-2 text-xs">
+                          <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
                             {Object.entries(m.error_analysis.per_class_f1).map(([cat, f1Val]) => (
                               <div
                                 key={cat}

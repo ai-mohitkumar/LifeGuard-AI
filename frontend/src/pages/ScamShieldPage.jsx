@@ -274,7 +274,7 @@ export default function ScamShieldPage() {
       {result && tier && (
         <div className="grid gap-6 lg:grid-cols-5">
           {/* Left: Semicircle Risk Gauge, Top 3 Reasons, Safety Tip & Feedback */}
-          <div className="space-y-5 rounded-card border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-brand-surface lg:col-span-2">
+          <div className="space-y-5 rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span
                 className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-bold ${tier.badge}`}
@@ -344,7 +344,7 @@ export default function ScamShieldPage() {
                 <h3 className="mb-2 font-display text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                   Extracted URL Lexical Features
                 </h3>
-                <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   {Object.entries(result.extracted_features).map(([k, v]) => (
                     <div
                       key={k}
@@ -368,7 +368,7 @@ export default function ScamShieldPage() {
           </div>
 
           {/* Right: Plotly Explainability Chart */}
-          <div className="rounded-card border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-brand-surface lg:col-span-3">
+          <div className="rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-3">
             <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
               {result.sub_model === "sms"
                 ? "Top Words / N-grams Driving Prediction"
@@ -382,7 +382,7 @@ export default function ScamShieldPage() {
               <PlotlyChart
                 data={plotData}
                 layout={{
-                  margin: { l: 140, r: 24, t: 16, b: 40 },
+                  margin: { l: 16, r: 20, t: 16, b: 40 },
                   xaxis: {
                     title:
                       result.sub_model === "sms"

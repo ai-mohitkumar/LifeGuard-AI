@@ -1035,9 +1035,9 @@ export default function AirAwarePage() {
                 <PlotlyChart
                   data={timelineData}
                   layout={{
-                    margin: { l: 48, r: 16, t: 12, b: 44 },
+                    margin: { l: 44, r: 16, t: 12, b: 52 },
                     yaxis: { title: "Next-Day AQI" },
-                    legend: { orientation: "h", y: -0.25 },
+                    legend: { orientation: "h", y: -0.3, x: 0 },
                   }}
                   className="mt-2 h-64 w-full"
                 />
@@ -1110,22 +1110,22 @@ export default function AirAwarePage() {
                   Click any station to open full SHAP drivers, probabilities, and CPCB health advice.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2">
-                <div className="relative">
+              <div className="flex w-full flex-wrap gap-2 sm:w-auto">
+                <div className="relative w-full sm:w-56">
                   <Search className="pointer-events-none absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
                   <input
                     type="text"
                     value={indiaSearch}
                     onChange={(e) => setIndiaSearch(e.target.value)}
                     placeholder="Search station, city, state..."
-                    className="w-56 rounded-xl border border-slate-300 bg-white py-1.5 pl-8 pr-3 text-xs text-brand-navy outline-none focus:border-module-aqi dark:border-slate-700 dark:bg-brand-navy dark:text-slate-100"
+                    className="w-full rounded-xl border border-slate-300 bg-white py-1.5 pl-8 pr-3 text-xs text-brand-navy outline-none focus:border-module-aqi dark:border-slate-700 dark:bg-brand-navy dark:text-slate-100"
                   />
                 </div>
                 <select
                   aria-label="Filter by State"
                   value={indiaStateFilter}
                   onChange={(e) => setIndiaStateFilter(e.target.value)}
-                  className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs text-brand-navy outline-none focus:border-module-aqi dark:border-slate-700 dark:bg-brand-navy dark:text-slate-100"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs text-brand-navy outline-none focus:border-module-aqi dark:border-slate-700 dark:bg-brand-navy dark:text-slate-100 sm:w-auto"
                 >
                   <option value="ALL">All 36 States &amp; UTs</option>
                   {sortedStates.map((s) => (

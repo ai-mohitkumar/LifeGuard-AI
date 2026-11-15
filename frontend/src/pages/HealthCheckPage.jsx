@@ -777,7 +777,7 @@ export default function HealthCheckPage() {
       {/* Results & Calibration Reliability Panels */}
       <div className="grid gap-6 lg:grid-cols-5">
         {/* Left: Risk Verdict or Waiting Prompt */}
-        <div className="space-y-5 rounded-card border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-brand-surface lg:col-span-2">
+        <div className="space-y-5 rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-2">
           {result && tier ? (
             <>
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -833,7 +833,7 @@ export default function HealthCheckPage() {
         </div>
 
         {/* Right: Feature Drivers + Calibration Reliability Curve */}
-        <div className="space-y-6 rounded-card border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-brand-surface lg:col-span-3">
+        <div className="space-y-6 rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-3">
           {driverPlotData.length > 0 && (
             <div>
               <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
@@ -845,7 +845,7 @@ export default function HealthCheckPage() {
               <PlotlyChart
                 data={driverPlotData}
                 layout={{
-                  margin: { l: 170, r: 24, t: 12, b: 36 },
+                  margin: { l: 16, r: 20, t: 12, b: 36 },
                   xaxis: {
                     title: "Model Log-Odds / SHAP Contribution",
                     zeroline: true,
@@ -885,10 +885,10 @@ export default function HealthCheckPage() {
               <PlotlyChart
                 data={calPlotData}
                 layout={{
-                  margin: { l: 55, r: 20, t: 16, b: 48 },
+                  margin: { l: 45, r: 16, t: 16, b: 54 },
                   xaxis: { title: "Mean Predicted Probability", range: [0, 1] },
                   yaxis: { title: "Fraction of Positives", range: [0, 1] },
-                  legend: { orientation: "h", y: -0.25 },
+                  legend: { orientation: "h", y: -0.3, x: 0 },
                 }}
                 className="mt-2 h-72 w-full"
               />

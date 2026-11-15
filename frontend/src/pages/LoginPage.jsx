@@ -311,7 +311,7 @@ export default function LoginPage({
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[12px] bg-[#3B3FD8] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(59,63,216,0.7)] transition hover:bg-[#494DF0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#818CF8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F172A] disabled:cursor-not-allowed disabled:opacity-65"
+              className="mt-2 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[12px] bg-[#3B3FD8] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(59,63,216,0.7)] transition hover:bg-[#494DF0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#818CF8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F172A] disabled:cursor-not-allowed disabled:opacity-65"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -350,14 +350,14 @@ export default function LoginPage({
                   role="tab"
                   aria-selected={selected}
                   onClick={() => setActivePreview(id)}
-                  className={`inline-flex items-center justify-center gap-1.5 rounded-xl border px-2 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#818CF8] ${
+                  className={`inline-flex min-h-[40px] items-center justify-center gap-1.5 rounded-xl border px-1.5 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#818CF8] ${
                     selected
                       ? activeTab
                       : "border-white/10 bg-white/[0.03] text-slate-300 hover:bg-white/[0.08] hover:text-white"
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                  <span>{label}</span>
+                  <span className="truncate">{label}</span>
                 </button>
               );
             })}

@@ -516,7 +516,7 @@ export default function FairPricePage() {
       {result && (
         <div className="grid gap-6 lg:grid-cols-5">
           {/* Left: Estimate & Features & Feedback */}
-          <div className="space-y-5 rounded-card border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-brand-surface lg:col-span-2">
+          <div className="space-y-5 rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-2">
             <div className="flex items-center justify-between">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-100 px-3 py-1 text-xs font-bold uppercase text-verdict-safe-ink dark:border-green-800/60 dark:bg-green-950/50 dark:text-green-300">
                 <TrendingUp className="h-3.5 w-3.5" />
@@ -557,7 +557,7 @@ export default function FairPricePage() {
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                   Pipeline-Engineered Features
                 </h3>
-                <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   {Object.entries(result.extracted_features).map(([k, v]) => (
                     <div
                       key={k}
@@ -582,7 +582,7 @@ export default function FairPricePage() {
           </div>
 
           {/* Right: SHAP Valuation Breakdown */}
-          <div className="rounded-card border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-brand-surface lg:col-span-3">
+          <div className="rounded-card border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-brand-surface sm:p-6 lg:col-span-3">
             <h2 className="font-display text-base font-bold text-brand-navy dark:text-white">
               Top SHAP Feature Contributions (INR Impact)
             </h2>
@@ -595,7 +595,7 @@ export default function FairPricePage() {
               <PlotlyChart
                 data={plotData}
                 layout={{
-                  margin: { l: 175, r: 24, t: 16, b: 44 },
+                  margin: { l: 16, r: 20, t: 16, b: 44 },
                   xaxis: {
                     title: "SHAP Valuation Shift (INR)",
                     zeroline: true,
