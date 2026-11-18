@@ -1115,19 +1115,25 @@ export async function apiRequest(path, options = {}) {
   }
 
   const fullUrl = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
+  const timeoutMs = path.startsWith("/api/auth") || path.startsWith("/api/health") ? 3500 : 8000;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
   let response;
   try {
     response = await fetch(fullUrl, {
       credentials: "include",
+      signal: controller.signal,
       ...options,
       headers,
     });
   } catch (networkErr) {
-    // Backend completely unreachable -> use edge fallback
+    // Backend completely unreachable or timed out -> use edge fallback
     const fallback = getOfflineFallback(path, options);
     if (fallback !== undefined) return fallback;
     throw networkErr;
+  } finally {
+    clearTimeout(timeoutId);
   }
 
   const contentType = response.headers.get("content-type") || "";
