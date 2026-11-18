@@ -1115,7 +1115,7 @@ export async function apiRequest(path, options = {}) {
   }
 
   const fullUrl = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
-  const timeoutMs = path.startsWith("/api/auth") || path.startsWith("/api/health") ? 3500 : 8000;
+  const timeoutMs = path.startsWith("/api/auth") || path.startsWith("/api/health") ? 5000 : 15000;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 

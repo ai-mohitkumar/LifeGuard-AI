@@ -45,4 +45,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        value: https://lifeguard-ai-backend.onrender.com
+        value: https://lifeguard-ai-backend-3088.onrender.com
