@@ -168,6 +168,7 @@ class AqiFeatureExtractor(BaseEstimator, TransformerMixin):
             lons_resolved.append(float(lon_in) if pd.notna(lon_in) else (float(r_lon) if r_lon is not None else np.nan))
 
         out: dict[str, Any] = {
+            "station": pd.Series(stations_clean, index=df.index, dtype="object"),
             "state": pd.Series(states_resolved, index=df.index, dtype="object"),
             "latitude": pd.Series(lats_resolved, index=df.index, dtype=np.float64),
             "longitude": pd.Series(lons_resolved, index=df.index, dtype=np.float64),

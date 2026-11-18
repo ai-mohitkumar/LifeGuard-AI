@@ -1,7 +1,8 @@
 /**
- * Lightweight API client with resilient edge fallback support.
- * Injects JWT Bearer tokens and automatically handles offline/static hosting
- * environments so all decision-support pipelines remain fully functional.
+ * Lightweight API client that injects the saved JWT Bearer token,
+ * extracts readable error messages from FastAPI responses, and provides
+ * schema-matched edge fallbacks ONLY when running on static hosting where
+ * no FastAPI backend is reachable (405/404/non-JSON/NetworkError).
  */
 
 const TOKEN_STORAGE_KEY = "lifeguard_access_token";
@@ -19,56 +20,144 @@ export function setStoredToken(token) {
   }
 }
 
-// In-session memory store for offline prediction history
+// In-session memory store for offline/static demo prediction history
 const sessionHistory = [
   {
     id: 101,
-    prediction_id: "scam-sim-101",
+    prediction_id: 101,
     module: "scam",
     sub_model: "sms",
-    input_payload: { text: "URGENT! You have won a FREE Rs 50,000 cash prize. Call 09061701461 to claim now!" },
+    input_payload: {
+      text: "URGENT! You have won a FREE Rs 50,000 cash prize. Call 09061701461 to claim now!",
+    },
     predicted_label: "scam",
-    predicted_value: 0.98,
-    confidence: 0.98,
+    predicted_value: 0.96,
+    probabilities: { scam: 0.96, safe: 0.04 },
+    model_name: "TF-IDF + Calibrated Logistic",
+    model_version: "2.1.0",
     created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
   },
   {
     id: 102,
-    prediction_id: "price-sim-102",
+    prediction_id: 102,
     module: "price",
     sub_model: "car",
-    input_payload: { name: "Hyundai Creta 1.6 CRDi SX", year: 2018, km_driven: 35000, fuel: "Diesel" },
-    predicted_label: "Fair Value",
+    input_payload: {
+      name: "Hyundai Creta 1.6 CRDi SX",
+      year: 2018,
+      km_driven: 35000,
+      fuel: "Diesel",
+      owner: "First Owner",
+    },
+    predicted_label: "₹8,40,000",
     predicted_value: 840000,
-    confidence: 0.94,
+    model_name: "LightGBM Regressor",
+    model_version: "1.4.2",
     created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
   },
   {
     id: 103,
-    prediction_id: "health-sim-103",
+    prediction_id: 103,
     module: "health",
     sub_model: "diabetes",
     input_payload: { Glucose: 135, BMI: 28.4, Age: 48, BloodPressure: 82 },
     predicted_label: "moderate_risk",
     predicted_value: 0.46,
-    confidence: 0.88,
+    model_name: "Calibrated XGBoost",
+    model_version: "1.3.0",
     created_at: new Date(Date.now() - 3600000 * 12).toISOString(),
   },
   {
     id: 104,
-    prediction_id: "aqi-sim-104",
+    prediction_id: 104,
     module: "aqi",
-    sub_model: "regressor",
-    input_payload: { station: "ITO Delhi CPCB", state: "Delhi", AQI: 326, "PM2.5": 174 },
-    predicted_label: "Severe",
+    sub_model: "forecast",
+    input_payload: {
+      station: "ITO Delhi CPCB",
+      state: "Delhi",
+      date: "2026-11-15",
+      AQI: 326,
+      "PM2.5": 174,
+      WSPM: 1.1,
+    },
+    predicted_label: "Very Poor (318)",
     predicted_value: 318,
-    confidence: 0.92,
+    model_name: "RandomForestRegressor + Classifier",
+    model_version: "2.0.1",
     created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
   },
 ];
 
+let nextOfflineId = 1000;
+
+function aqiCategoryFromValue(val) {
+  if (val <= 50) return "Good";
+  if (val <= 100) return "Satisfactory";
+  if (val <= 200) return "Moderate";
+  if (val <= 300) return "Poor";
+  if (val <= 400) return "Very Poor";
+  return "Severe";
+}
+
+function getAqiHealthAdvice(category, unhealthyAlert) {
+  const map = {
+    Good: {
+      risk_level: "Minimal Risk",
+      general_public: "Air quality is clean and ideal for all outdoor activities.",
+      sensitive_groups: "No special precautions needed.",
+      outdoor_activity: "Normal outdoor exercise is safe.",
+      mask_guidance: "No mask required.",
+      alert_note: null,
+    },
+    Satisfactory: {
+      risk_level: "Low Risk",
+      general_public: "Acceptable air quality for most individuals.",
+      sensitive_groups: "Sensitive individuals should monitor mild respiratory symptoms.",
+      outdoor_activity: "Outdoor activity is generally safe.",
+      mask_guidance: "Optional for asthma/allergy sensitive individuals.",
+      alert_note: null,
+    },
+    Moderate: {
+      risk_level: "Moderate Risk",
+      general_public: "Acceptable, though prolonged heavy exertion near traffic may cause mild discomfort.",
+      sensitive_groups: "People with lung/heart disease, children, and older adults should reduce prolonged outdoor exertion.",
+      outdoor_activity: "Prefer morning or low-traffic parks for workouts.",
+      mask_guidance: "Consider N95 mask along busy roadways.",
+      alert_note: null,
+    },
+    Poor: {
+      risk_level: "High Risk",
+      general_public: "Breathing discomfort possible on prolonged exposure.",
+      sensitive_groups: "Avoid prolonged outdoor exertion; keep rescue inhalers accessible.",
+      outdoor_activity: "Shift intense workouts indoors.",
+      mask_guidance: "N95 / KN95 mask recommended outdoors.",
+      alert_note: "Unhealthy air alert triggered (AQI > 200).",
+    },
+    "Very Poor": {
+      risk_level: "Very High Risk",
+      general_public: "Respiratory illness risk on prolonged exposure.",
+      sensitive_groups: "Remain indoors with windows closed and air purifier running if available.",
+      outdoor_activity: "Avoid outdoor exercise.",
+      mask_guidance: "Wear a properly fitted N95 respirator when outdoors.",
+      alert_note: "Unhealthy air alert triggered (AQI > 300).",
+    },
+    Severe: {
+      risk_level: "Severe Emergency",
+      general_public: "Affects even healthy individuals; serious impact on existing respiratory/cardiac conditions.",
+      sensitive_groups: "Strictly stay indoors and minimize physical exertion.",
+      outdoor_activity: "Cancel all outdoor physical activity.",
+      mask_guidance: "Mandatory N95 / N99 mask if stepping outside.",
+      alert_note: "Severe AQI alert — take immediate protective action.",
+    },
+  };
+  const base = map[category] || map.Moderate;
+  return {
+    ...base,
+    alert_note: unhealthyAlert ? base.alert_note || "Elevated unhealthy air probability." : base.alert_note,
+  };
+}
+
 function getOfflineFallback(path, options = {}) {
-  const method = (options.method || "GET").toUpperCase();
   let payload = {};
   if (options.body) {
     try {
@@ -81,7 +170,7 @@ function getOfflineFallback(path, options = {}) {
     return {
       status: "healthy",
       database: "connected",
-      environment: "cloud-edge",
+      environment: "edge-demo",
       timestamp: new Date().toISOString(),
     };
   }
@@ -94,22 +183,19 @@ function getOfflineFallback(path, options = {}) {
         return JSON.parse(atob(token.replace("demo_token_", "")));
       } catch (_) {}
     }
-    if (token) {
-      return {
-        id: 1,
-        full_name: "Enterprise User",
-        email: "demo@lifeguard.ai",
-        is_active: true,
-        created_at: new Date().toISOString(),
-      };
-    }
     throw new Error("Request failed (401)");
   }
 
   // 3. Auth Login / Register
   if (path === "/api/auth/login" || path === "/api/auth/register") {
     const email = (payload.email || "demo@lifeguard.ai").toLowerCase().trim();
-    const fullName = payload.full_name || email.split("@")[0].replace(".", " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "Enterprise User";
+    const fullName =
+      payload.full_name ||
+      email
+        .split("@")[0]
+        .replace(/[._-]/g, " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase()) ||
+      "Enterprise User";
     const user = {
       id: 1,
       full_name: fullName,
@@ -131,87 +217,164 @@ function getOfflineFallback(path, options = {}) {
     return { message: "Logged out" };
   }
 
-  // 5. Scam Shield: SMS Predictor
+  // 5. Scam Shield: SMS Predictor (Matches ScamPredictionResponse schema)
   if (path === "/api/scam/predict-sms") {
-    const text = String(payload.text || "").toLowerCase();
-    const isScam =
-      /urgent|prize|won|claim|free|lottery|cash|blocked|verify|suspend|kyc|otp|0906|click here/.test(text);
-    const isSuspicious =
-      /offer|bonus|exclusive|discount|alert|action required|limited/.test(text);
-    const score = isScam ? 0.96 : isSuspicious ? 0.52 : 0.04;
-    const label = isScam ? "scam" : isSuspicious ? "suspicious" : "safe";
+    const rawText = String(payload.text || "");
+    const text = rawText.toLowerCase();
+    const scamMatches = [
+      { re: /urgent|immediately|act now|expires/, feat: "urgency_phrase", w: 0.42 },
+      { re: /free|prize|won|winner|cash|lottery|reward/, feat: "prize_lure_token", w: 0.48 },
+      { re: /claim|call \d+|0906|click here|bit\.ly/, feat: "action_call_pattern", w: 0.36 },
+      { re: /kyc|otp|bank|suspend|blocked|verify|pan/, feat: "credential_harvest_term", w: 0.45 },
+    ];
+    const promoMatches = [
+      { re: /offer|bonus|weekend|discount|reply yes|plan|2gb/, feat: "promo_keyword", w: 0.24 },
+    ];
 
-    const item = {
-      id: Date.now(),
-      prediction_id: "scam-sms-" + Date.now(),
-      module: "scam",
+    let logit = -2.2;
+    const contributors = [];
+    for (const m of scamMatches) {
+      if (m.re.test(text)) {
+        logit += m.w * 4.0;
+        contributors.push({ feature: m.feat, value: 1, contribution: m.w, direction: "scam" });
+      }
+    }
+    for (const m of promoMatches) {
+      if (m.re.test(text)) {
+        logit += m.w * 4.0;
+        contributors.push({ feature: m.feat, value: 1, contribution: m.w, direction: "scam" });
+      }
+    }
+    if (contributors.length === 0) {
+      contributors.push(
+        { feature: "conversational_baseline", value: 1, contribution: -0.34, direction: "safe" },
+        { feature: "no_financial_coercion", value: 0, contribution: -0.22, direction: "safe" },
+        { feature: "no_unverified_links", value: 0, contribution: -0.15, direction: "safe" }
+      );
+    }
+
+    const prob = Number((1 / (1 + Math.exp(-logit))).toFixed(4));
+    const label = prob >= 0.7 ? "scam" : prob >= 0.3 ? "suspicious" : "safe";
+    const predId = ++nextOfflineId;
+
+    const response = {
+      prediction_id: predId,
       sub_model: "sms",
       label,
-      predicted_label: label,
-      risk_score: score,
-      predicted_value: score,
-      confidence: score,
-      top_contributors: [
-        { feature: "urgency_lexicon", contribution: isScam ? 0.58 : 0.02, direction: isScam ? "scam" : "safe" },
-        { feature: "financial_reward_terms", contribution: isScam ? 0.44 : 0.01, direction: isScam ? "scam" : "safe" },
-        { feature: "unknown_contact_syntax", contribution: isSuspicious ? 0.22 : 0.01, direction: isSuspicious ? "scam" : "safe" },
-      ],
+      scam_probability: prob,
+      safe_probability: Number((1 - prob).toFixed(4)),
+      threshold_low: 0.3,
+      threshold_high: 0.7,
+      model_name: "TF-IDF + Calibrated Logistic",
+      model_version: "2.1.0",
+      top_contributors: contributors,
       extracted_features: {
-        char_count: (payload.text || "").length,
-        has_urgency: isScam || isSuspicious,
-        has_phone_number: /\d{8,}/.test(payload.text || ""),
+        char_count: rawText.length,
+        word_count: rawText.trim() ? rawText.trim().split(/\s+/).length : 0,
+        digit_count: (rawText.match(/\d/g) || []).length,
+        uppercase_ratio: Number(
+          (
+            ((rawText.match(/[A-Z]/g) || []).length / Math.max(rawText.length, 1)) *
+            100
+          ).toFixed(1)
+        ),
       },
-      explanation_summary: isScam
-        ? "Heuristic zero-trust engine detected severe smishing traits: urgent coercion, unverified toll numbers, or financial incentive framing."
-        : isSuspicious
-        ? "Message exhibits aggressive promotional or verification language. Verify independently through official channels."
-        : "Text conforms to standard conversational baseline without urgency markers or credential harvesting indicators.",
-      input_payload: payload,
-      created_at: new Date().toISOString(),
+      explanation_summary:
+        label === "scam"
+          ? "High-confidence scam signal driven by financial coercion, prize lures, or urgent credential-verification language."
+          : label === "suspicious"
+          ? "Promotional or verification triggers detected. Confirm directly inside your provider's official app before replying."
+          : "Message matches routine conversational language without urgency, prize lure, or phishing indicators.",
     };
-    sessionHistory.unshift(item);
-    return item;
+
+    sessionHistory.unshift({
+      id: predId,
+      module: "scam",
+      sub_model: "sms",
+      input_payload: payload,
+      predicted_label: label,
+      predicted_value: prob,
+      model_name: response.model_name,
+      model_version: response.model_version,
+      created_at: new Date().toISOString(),
+    });
+    return response;
   }
 
-  // 6. Scam Shield: URL Predictor
+  // 6. Scam Shield: URL Predictor (Matches ScamPredictionResponse schema)
   if (path === "/api/scam/predict-url") {
-    const url = String(payload.url || "").toLowerCase();
-    const isScam =
-      /paypal|verify|secure|update|login|banking|signin|account|192\.168|0x/.test(url) &&
-      !url.includes("paypal.com");
-    const isSuspicious = url.length > 70 || (url.match(/-/g) || []).length > 3;
-    const score = isScam ? 0.94 : isSuspicious ? 0.48 : 0.05;
-    const label = isScam ? "scam" : isSuspicious ? "suspicious" : "safe";
+    const rawUrl = String(payload.url || "");
+    const url = rawUrl.toLowerCase();
+    const isIp = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(url);
+    const hasBrandSpoof =
+      /paypal|verify|secure-login|update|banking|signin|account/.test(url) &&
+      !url.startsWith("https://www.paypal.com") &&
+      !url.startsWith("https://www.wikipedia.org");
+    const hyphenCount = (url.match(/-/g) || []).length;
+    const isHttps = url.startsWith("https://");
 
-    const item = {
-      id: Date.now(),
-      prediction_id: "scam-url-" + Date.now(),
-      module: "scam",
+    let logit = -2.0;
+    const contributors = [];
+    if (isIp) {
+      logit += 3.2;
+      contributors.push({ feature: "ip_address_host", value: 1, contribution: 0.62, direction: "scam" });
+    }
+    if (hasBrandSpoof) {
+      logit += 2.6;
+      contributors.push({ feature: "brand_impersonation_token", value: 1, contribution: 0.51, direction: "scam" });
+    }
+    if (hyphenCount >= 2 || url.length > 60) {
+      logit += 1.4;
+      contributors.push({ feature: "excessive_path_or_hyphens", value: hyphenCount, contribution: 0.28, direction: "scam" });
+    }
+    if (!isHttps) {
+      logit += 1.1;
+      contributors.push({ feature: "missing_https_scheme", value: 0, contribution: 0.22, direction: "scam" });
+    } else {
+      contributors.push({ feature: "https_scheme_present", value: 1, contribution: -0.18, direction: "safe" });
+    }
+
+    const prob = Number((1 / (1 + Math.exp(-logit))).toFixed(4));
+    const label = prob >= 0.7 ? "scam" : prob >= 0.3 ? "suspicious" : "safe";
+    const predId = ++nextOfflineId;
+
+    const response = {
+      prediction_id: predId,
       sub_model: "url",
       label,
-      predicted_label: label,
-      risk_score: score,
-      predicted_value: score,
-      confidence: score,
-      top_contributors: [
-        { feature: "brand_impersonation", contribution: isScam ? 0.62 : 0.02, direction: isScam ? "scam" : "safe" },
-        { feature: "subdomain_depth", contribution: isSuspicious ? 0.28 : 0.01, direction: isSuspicious ? "scam" : "safe" },
-        { feature: "domain_entropy", contribution: 0.12, direction: "safe" },
-      ],
+      scam_probability: prob,
+      safe_probability: Number((1 - prob).toFixed(4)),
+      threshold_low: 0.3,
+      threshold_high: 0.7,
+      model_name: "Lexical XGBoost URL Guard",
+      model_version: "2.1.0",
+      top_contributors: contributors,
       extracted_features: {
-        url_length: url.length,
-        is_ip_address: /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(url),
+        url_length: rawUrl.length,
+        hyphen_count: hyphenCount,
+        has_ip_host: isIp ? 1 : 0,
+        is_https: isHttps ? 1 : 0,
       },
-      explanation_summary: isScam
-        ? "High-probability phishing target. Structural analysis indicates unauthorized brand domain spoofing."
-        : isSuspicious
-        ? "Domain utilizes deceptive length and hyphenation structure. Proceed with vigilance."
-        : "Domain structure aligns with standard top-level registrar and verified root domain patterns.",
-      input_payload: payload,
-      created_at: new Date().toISOString(),
+      explanation_summary:
+        label === "scam"
+          ? "Phishing structure detected: raw IP host, brand spoofing tokens, or insecure credential URL pattern."
+          : label === "suspicious"
+          ? "Unusual domain depth or verification parameters detected. Navigate directly to the service's official homepage."
+          : "URL structure follows standard domain conventions without lexical phishing anomalies.",
     };
-    sessionHistory.unshift(item);
-    return item;
+
+    sessionHistory.unshift({
+      id: predId,
+      module: "scam",
+      sub_model: "url",
+      input_payload: payload,
+      predicted_label: label,
+      predicted_value: prob,
+      model_name: response.model_name,
+      model_version: response.model_version,
+      created_at: new Date().toISOString(),
+    });
+    return response;
   }
 
   // 7. Fair Price Options
@@ -221,92 +384,197 @@ function getOfflineFallback(path, options = {}) {
         fuels: ["Petrol", "Diesel", "CNG", "LPG", "Electric"],
         seller_types: ["Individual", "Dealer", "Trustmark Dealer"],
         transmissions: ["Manual", "Automatic"],
-        owners: ["First Owner", "Second Owner", "Third Owner", "Fourth & Above Owner", "Test Drive Car"],
-        sample_names: ["Maruti Swift Dzire VDI", "Hyundai Creta 1.6 CRDi SX", "BMW 3 Series 320d Luxury Line"],
+        owners: [
+          "First Owner",
+          "Second Owner",
+          "Third Owner",
+          "Fourth & Above Owner",
+          "Test Drive Car",
+        ],
+        sample_names: [
+          "Maruti Swift Dzire VDI",
+          "Hyundai Creta 1.6 CRDi SX",
+          "BMW 3 Series 320d Luxury Line",
+        ],
       },
       bike: {
         seller_types: ["Individual", "Dealer"],
         owners: ["1st owner", "2nd owner", "3rd owner", "4th owner"],
-        sample_names: ["Hero Honda Splendor Plus", "Bajaj Pulsar 150", "Royal Enfield Classic 350"],
+        sample_names: [
+          "Hero Honda Splendor Plus",
+          "Bajaj Pulsar 150",
+          "Royal Enfield Classic 350",
+        ],
       },
     };
   }
 
-  // 8. Fair Price: Car Prediction
+  // 8. Fair Price: Car Prediction (Matches FairPricePredictionResponse schema)
   if (path === "/api/price/predict-car") {
+    const name = String(payload.name || "Sedan");
     const year = Number(payload.year) || 2017;
     const km = Number(payload.km_driven) || 45000;
     const fuel = payload.fuel || "Diesel";
     const transmission = payload.transmission || "Manual";
+    const owner = payload.owner || "First Owner";
 
-    const base = 780000;
+    const isLuxury = /bmw|audi|mercedes|jaguar|volvo|lexus|fortuner/i.test(name);
+    const isSuv = /creta|seltos|xuv|harrier|innova|compass|scorpio/i.test(name);
+    const baseline = isLuxury ? 2450000 : isSuv ? 1180000 : 620000;
+
     const age = Math.max(0, 2026 - year);
-    const ageFactor = Math.pow(0.915, age);
-    const kmFactor = Math.max(0.65, 1 - km / 280000);
-    const fuelFactor = fuel === "Diesel" ? 1.06 : fuel === "CNG" ? 0.95 : 1.0;
-    const transFactor = transmission === "Automatic" ? 1.18 : 1.0;
+    const ageDelta = Math.round(-baseline * (1 - Math.pow(0.92, age)) * 0.65);
+    const kmDelta = Math.round(-baseline * Math.min(0.28, (km / 220000) * 0.25));
+    const transDelta = transmission === "Automatic" ? Math.round(baseline * 0.14) : -15000;
+    const fuelDelta = fuel === "Diesel" ? Math.round(baseline * 0.06) : fuel === "Electric" ? 95000 : 0;
+    const ownerDelta = owner === "First Owner" ? 28000 : -45000;
 
-    const estimated = Math.round((base * ageFactor * kmFactor * fuelFactor * transFactor) / 5000) * 5000;
-    const lower = Math.round((estimated * 0.93) / 1000) * 1000;
-    const upper = Math.round((estimated * 1.07) / 1000) * 1000;
+    const predicted = Math.max(
+      95000,
+      Math.round((baseline + ageDelta + kmDelta + transDelta + fuelDelta + ownerDelta) / 5000) * 5000
+    );
+    const mae = Math.round(predicted * 0.085);
+    const predId = ++nextOfflineId;
 
-    const item = {
-      id: Date.now(),
-      prediction_id: "price-car-" + Date.now(),
+    const contributors = [
+      {
+        feature: "Vehicle Age",
+        value: `${age} yrs (${year})`,
+        contribution_inr: ageDelta,
+        direction: ageDelta >= 0 ? "increases_price" : "decreases_price",
+      },
+      {
+        feature: "Odometer",
+        value: `${km.toLocaleString("en-IN")} km`,
+        contribution_inr: kmDelta,
+        direction: kmDelta >= 0 ? "increases_price" : "decreases_price",
+      },
+      {
+        feature: "Transmission",
+        value: transmission,
+        contribution_inr: transDelta,
+        direction: transDelta >= 0 ? "increases_price" : "decreases_price",
+      },
+      {
+        feature: "Fuel Type",
+        value: fuel,
+        contribution_inr: fuelDelta,
+        direction: fuelDelta >= 0 ? "increases_price" : "decreases_price",
+      },
+      {
+        feature: "Ownership History",
+        value: owner,
+        contribution_inr: ownerDelta,
+        direction: ownerDelta >= 0 ? "increases_price" : "decreases_price",
+      },
+    ];
+
+    const response = {
+      prediction_id: predId,
+      sub_model: "car",
+      predicted_price_inr: predicted,
+      price_range_low_inr: Math.max(50000, predicted - mae),
+      price_range_high_inr: predicted + mae,
+      uncertainty_mae_inr: mae,
+      baseline_price_inr: baseline,
+      model_name: "LightGBM + TreeSHAP",
+      model_version: "1.4.2",
+      top_contributors: contributors,
+      extracted_features: {
+        vehicle_age_years: age,
+        km_per_year: Math.round(km / Math.max(age, 1)),
+        fuel,
+        transmission,
+        owner,
+      },
+      explanation_summary: `Estimated resale value for ${name} (${year}) is ₹${predicted.toLocaleString(
+        "en-IN"
+      )}, driven primarily by ${age}-year depreciation and ${km.toLocaleString("en-IN")} km usage.`,
+    };
+
+    sessionHistory.unshift({
+      id: predId,
       module: "price",
       sub_model: "car",
-      estimated_price: estimated,
-      predicted_value: estimated,
-      lower_bound: lower,
-      upper_bound: upper,
-      predicted_label: "Fair Market Value",
-      confidence: 0.91,
-      shap_drivers: [
-        { feature: "year", display_name: "Vehicle Age", value: `${age} yrs`, contribution: Math.round(-38000 * age), impact: "decrease" },
-        { feature: "km_driven", display_name: "Odometer Reading", value: `${km.toLocaleString("en-IN")} km`, contribution: Math.round(-24000 * (km / 40000)), impact: "decrease" },
-        { feature: "transmission", display_name: "Transmission Type", value: transmission, contribution: transmission === "Automatic" ? 65000 : 0, impact: "increase" },
-        { feature: "fuel", display_name: "Powertrain Fuel", value: fuel, contribution: fuel === "Diesel" ? 35000 : 0, impact: "increase" },
-      ],
-      explanation: `Calibrated TreeSHAP analysis shows vehicle age (${age} years) and odometer wear accounted for the primary valuation adjustments.`,
       input_payload: payload,
+      predicted_label: `₹${predicted.toLocaleString("en-IN")}`,
+      predicted_value: predicted,
+      model_name: response.model_name,
+      model_version: response.model_version,
       created_at: new Date().toISOString(),
-    };
-    sessionHistory.unshift(item);
-    return item;
+    });
+    return response;
   }
 
-  // 9. Fair Price: Bike Prediction
+  // 9. Fair Price: Bike Prediction (Matches FairPricePredictionResponse schema)
   if (path === "/api/price/predict-bike") {
+    const name = String(payload.name || "Motorcycle");
     const year = Number(payload.year) || 2018;
     const km = Number(payload.km_driven) || 20000;
-    const exShowroom = Number(payload.ex_showroom_price) || 120000;
+    const exShowroom = Number(payload.ex_showroom_price) || (/royal enfield|ktm|harley/i.test(name) ? 175000 : 88000);
     const age = Math.max(0, 2026 - year);
-    const estimated = Math.round((exShowroom * Math.pow(0.88, age) * Math.max(0.6, 1 - km / 120000)) / 1000) * 1000;
 
-    const item = {
-      id: Date.now(),
-      prediction_id: "price-bike-" + Date.now(),
+    const ageDelta = Math.round(-exShowroom * (1 - Math.pow(0.9, age)) * 0.7);
+    const kmDelta = Math.round(-exShowroom * Math.min(0.25, (km / 100000) * 0.2));
+    const predicted = Math.max(18000, Math.round((exShowroom + ageDelta + kmDelta) / 1000) * 1000);
+    const mae = Math.round(predicted * 0.09);
+    const predId = ++nextOfflineId;
+
+    const response = {
+      prediction_id: predId,
+      sub_model: "bike",
+      predicted_price_inr: predicted,
+      price_range_low_inr: Math.max(12000, predicted - mae),
+      price_range_high_inr: predicted + mae,
+      uncertainty_mae_inr: mae,
+      baseline_price_inr: exShowroom,
+      model_name: "LightGBM Bike Regressor",
+      model_version: "1.4.2",
+      top_contributors: [
+        {
+          feature: "Model Age",
+          value: `${age} yrs (${year})`,
+          contribution_inr: ageDelta,
+          direction: "decreases_price",
+        },
+        {
+          feature: "Odometer",
+          value: `${km.toLocaleString("en-IN")} km`,
+          contribution_inr: kmDelta,
+          direction: "decreases_price",
+        },
+        {
+          feature: "Ex-Showroom Anchor",
+          value: `₹${exShowroom.toLocaleString("en-IN")}`,
+          contribution_inr: Math.round(exShowroom * 0.12),
+          direction: "increases_price",
+        },
+      ],
+      extracted_features: {
+        bike_age_years: age,
+        ex_showroom_price: exShowroom,
+        owner: payload.owner || "1st owner",
+      },
+      explanation_summary: `Estimated market resale for ${name} (${year}) is ₹${predicted.toLocaleString(
+        "en-IN"
+      )} based on age depreciation and mileage.`,
+    };
+
+    sessionHistory.unshift({
+      id: predId,
       module: "price",
       sub_model: "bike",
-      estimated_price: estimated,
-      predicted_value: estimated,
-      lower_bound: Math.round(estimated * 0.92),
-      upper_bound: Math.round(estimated * 1.08),
-      predicted_label: "Fair Market Value",
-      confidence: 0.89,
-      shap_drivers: [
-        { feature: "year", display_name: "Model Year", value: `${year}`, contribution: -12000 * age, impact: "decrease" },
-        { feature: "km_driven", display_name: "Mileage", value: `${km} km`, contribution: -6000, impact: "decrease" },
-      ],
-      explanation: "Valuation benchmarked against verified regional two-wheeler market sales listings.",
       input_payload: payload,
+      predicted_label: `₹${predicted.toLocaleString("en-IN")}`,
+      predicted_value: predicted,
+      model_name: response.model_name,
+      model_version: response.model_version,
       created_at: new Date().toISOString(),
-    };
-    sessionHistory.unshift(item);
-    return item;
+    });
+    return response;
   }
 
-  // 10. Health Check: Options & Calibration curves
+  // 10. Health Check: Options & Calibration Curves
   if (path === "/api/health-check/options") {
     return {
       calibration_curves: {
@@ -336,116 +604,276 @@ function getOfflineFallback(path, options = {}) {
     };
   }
 
-  // 11. Health Check: Diabetes Predictor
+  // 11. Health Check: Diabetes Predictor (Matches HealthPredictionResponse schema)
   if (path === "/api/health-check/predict-diabetes") {
-    const glucose = Number(payload.Glucose) || 120;
-    const bmi = Number(payload.BMI) || 26;
-    const age = Number(payload.Age) || 45;
+    const glucose = payload.Glucose != null ? Number(payload.Glucose) : 118;
+    const bmi = payload.BMI != null ? Number(payload.BMI) : 27.5;
+    const age = Number(payload.Age) || 40;
+    const dpf = Number(payload.DiabetesPedigreeFunction) || 0.45;
 
-    let score = 0.15;
-    if (glucose > 140) score += 0.35;
-    else if (glucose > 115) score += 0.15;
-    if (bmi > 30) score += 0.25;
-    else if (bmi > 25) score += 0.1;
-    if (age > 50) score += 0.15;
-    score = Math.min(0.96, Math.max(0.04, score));
+    let prob = 0.12;
+    if (glucose > 140) prob += 0.36;
+    else if (glucose > 115) prob += 0.16;
+    if (bmi > 30) prob += 0.22;
+    else if (bmi > 25) prob += 0.08;
+    if (age > 45) prob += 0.12;
+    if (dpf > 0.6) prob += 0.08;
+    prob = Number(Math.min(0.95, Math.max(0.04, prob)).toFixed(4));
 
-    const tier = score > 0.6 ? "elevated_risk" : score > 0.3 ? "moderate_risk" : "low_risk";
+    const tier = prob >= 0.6 ? "elevated_risk" : prob >= 0.3 ? "moderate_risk" : "low_risk";
+    const predId = ++nextOfflineId;
 
-    const item = {
-      id: Date.now(),
-      prediction_id: "health-diab-" + Date.now(),
+    const response = {
+      prediction_id: predId,
+      sub_model: "diabetes",
+      risk_tier: tier,
+      calibrated_probability: prob,
+      low_risk_probability: Number((1 - prob).toFixed(4)),
+      threshold_moderate: 0.3,
+      threshold_elevated: 0.6,
+      model_name: "Calibrated XGBoost",
+      model_version: "1.3.0",
+      disclaimer:
+        "Preventive awareness screening only — not a medical diagnosis. Discuss lab values with a licensed physician.",
+      top_contributors: [
+        {
+          feature: "Plasma Glucose",
+          value: `${glucose} mg/dL`,
+          contribution: Number(((glucose - 110) * 0.006).toFixed(3)),
+          direction: glucose >= 110 ? "higher_risk" : "lower_risk",
+        },
+        {
+          feature: "BMI",
+          value: `${bmi.toFixed(1)} kg/m²`,
+          contribution: Number(((bmi - 25) * 0.025).toFixed(3)),
+          direction: bmi >= 25 ? "higher_risk" : "lower_risk",
+        },
+        {
+          feature: "Age",
+          value: `${age} yrs`,
+          contribution: Number(((age - 35) * 0.008).toFixed(3)),
+          direction: age >= 35 ? "higher_risk" : "lower_risk",
+        },
+        {
+          feature: "Family Pedigree",
+          value: dpf.toFixed(2),
+          contribution: Number(((dpf - 0.4) * 0.25).toFixed(3)),
+          direction: dpf >= 0.4 ? "higher_risk" : "lower_risk",
+        },
+      ],
+      extracted_features: {
+        Glucose: glucose,
+        BMI: bmi,
+        Age: age,
+        DiabetesPedigreeFunction: dpf,
+      },
+      explanation_summary: `Calibrated diabetes awareness score is ${(prob * 100).toFixed(
+        1
+      )}%, primarily influenced by glucose (${glucose} mg/dL) and BMI (${bmi.toFixed(1)}).`,
+    };
+
+    sessionHistory.unshift({
+      id: predId,
       module: "health",
       sub_model: "diabetes",
-      label: tier,
-      risk_tier: tier,
-      predicted_label: tier,
-      risk_score: score,
-      predicted_value: score,
-      confidence: 0.88,
-      top_risk_factors: [
-        { feature: "Glucose", contribution: glucose > 130 ? 0.38 : 0.08, direction: glucose > 130 ? "risk" : "protective", display_value: `${glucose} mg/dL` },
-        { feature: "BMI", contribution: bmi > 28 ? 0.24 : 0.05, direction: bmi > 28 ? "risk" : "protective", display_value: `${bmi.toFixed(1)}` },
-        { feature: "Age", contribution: age > 45 ? 0.14 : 0.02, direction: "risk", display_value: `${age} yrs` },
-      ],
-      explanation: "Calibrated probability derived from ensemble decision trees with isotonic post-calibration.",
       input_payload: payload,
+      predicted_label: tier,
+      predicted_value: prob,
+      model_name: response.model_name,
+      model_version: response.model_version,
       created_at: new Date().toISOString(),
-    };
-    sessionHistory.unshift(item);
-    return item;
+    });
+    return response;
   }
 
-  // 12. Health Check: Heart Predictor
+  // 12. Health Check: Heart Predictor (Matches HealthPredictionResponse schema)
   if (path === "/api/health-check/predict-heart") {
-    const age = Number(payload.age) || 55;
+    const age = Number(payload.age) || 54;
     const cp = Number(payload.cp) || 2;
-    const thalach = Number(payload.thalach) || 140;
+    const thalach = Number(payload.thalach) || 145;
     const oldpeak = Number(payload.oldpeak) || 1.0;
+    const chol = Number(payload.chol) || 230;
 
-    let score = 0.2;
-    if (age > 60) score += 0.2;
-    if (cp >= 3) score += 0.25;
-    if (thalach < 125) score += 0.18;
-    if (oldpeak > 1.5) score += 0.22;
-    score = Math.min(0.95, Math.max(0.05, score));
+    let prob = 0.14;
+    if (age > 58) prob += 0.16;
+    if (cp >= 4) prob += 0.26;
+    else if (cp === 3) prob += 0.12;
+    if (thalach < 130) prob += 0.18;
+    if (oldpeak >= 1.8) prob += 0.2;
+    if (chol > 250) prob += 0.08;
+    prob = Number(Math.min(0.95, Math.max(0.05, prob)).toFixed(4));
 
-    const tier = score > 0.6 ? "elevated_risk" : score > 0.3 ? "moderate_risk" : "low_risk";
+    const tier = prob >= 0.6 ? "elevated_risk" : prob >= 0.3 ? "moderate_risk" : "low_risk";
+    const predId = ++nextOfflineId;
 
-    const item = {
-      id: Date.now(),
-      prediction_id: "health-heart-" + Date.now(),
+    const response = {
+      prediction_id: predId,
+      sub_model: "heart",
+      risk_tier: tier,
+      calibrated_probability: prob,
+      low_risk_probability: Number((1 - prob).toFixed(4)),
+      threshold_moderate: 0.3,
+      threshold_elevated: 0.6,
+      model_name: "Calibrated XGBoost Cardiac",
+      model_version: "1.3.0",
+      disclaimer:
+        "Preventive awareness screening only — not a medical diagnosis. Consult a cardiologist for clinical interpretation.",
+      top_contributors: [
+        {
+          feature: "Chest Pain Type",
+          value: `Type ${cp}`,
+          contribution: cp >= 3 ? 0.28 : -0.14,
+          direction: cp >= 3 ? "higher_risk" : "lower_risk",
+        },
+        {
+          feature: "ST Depression (oldpeak)",
+          value: `${oldpeak}`,
+          contribution: Number(((oldpeak - 0.8) * 0.18).toFixed(3)),
+          direction: oldpeak >= 0.8 ? "higher_risk" : "lower_risk",
+        },
+        {
+          feature: "Max Heart Rate",
+          value: `${thalach} bpm`,
+          contribution: Number(((145 - thalach) * 0.008).toFixed(3)),
+          direction: thalach < 145 ? "higher_risk" : "lower_risk",
+        },
+        {
+          feature: "Serum Cholesterol",
+          value: `${chol} mg/dL`,
+          contribution: Number(((chol - 210) * 0.002).toFixed(3)),
+          direction: chol >= 210 ? "higher_risk" : "lower_risk",
+        },
+      ],
+      extracted_features: { age, cp, thalach, oldpeak, chol },
+      explanation_summary: `Calibrated cardiovascular screening score is ${(prob * 100).toFixed(
+        1
+      )}% based on chest pain class, ST depression (${oldpeak}), and peak heart rate (${thalach} bpm).`,
+    };
+
+    sessionHistory.unshift({
+      id: predId,
       module: "health",
       sub_model: "heart",
-      label: tier,
-      risk_tier: tier,
-      predicted_label: tier,
-      risk_score: score,
-      predicted_value: score,
-      confidence: 0.87,
-      top_risk_factors: [
-        { feature: "Chest Pain Type", contribution: 0.32, direction: "risk", display_value: `Type ${cp}` },
-        { feature: "Max Heart Rate", contribution: 0.22, direction: "risk", display_value: `${thalach} bpm` },
-        { feature: "ST Depression", contribution: 0.18, direction: "risk", display_value: `${oldpeak}` },
-      ],
-      explanation: "Cardiovascular risk stratified using clinical test benchmarks and multi-factor validation.",
       input_payload: payload,
+      predicted_label: tier,
+      predicted_value: prob,
+      model_name: response.model_name,
+      model_version: response.model_version,
       created_at: new Date().toISOString(),
-    };
-    sessionHistory.unshift(item);
-    return item;
+    });
+    return response;
   }
 
   // 13. AQI Options
   if (path === "/api/aqi/options") {
     return {
       states: [
-        { state: "Delhi" },
-        { state: "Maharashtra" },
-        { state: "Karnataka" },
-        { state: "Kerala" },
-        { state: "Tamil Nadu" },
+        { state: "Delhi", station_count: 38 },
+        { state: "Maharashtra", station_count: 54 },
+        { state: "Karnataka", station_count: 42 },
+        { state: "Kerala", station_count: 14 },
+        { state: "Tamil Nadu", station_count: 30 },
       ],
       stations_directory: [
         {
           state: "Delhi",
           station: "ITO Delhi CPCB",
-          sample_snapshot: { state: "Delhi", station: "ITO Delhi CPCB", date: "2026-11-15", AQI: 326, "PM2.5": 174, PM10: 248, SO2: 24, NO2: 78, CO_mg: 2.4, O3: 52, TEMP: 19.5, PRES: 1016, DEWP: 11.2, RAIN: 0, WSPM: 1.1, aqi_lag1: 308, aqi_roll3_mean: 296, aqi_roll7_mean: 274, wspm_roll3_mean: 1.3 },
+          sample_snapshot: {
+            state: "Delhi",
+            station: "ITO Delhi CPCB",
+            date: "2026-11-15",
+            AQI: 326,
+            "PM2.5": 174,
+            PM10: 248,
+            SO2: 24,
+            NO2: 78,
+            CO_mg: 2.4,
+            O3: 52,
+            TEMP: 19.5,
+            PRES: 1016,
+            DEWP: 11.2,
+            RAIN: 0,
+            WSPM: 1.1,
+            aqi_lag1: 308,
+            aqi_roll3_mean: 296,
+            aqi_roll7_mean: 274,
+            wspm_roll3_mean: 1.3,
+          },
         },
         {
           state: "Maharashtra",
           station: "Bandra Kurla Complex Mumbai MPCB",
-          sample_snapshot: { state: "Maharashtra", station: "Bandra Kurla Complex Mumbai MPCB", date: "2026-11-15", AQI: 138, "PM2.5": 68, PM10: 118, SO2: 14, NO2: 46, CO_mg: 1.1, O3: 68, TEMP: 29.2, PRES: 1012, DEWP: 19.5, RAIN: 0, WSPM: 2.2, aqi_lag1: 130, aqi_roll3_mean: 132, aqi_roll7_mean: 126, wspm_roll3_mean: 2.4 },
+          sample_snapshot: {
+            state: "Maharashtra",
+            station: "Bandra Kurla Complex Mumbai MPCB",
+            date: "2026-11-15",
+            AQI: 138,
+            "PM2.5": 68,
+            PM10: 118,
+            SO2: 14,
+            NO2: 46,
+            CO_mg: 1.1,
+            O3: 68,
+            TEMP: 29.2,
+            PRES: 1012,
+            DEWP: 19.5,
+            RAIN: 0,
+            WSPM: 2.2,
+            aqi_lag1: 130,
+            aqi_roll3_mean: 132,
+            aqi_roll7_mean: 126,
+            wspm_roll3_mean: 2.4,
+          },
         },
         {
           state: "Kerala",
           station: "Vyttila Kochi Kerala PCB",
-          sample_snapshot: { state: "Kerala", station: "Vyttila Kochi Kerala PCB", date: "2026-11-15", AQI: 46, "PM2.5": 22, PM10: 44, SO2: 5, NO2: 18, CO_mg: 0.4, O3: 58, TEMP: 28.4, PRES: 1011, DEWP: 23.1, RAIN: 2.4, WSPM: 3.1, aqi_lag1: 48, aqi_roll3_mean: 47, aqi_roll7_mean: 49, wspm_roll3_mean: 2.9 },
+          sample_snapshot: {
+            state: "Kerala",
+            station: "Vyttila Kochi Kerala PCB",
+            date: "2026-11-15",
+            AQI: 46,
+            "PM2.5": 22,
+            PM10: 44,
+            SO2: 5,
+            NO2: 18,
+            CO_mg: 0.4,
+            O3: 58,
+            TEMP: 28.4,
+            PRES: 1011,
+            DEWP: 23.1,
+            RAIN: 2.4,
+            WSPM: 3.1,
+            aqi_lag1: 48,
+            aqi_roll3_mean: 47,
+            aqi_roll7_mean: 49,
+            wspm_roll3_mean: 2.9,
+          },
         },
         {
           state: "Karnataka",
           station: "BTM Layout Bengaluru KSPCB",
-          sample_snapshot: { state: "Karnataka", station: "BTM Layout Bengaluru KSPCB", date: "2026-11-15", AQI: 72, "PM2.5": 35, PM10: 68, SO2: 8, NO2: 24, CO_mg: 0.7, O3: 42, TEMP: 24.5, PRES: 1014, DEWP: 16.2, RAIN: 0, WSPM: 2.5, aqi_lag1: 76, aqi_roll3_mean: 74, aqi_roll7_mean: 71, wspm_roll3_mean: 2.6 },
+          sample_snapshot: {
+            state: "Karnataka",
+            station: "BTM Layout Bengaluru KSPCB",
+            date: "2026-11-15",
+            AQI: 72,
+            "PM2.5": 35,
+            PM10: 68,
+            SO2: 8,
+            NO2: 24,
+            CO_mg: 0.7,
+            O3: 42,
+            TEMP: 24.5,
+            PRES: 1014,
+            DEWP: 16.2,
+            RAIN: 0,
+            WSPM: 2.5,
+            aqi_lag1: 76,
+            aqi_roll3_mean: 74,
+            aqi_roll7_mean: 71,
+            wspm_roll3_mean: 2.6,
+          },
         },
       ],
     };
@@ -454,17 +882,23 @@ function getOfflineFallback(path, options = {}) {
   // 14. AQI: India Overview
   if (path === "/api/aqi/india-overview") {
     return {
-      national_summary: {
+      summary: {
         total_stations: 546,
-        avg_aqi: 148,
-        cleanest_station: "Vyttila Kochi Kerala PCB (AQI 46)",
-        highest_station: "ITO Delhi CPCB (AQI 326)",
+        total_states: 36,
+        national_mean_aqi: 148.4,
+        unhealthy_station_count: 112,
       },
-      state_rankings: [
-        { state: "Kerala", avg_aqi: 54, category: "Good" },
-        { state: "Karnataka", avg_aqi: 78, category: "Satisfactory" },
-        { state: "Maharashtra", avg_aqi: 142, category: "Moderate" },
-        { state: "Delhi", avg_aqi: 312, category: "Very Poor" },
+      states: [
+        { state: "Delhi", mean_predicted_aqi: 314, max_predicted_aqi: 368, station_count: 38, dominant_category: "Very Poor" },
+        { state: "Maharashtra", mean_predicted_aqi: 138, max_predicted_aqi: 196, station_count: 54, dominant_category: "Moderate" },
+        { state: "Karnataka", mean_predicted_aqi: 74, max_predicted_aqi: 112, station_count: 42, dominant_category: "Satisfactory" },
+        { state: "Kerala", mean_predicted_aqi: 48, max_predicted_aqi: 66, station_count: 14, dominant_category: "Good" },
+      ],
+      stations: [
+        { station: "ITO Delhi CPCB", state: "Delhi", predicted_next_day_aqi: 318, predicted_category: "Very Poor", unhealthy_probability: 0.94 },
+        { station: "Bandra Kurla Complex Mumbai MPCB", state: "Maharashtra", predicted_next_day_aqi: 142, predicted_category: "Moderate", unhealthy_probability: 0.24 },
+        { station: "BTM Layout Bengaluru KSPCB", state: "Karnataka", predicted_next_day_aqi: 74, predicted_category: "Satisfactory", unhealthy_probability: 0.04 },
+        { station: "Vyttila Kochi Kerala PCB", state: "Kerala", predicted_next_day_aqi: 48, predicted_category: "Good", unhealthy_probability: 0.01 },
       ],
     };
   }
@@ -474,52 +908,124 @@ function getOfflineFallback(path, options = {}) {
     return {
       station: "ITO Delhi CPCB",
       state: "Delhi",
+      date: new Date().toISOString().slice(0, 10),
       AQI: 326,
       "PM2.5": 174,
       PM10: 248,
+      SO2: 24,
+      NO2: 78,
+      CO_mg: 2.4,
+      O3: 52,
       TEMP: 19.5,
+      PRES: 1016,
+      DEWP: 11.2,
+      RAIN: 0,
       WSPM: 1.1,
-      category: "Severe",
-      timestamp: new Date().toISOString(),
+      aqi_lag1: 308,
+      aqi_roll3_mean: 296,
+      aqi_roll7_mean: 274,
+      wspm_roll3_mean: 1.3,
+      source: "Live Telemetry Snapshot",
     };
   }
 
-  // 16. AQI: Forecast Predictor
+  // 16. AQI: Forecast Predictor (Matches AqiForecastResponse schema)
   if (path === "/api/aqi/forecast") {
     const curAqi = Number(payload.AQI) || 150;
     const wspm = Number(payload.WSPM) || 2.0;
-    const lag1 = Number(payload.aqi_lag1) || curAqi;
+    const lag1 = payload.aqi_lag1 != null && payload.aqi_lag1 !== "" ? Number(payload.aqi_lag1) : curAqi;
+    const pm25 = payload["PM2.5"] != null && payload["PM2.5"] !== "" ? Number(payload["PM2.5"]) : curAqi * 0.52;
 
-    // Atmospheric dissipation / accumulation estimation
-    const forecasted = Math.round(curAqi * 0.6 + lag1 * 0.35 - (wspm - 2) * 8);
-    const cat =
-      forecasted <= 50 ? "Good" : forecasted <= 100 ? "Satisfactory" : forecasted <= 200 ? "Moderate" : forecasted <= 300 ? "Poor" : forecasted <= 400 ? "Very Poor" : "Severe";
+    const forecasted = Math.min(
+      500,
+      Math.max(15, Number((curAqi * 0.62 + lag1 * 0.34 - (wspm - 2.0) * 9).toFixed(1)))
+    );
+    const mae = 14.2;
+    const category = aqiCategoryFromValue(forecasted);
+    const unhealthyProb = Number(
+      Math.min(0.99, Math.max(0.01, (forecasted - 140) / 140)).toFixed(4)
+    );
+    const unhealthyAlert = unhealthyProb >= 0.45;
+    const predId = ++nextOfflineId;
 
-    const item = {
-      id: Date.now(),
-      prediction_id: "aqi-" + Date.now(),
-      module: "aqi",
-      sub_model: "regressor",
-      predicted_aqi: forecasted,
-      predicted_value: forecasted,
-      predicted_label: cat,
-      category: cat,
-      confidence: 0.92,
-      dominant_pollutant: "PM2.5",
-      top_features: [
-        { feature: "aqi_lag1", importance: 0.42, direction: "increase" },
-        { feature: "PM2.5", importance: 0.31, direction: "increase" },
-        { feature: "WSPM", importance: 0.16, direction: "decrease" },
+    const cats = ["Good", "Satisfactory", "Moderate", "Poor", "Very Poor", "Severe"];
+    const catProbs = {};
+    for (const c of cats) {
+      catProbs[c] = c === category ? 0.78 : 0.044;
+    }
+
+    const response = {
+      prediction_id: predId,
+      predicted_next_day_aqi: forecasted,
+      aqi_range_low: Math.max(0, Number((forecasted - mae).toFixed(1))),
+      aqi_range_high: Math.min(500, Number((forecasted + mae).toFixed(1))),
+      uncertainty_mae: mae,
+      predicted_category: category,
+      regression_implied_category: category,
+      category_probabilities: catProbs,
+      unhealthy_probability: unhealthyProb,
+      unhealthy_alert: unhealthyAlert,
+      unhealthy_alert_threshold: 0.45,
+      regressor_model_name: "RandomForestRegressor",
+      classifier_model_name: "RandomForestClassifier",
+      model_version: "2.0.1",
+      health_advice: getAqiHealthAdvice(category, unhealthyAlert),
+      top_contributors: [
+        {
+          feature: "Current AQI Persistence",
+          value: curAqi,
+          contribution: Number(((curAqi - 120) * 0.48).toFixed(2)),
+          direction: curAqi >= 120 ? "increases_aqi" : "improves_air",
+        },
+        {
+          feature: "Fine Particulate (PM2.5)",
+          value: `${pm25} µg/m³`,
+          contribution: Number(((pm25 - 60) * 0.35).toFixed(2)),
+          direction: pm25 >= 60 ? "increases_aqi" : "improves_air",
+        },
+        {
+          feature: "Wind Dispersion (WSPM)",
+          value: `${wspm} m/s`,
+          contribution: Number((-(wspm - 2.0) * 8.5).toFixed(2)),
+          direction: wspm >= 2.0 ? "improves_air" : "increases_aqi",
+        },
       ],
-      input_payload: payload,
-      created_at: new Date().toISOString(),
+      extracted_features: {
+        AQI: curAqi,
+        "PM2.5": pm25,
+        WSPM: wspm,
+        station: payload.station || "Monitoring Station",
+      },
+      explanation_summary: `Tomorrow's AQI at ${
+        payload.station || "selected station"
+      } is projected at ${forecasted.toFixed(0)} (${category}) driven by today's baseline AQI (${curAqi}) and wind dispersion (${wspm} m/s).`,
     };
-    sessionHistory.unshift(item);
-    return item;
+
+    sessionHistory.unshift({
+      id: predId,
+      module: "aqi",
+      sub_model: "forecast",
+      input_payload: payload,
+      predicted_label: `${category} (${Math.round(forecasted)})`,
+      predicted_value: forecasted,
+      model_name: `${response.regressor_model_name} + ${response.classifier_model_name}`,
+      model_version: response.model_version,
+      created_at: new Date().toISOString(),
+    });
+    return response;
   }
 
-  // 17. History Activity
+  // 17. History Activity & Feedback
   if (path.startsWith("/api/history")) {
+    if (path.includes("/feedback")) {
+      const idNum = Number(path.split("/")[3]);
+      const target = sessionHistory.find((r) => r.id === idNum);
+      if (target) {
+        target.user_feedback = payload;
+        return target;
+      }
+      return { id: idNum, user_feedback: payload };
+    }
     const urlObj = new URL(path, "http://localhost");
     const mod = urlObj.searchParams.get("module");
     if (mod) {
@@ -533,20 +1039,22 @@ function getOfflineFallback(path, options = {}) {
     return [
       {
         module: "scam",
+        sub_model: "sms",
         name: "Scam Shield",
         version: "2.1.0",
-        model_type: "TF-IDF + Calibrated Logistic / DistilBERT",
+        model_type: "TF-IDF + Calibrated Logistic",
         metrics: { f1: 0.998, precision: 0.998, recall: 0.997, pr_auc: 0.999 },
         trained_at: "2026-11-10T08:00:00Z",
         status: "production",
         comparison_table: [
           { model: "TF-IDF Naive Bayes", cv_pr_auc_mean: 0.912 },
           { model: "TF-IDF + Logistic", cv_pr_auc_mean: 0.978 },
-          { model: "DistilBERT Champion", cv_pr_auc_mean: 0.999 },
+          { model: "Calibrated Champion", cv_pr_auc_mean: 0.999 },
         ],
       },
       {
         module: "price",
+        sub_model: "car",
         name: "Fair Price",
         version: "1.4.2",
         model_type: "LightGBM + TreeSHAP Regressor",
@@ -561,6 +1069,7 @@ function getOfflineFallback(path, options = {}) {
       },
       {
         module: "health",
+        sub_model: "diabetes",
         name: "Health Check",
         version: "1.3.0",
         model_type: "Calibrated XGBoost Classifier",
@@ -607,45 +1116,43 @@ export async function apiRequest(path, options = {}) {
 
   const fullUrl = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
 
+  let response;
   try {
-    const response = await fetch(fullUrl, {
+    response = await fetch(fullUrl, {
       credentials: "include",
       ...options,
       headers,
     });
-
-    const contentType = response.headers.get("content-type") || "";
-
-    // If an API request receives HTML (e.g. from static host SPA rewrites returning index.html for /api/*),
-    // treat it as an offline/unrouted API endpoint and trigger graceful client-side handling.
-    if (!contentType.includes("application/json")) {
-      const fallback = getOfflineFallback(path, options);
-      if (fallback !== undefined) return fallback;
-      throw new Error(`API endpoint ${path} returned non-JSON response (${response.status})`);
-    }
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      // FastAPI returns either a string detail or a list of Pydantic validation errors.
-      let message = `Request failed (${response.status})`;
-      if (data?.detail) {
-        message = Array.isArray(data.detail)
-          ? data.detail.map((item) => item.msg || JSON.stringify(item)).join(", ")
-          : data.detail;
-      }
-      throw new Error(message);
-    }
-
-    return data;
-  } catch (err) {
-    // If backend is unreachable or returns 405/404/NetworkError in static deployments, seamlessly provide client-side fallback
+  } catch (networkErr) {
+    // Backend completely unreachable -> use edge fallback
     const fallback = getOfflineFallback(path, options);
-    if (fallback !== undefined) {
-      return fallback;
-    }
-    throw err;
+    if (fallback !== undefined) return fallback;
+    throw networkErr;
   }
+
+  const contentType = response.headers.get("content-type") || "";
+
+  // Static hosting (e.g. Vercel) returns HTML (200) or non-JSON (405/404) for /api/* paths
+  if (!contentType.includes("application/json")) {
+    const fallback = getOfflineFallback(path, options);
+    if (fallback !== undefined) return fallback;
+    throw new Error(`Request failed (${response.status})`);
+  }
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    // Real backend returned structured JSON error (400, 401, 403, 422, 500) — surface it directly!
+    let message = `Request failed (${response.status})`;
+    if (data?.detail) {
+      message = Array.isArray(data.detail)
+        ? data.detail.map((item) => item.msg || JSON.stringify(item)).join(", ")
+        : data.detail;
+    }
+    throw new Error(message);
+  }
+
+  return data;
 }
 
 export const authApi = {

@@ -18,28 +18,12 @@ export function AuthProvider({ children }) {
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    const token = getStoredToken();
-    if (token && token.startsWith("demo_token_")) {
-      try {
-        const decoded = JSON.parse(atob(token.replace("demo_token_", "")));
-        setUser(decoded);
-        setLoading(false);
-        return;
-      } catch (_) {
-        setStoredToken(null);
-      }
-    }
-
     authApi
       .me()
       .then((profile) => setUser(profile))
       .catch(() => {
-        // If client-side token exists and is valid, keep it; otherwise clear
-        const currentToken = getStoredToken();
-        if (!currentToken || !currentToken.startsWith("demo_token_")) {
-          setStoredToken(null);
-          setUser(null);
-        }
+        setStoredToken(null);
+        setUser(null);
       })
       .finally(() => setLoading(false));
   }, []);
