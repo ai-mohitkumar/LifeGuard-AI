@@ -29,10 +29,6 @@ services:
         value: https://lifeguard-ai-web.vercel.app,https://lifeguard-ai-frontend.onrender.com,http://localhost:5173
       - key: FRONTEND_URL
         value: https://lifeguard-ai-web.vercel.app
-      - key: GITHUB_CLIENT_ID
-        sync: false
-      - key: GITHUB_CLIENT_SECRET
-        sync: false
 
   # -------------------------------------------------------------------------
   # LifeGuard AI Frontend Client (React 18 + Vite SPA)
@@ -40,8 +36,6 @@ services:
   - type: web
     name: lifeguard-ai-frontend
     runtime: static
-    region: oregon
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
