@@ -20,10 +20,11 @@ htmlcov/
 *.db
 *.sqlite3
 
-# Datasets & trained model artifacts (keep large raw data out of Git)
+# Datasets & trained model artifacts (keep large raw data out of Git; allow production bundles)
 data/*
 !data/.gitkeep
 *.joblib
+!ml/*/artifacts/*.joblib
 *.pkl
 mlruns/
 

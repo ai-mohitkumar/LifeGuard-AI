@@ -6,17 +6,30 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+from app.core.security import hash_password
 from app.database import SessionLocal, init_db
+from app.models.user import User
 from app.routers import aqi, auth, health, health_check, platform, price, scam
 from app.services.registry_service import sync_model_registry
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    """Initialize database tables and sync ML model metadata on startup."""
+    """Initialize database tables, seed demo account, and sync ML model metadata on startup."""
     init_db()
     with SessionLocal() as db:
         sync_model_registry(db)
+        demo_email = "mohit@lifeguard.ai"
+        if not db.query(User).filter(User.email == demo_email).first():
+            db.add(
+                User(
+                    full_name="Mohit Kumar",
+                    email=demo_email,
+                    hashed_password=hash_password("Enterprise@2026"),
+                    is_active=True,
+                )
+            )
+            db.commit()
     yield
 
 

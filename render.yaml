@@ -1,15 +1,15 @@
 services:
   # -------------------------------------------------------------------------
-  # LifeGuard AI Backend API (FastAPI + SQLAlchemy + ML Models)
+  # LifeGuard AI Backend API (FastAPI + SQLAlchemy + 8 Trained ML Models)
   # -------------------------------------------------------------------------
   - type: web
     name: lifeguard-ai-backend
     runtime: python
     region: oregon
     plan: free
-    rootDir: backend
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install --upgrade pip && pip install -r backend/requirements.txt
+    startCommand: PYTHONPATH=.:backend uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.5
@@ -25,8 +25,10 @@ services:
         value: "true"
       - key: DATABASE_URL
         value: sqlite:///./lifeguard_prod.db
-      - key: GOOGLE_CLIENT_ID
-        value: 981860772372-uvhn6fnfkfhpfskar3bk1i7de4fsp3b9.apps.googleusercontent.com
+      - key: CORS_ORIGINS
+        value: https://lifeguard-ai-web.vercel.app,https://lifeguard-ai-frontend.onrender.com,http://localhost:5173
+      - key: FRONTEND_URL
+        value: https://lifeguard-ai-web.vercel.app
       - key: GITHUB_CLIENT_ID
         sync: false
       - key: GITHUB_CLIENT_SECRET
@@ -48,5 +50,5 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      - key: VITE_GOOGLE_CLIENT_ID
-        value: 981860772372-uvhn6fnfkfhpfskar3bk1i7de4fsp3b9.apps.googleusercontent.com
+      - key: VITE_API_URL
+        value: https://lifeguard-ai-backend.onrender.com
