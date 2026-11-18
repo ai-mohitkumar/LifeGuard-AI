@@ -1,8 +1,12 @@
 # LifeGuard AI
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-lifeguard--ai--web.vercel.app-4F46E5?style=for-the-badge&logo=vercel&logoColor=white)](https://lifeguard-ai-web.vercel.app)
+
 A multi-module supervised machine learning web platform for daily-life decision support (BTech Final-Year Project).
 
-## Planned Modules
+- **Live Web App:** https://lifeguard-ai-web.vercel.app
+
+## Modules
 1. **Scam Shield** — SMS & URL scam classification (`safe` / `suspicious` / `scam`) with threshold tuning and feature explanations.
 2. **Fair Price** — Used car & bike price regression (Ridge baseline, Random Forest, XGBoost, LightGBM) with SHAP explanations.
 3. **Health Check** — Awareness-only diabetes & heart disease risk screening with calibrated probabilities (not medical advice).
