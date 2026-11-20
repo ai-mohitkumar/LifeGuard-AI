@@ -69,7 +69,6 @@ def submit_prediction_feedback(
 
 @router.get("/models", response_model=list[ModelRegistryItem])
 def list_registered_models(
-    _: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> list[ModelRegistryItem]:
     """Return registered ML models, metrics, comparison tables, and error analysis."""

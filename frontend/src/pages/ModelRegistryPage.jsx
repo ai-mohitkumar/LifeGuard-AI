@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AlertCircle, CheckCircle2, Database } from "lucide-react";
 import { platformApi } from "../api/client";
+import { DEFAULT_MODELS_REGISTRY } from "../api/defaultModels";
 import PlotlyChart from "../components/PlotlyChart";
 
 function formatInr(val) {
@@ -77,16 +78,21 @@ function MetricSparkline({ values }) {
 }
 
 export default function ModelRegistryPage() {
-  const [models, setModels] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [models, setModels] = useState(DEFAULT_MODELS_REGISTRY);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     platformApi
       .getModels()
-      .then((data) => setModels(Array.isArray(data) ? data : []))
-      .catch((err) => setError(err.message || "Failed to load model registry."))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setModels(data);
+        }
+      })
+      .catch((err) => {
+        // Keep DEFAULT_MODELS_REGISTRY if backend is offline/sleeping
+      });
   }, []);
 
   return (

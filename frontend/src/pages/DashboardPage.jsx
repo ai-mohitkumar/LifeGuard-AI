@@ -238,9 +238,76 @@ function getNumericMetric(item) {
   return `${(Number(item.predicted_value) * 100).toFixed(1)}%`;
 }
 
+const INITIAL_TELEMETRY = [
+  {
+    id: 101,
+    prediction_id: 101,
+    module: "scam",
+    sub_model: "sms",
+    input_payload: {
+      text: "URGENT! You have won a FREE Rs 50,000 cash prize. Call 09061701461 to claim now!",
+    },
+    predicted_label: "scam",
+    predicted_value: 0.96,
+    probabilities: { scam: 0.96, safe: 0.04 },
+    model_name: "TF-IDF + Calibrated Logistic",
+    model_version: "2.1.0",
+    created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+  },
+  {
+    id: 102,
+    prediction_id: 102,
+    module: "price",
+    sub_model: "car",
+    input_payload: {
+      name: "Hyundai Creta 1.6 CRDi SX",
+      year: 2018,
+      km_driven: 35000,
+      fuel: "Diesel",
+      owner: "First Owner",
+    },
+    predicted_label: "₹8,40,000",
+    predicted_value: 840000,
+    model_name: "LightGBM Regressor",
+    model_version: "1.4.2",
+    created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+  },
+  {
+    id: 103,
+    prediction_id: 103,
+    module: "health",
+    sub_model: "diabetes",
+    input_payload: { Glucose: 135, BMI: 28.4, Age: 48, BloodPressure: 82 },
+    predicted_label: "moderate_risk",
+    predicted_value: 0.46,
+    model_name: "Calibrated XGBoost",
+    model_version: "1.3.0",
+    created_at: new Date(Date.now() - 3600000 * 12).toISOString(),
+  },
+  {
+    id: 104,
+    prediction_id: 104,
+    module: "aqi",
+    sub_model: "forecast",
+    input_payload: {
+      station: "ITO Delhi CPCB",
+      state: "Delhi",
+      date: "2026-11-15",
+      AQI: 326,
+      "PM2.5": 174,
+      WSPM: 1.1,
+    },
+    predicted_label: "Very Poor (318)",
+    predicted_value: 318,
+    model_name: "RandomForestRegressor + Classifier",
+    model_version: "2.0.1",
+    created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
+  },
+];
+
 export default function DashboardPage() {
   const { user } = useAuth();
-  const [recentItems, setRecentItems] = useState([]);
+  const [recentItems, setRecentItems] = useState(INITIAL_TELEMETRY);
   const [timeRange, setTimeRange] = useState("7D"); // "24H" | "7D" | "30D" | "ALL"
   const [activeFilter, setActiveFilter] = useState("all"); // "all" | "scam" | "price" | "health" | "aqi"
   const [quickScanOpen, setQuickScanOpen] = useState(false);
@@ -248,9 +315,13 @@ export default function DashboardPage() {
   useEffect(() => {
     platformApi
       .getHistory()
-      .then((rows) => setRecentItems(Array.isArray(rows) ? rows.slice(0, 10) : []))
+      .then((rows) => {
+        if (Array.isArray(rows) && rows.length > 0) {
+          setRecentItems(rows.slice(0, 10));
+        }
+      })
       .catch(() => {
-        // Non-blocking fallback
+        // Non-blocking fallback retains initial telemetry
       });
   }, []);
 

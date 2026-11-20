@@ -19,8 +19,8 @@ class Settings(BaseSettings):
     APP_NAME: str = "LifeGuard AI"
     APP_VERSION: str = "0.2.0"
 
-    # PostgreSQL connection string (overridden by Docker Compose or .env)
-    DATABASE_URL: str = "postgresql://lifeguard:lifeguard_pass@localhost:5432/lifeguard_db"
+    # Database connection string (defaults to SQLite if not overridden by env or Docker)
+    DATABASE_URL: str = "sqlite:///./lifeguard_dev.db"
 
     # JWT configuration (replace SECRET_KEY in production!)
     SECRET_KEY: str = "dev-only-change-this-to-a-long-random-secret-key-32chars"

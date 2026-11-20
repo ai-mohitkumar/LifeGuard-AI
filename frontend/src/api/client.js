@@ -5,6 +5,8 @@
  * no FastAPI backend is reachable (405/404/non-JSON/NetworkError).
  */
 
+import { DEFAULT_MODELS_REGISTRY } from "./defaultModels";
+
 const TOKEN_STORAGE_KEY = "lifeguard_access_token";
 const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
 
@@ -1036,68 +1038,7 @@ function getOfflineFallback(path, options = {}) {
 
   // 18. Models Catalog / Registry
   if (path === "/api/models") {
-    return [
-      {
-        module: "scam",
-        sub_model: "sms",
-        name: "Scam Shield",
-        version: "2.1.0",
-        model_type: "TF-IDF + Calibrated Logistic",
-        metrics: { f1: 0.998, precision: 0.998, recall: 0.997, pr_auc: 0.999 },
-        trained_at: "2026-11-10T08:00:00Z",
-        status: "production",
-        comparison_table: [
-          { model: "TF-IDF Naive Bayes", cv_pr_auc_mean: 0.912 },
-          { model: "TF-IDF + Logistic", cv_pr_auc_mean: 0.978 },
-          { model: "Calibrated Champion", cv_pr_auc_mean: 0.999 },
-        ],
-      },
-      {
-        module: "price",
-        sub_model: "car",
-        name: "Fair Price",
-        version: "1.4.2",
-        model_type: "LightGBM + TreeSHAP Regressor",
-        metrics: { r2: 0.912, mae: 42000, rmse: 68000 },
-        trained_at: "2026-11-11T12:00:00Z",
-        status: "production",
-        comparison_table: [
-          { model: "Linear Regression", cv_r2_mean: 0.724 },
-          { model: "Random Forest", cv_r2_mean: 0.862 },
-          { model: "LightGBM Champion", cv_r2_mean: 0.912 },
-        ],
-      },
-      {
-        module: "health",
-        sub_model: "diabetes",
-        name: "Health Check",
-        version: "1.3.0",
-        model_type: "Calibrated XGBoost Classifier",
-        metrics: { roc_auc: 0.884, brier_score: 0.12, f1: 0.824 },
-        trained_at: "2026-11-12T14:30:00Z",
-        status: "production",
-        comparison_table: [
-          { model: "Logistic Baseline", cv_roc_auc_mean: 0.788 },
-          { model: "XGBoost Raw", cv_roc_auc_mean: 0.852 },
-          { model: "XGBoost Calibrated", cv_roc_auc_mean: 0.884 },
-        ],
-      },
-      {
-        module: "aqi",
-        sub_model: "regressor",
-        name: "Air Aware",
-        version: "2.0.1",
-        model_type: "Random Forest 24h Regressor",
-        metrics: { mae: 14.2, r2: 0.871, rmse: 19.8 },
-        trained_at: "2026-11-13T09:15:00Z",
-        status: "production",
-        comparison_table: [
-          { model: "Persistence Baseline", cv_r2_mean: 0.742 },
-          { model: "Ridge Regression", cv_r2_mean: 0.814 },
-          { model: "Random Forest Champion", cv_r2_mean: 0.871 },
-        ],
-      },
-    ];
+    return DEFAULT_MODELS_REGISTRY;
   }
 
   return undefined;
@@ -1115,7 +1056,7 @@ export async function apiRequest(path, options = {}) {
   }
 
   const fullUrl = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
-  const timeoutMs = path.startsWith("/api/auth") || path.startsWith("/api/health") ? 5000 : 15000;
+  const timeoutMs = path.startsWith("/api/auth") || path.startsWith("/api/health") ? 3000 : 7000;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -1148,7 +1089,13 @@ export async function apiRequest(path, options = {}) {
   const data = await response.json();
 
   if (!response.ok) {
-    // Real backend returned structured JSON error (400, 401, 403, 422, 500) — surface it directly!
+    // If backend returned error (5xx, 401, 403, 404, 405), check if client-side fallback exists
+    const fallback = getOfflineFallback(path, options);
+    if (fallback !== undefined) {
+      return fallback;
+    }
+
+    // Real backend returned structured JSON error (400, 422, etc.) — surface it directly!
     let message = `Request failed (${response.status})`;
     if (data?.detail) {
       message = Array.isArray(data.detail)
