@@ -3,11 +3,12 @@
     "module": "aqi",
     "sub_model": "regressor",
     "model_name": "Random Forest Regressor",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "dataset": {
       "source_file": "daily_air_quality.csv",
       "consecutive_day_pairs": 17441,
       "stations": 12,
+      "states_and_uts": 1,
       "date_range": "2013-03-01 -> 2017-02-27"
     },
     "splits": {
@@ -18,12 +19,12 @@
       "test_dates": "2016-05-12 -> 2017-02-27"
     },
     "thresholds": {
-      "uncertainty_band_mae": 69.13
+      "uncertainty_band_mae": 69.09
     },
     "metrics": {
-      "mae": 69.13,
-      "rmse": 88.7,
-      "r2": 0.3657
+      "mae": 69.09,
+      "rmse": 88.65,
+      "r2": 0.3664
     },
     "comparison_table": [
       {
@@ -37,68 +38,68 @@
       },
       {
         "model": "Ridge Regression (Baseline)",
-        "cv_mae_mean": 72.96,
-        "cv_mae_std": 7.82,
-        "cv_rmse_mean": 87.68,
-        "cv_rmse_std": 10.0,
-        "cv_r2_mean": 0.3063,
-        "cv_r2_std": 0.065
+        "cv_mae_mean": 72.93,
+        "cv_mae_std": 8.07,
+        "cv_rmse_mean": 87.72,
+        "cv_rmse_std": 10.17,
+        "cv_r2_mean": 0.306,
+        "cv_r2_std": 0.0653
       },
       {
         "model": "Random Forest Regressor",
         "cv_mae_mean": 69.69,
         "cv_mae_std": 4.13,
-        "cv_rmse_mean": 85.79,
-        "cv_rmse_std": 6.56,
+        "cv_rmse_mean": 85.8,
+        "cv_rmse_std": 6.58,
         "cv_r2_mean": 0.3284,
-        "cv_r2_std": 0.0896
+        "cv_r2_std": 0.0888
       },
       {
         "model": "XGBoost Regressor",
-        "cv_mae_mean": 70.28,
-        "cv_mae_std": 4.61,
-        "cv_rmse_mean": 86.38,
-        "cv_rmse_std": 6.85,
-        "cv_r2_mean": 0.3184,
-        "cv_r2_std": 0.0989
+        "cv_mae_mean": 70.53,
+        "cv_mae_std": 4.63,
+        "cv_rmse_mean": 86.88,
+        "cv_rmse_std": 6.5,
+        "cv_r2_mean": 0.3091,
+        "cv_r2_std": 0.1086
       },
       {
         "model": "LightGBM Regressor",
-        "cv_mae_mean": 70.09,
-        "cv_mae_std": 4.46,
-        "cv_rmse_mean": 87.12,
-        "cv_rmse_std": 6.7,
-        "cv_r2_mean": 0.305,
-        "cv_r2_std": 0.1127
+        "cv_mae_mean": 70.53,
+        "cv_mae_std": 4.32,
+        "cv_rmse_mean": 87.35,
+        "cv_rmse_std": 6.62,
+        "cv_r2_mean": 0.3019,
+        "cv_r2_std": 0.1078
       }
     ],
     "error_analysis": {
       "seasonal_mae": {
         "winter_haze_months_nov_feb": {
           "count": 1428,
-          "mae": 76.14
+          "mae": 76.06
         },
         "non_winter_months": {
           "count": 2066,
-          "mae": 64.28
+          "mae": 64.26
         }
       },
-      "median_abs_error": 56.13,
+      "median_abs_error": 56.17,
       "worst_spikes_sample": [
         {
           "station": "Gucheng",
           "date": "2017-01-27",
           "today_aqi": 129.6,
           "actual_next_aqi": 447.6,
-          "predicted_next_aqi": 95.2,
-          "abs_error": 352.4
+          "predicted_next_aqi": 95.6,
+          "abs_error": 352.0
         },
         {
           "station": "Wanshouxigong",
           "date": "2017-01-27",
           "today_aqi": 147.9,
           "actual_next_aqi": 464.7,
-          "predicted_next_aqi": 113.6,
+          "predicted_next_aqi": 113.5,
           "abs_error": 351.1
         },
         {
@@ -106,44 +107,45 @@
           "date": "2017-01-27",
           "today_aqi": 116.1,
           "actual_next_aqi": 449.5,
-          "predicted_next_aqi": 113.2,
-          "abs_error": 336.3
+          "predicted_next_aqi": 113.6,
+          "abs_error": 335.9
         },
         {
           "station": "Nongzhanguan",
           "date": "2017-01-27",
           "today_aqi": 107.6,
           "actual_next_aqi": 447.8,
-          "predicted_next_aqi": 116.4,
-          "abs_error": 331.4
+          "predicted_next_aqi": 117.2,
+          "abs_error": 330.7
         },
         {
           "station": "Tiantan",
           "date": "2017-01-27",
           "today_aqi": 98.4,
           "actual_next_aqi": 439.6,
-          "predicted_next_aqi": 120.0,
-          "abs_error": 319.5
+          "predicted_next_aqi": 120.9,
+          "abs_error": 318.7
         }
       ]
     },
     "limitations": [
-      "Trained on 2013\u20132017 Beijing 12-station daily records; city-specific emission profiles and future policy changes cause distribution drift over years.",
-      "Sudden synoptic pollution episodes (fireworks, sandstorms, abrupt stagnation inversions) produce larger residuals in winter haze months.",
-      "Forecast relies on today's pollutant and weather conditions rather than external numerical weather prediction (NWP) tomorrow-wind forecasts."
+      "Trained on 2013-03-01 -> 2017-02-27 multi-year daily Copernicus CAMS air quality + ERA5 meteorology across 12 anchor stations in all 1 Indian States & Union Territories, generalized to 12 CPCB/SPCB stations via State and geographic coordinates.",
+      "Sudden local emission spikes (stubble burning, festival fireworks, dust storms, thermal inversions) create larger winter-haze residuals.",
+      "Reanalysis/satellite-assimilated concentrations reflect regional grid airsheds; micro-scale roadside hotspots can read higher on localized CPCB monitors."
     ],
     "artifact_path": "ml/aqi/artifacts/aqi_regressor_bundle.joblib",
-    "trained_at": "2026-11-11T17:23:26.427127+00:00"
+    "trained_at": "2026-11-20T08:47:19.535146+00:00"
   },
   {
     "module": "aqi",
     "sub_model": "classifier",
     "model_name": "Random Forest Classifier",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "dataset": {
       "source_file": "daily_air_quality.csv",
       "consecutive_day_pairs": 17441,
       "stations": 12,
+      "states_and_uts": 1,
       "date_range": "2013-03-01 -> 2017-02-27"
     },
     "splits": {
@@ -157,12 +159,12 @@
       "unhealthy_alert_min": 0.25
     },
     "metrics": {
-      "macro_f1": 0.3472,
-      "weighted_f1": 0.4443,
-      "accuracy": 0.4662,
-      "adjacent_1_accuracy": 0.7533,
-      "unhealthy_recall": 0.9603,
-      "unhealthy_pr_auc": 0.7388
+      "macro_f1": 0.3395,
+      "weighted_f1": 0.4364,
+      "accuracy": 0.4596,
+      "adjacent_1_accuracy": 0.753,
+      "unhealthy_recall": 0.9573,
+      "unhealthy_pr_auc": 0.7396
     },
     "comparison_table": [
       {
@@ -176,68 +178,76 @@
       },
       {
         "model": "Logistic Regression (Balanced)",
-        "cv_macro_f1_mean": 0.2945,
-        "cv_macro_f1_std": 0.0367,
-        "cv_weighted_f1_mean": 0.3985,
-        "cv_accuracy_mean": 0.3909,
-        "cv_adjacent_acc_mean": 0.7658,
-        "cv_unhealthy_recall_mean": 0.7216
+        "cv_macro_f1_mean": 0.2979,
+        "cv_macro_f1_std": 0.0388,
+        "cv_weighted_f1_mean": 0.3978,
+        "cv_accuracy_mean": 0.3876,
+        "cv_adjacent_acc_mean": 0.7676,
+        "cv_unhealthy_recall_mean": 0.7246
       },
       {
         "model": "Logistic Regression (SMOTE)",
-        "cv_macro_f1_mean": 0.2966,
-        "cv_macro_f1_std": 0.0386,
-        "cv_weighted_f1_mean": 0.4003,
-        "cv_accuracy_mean": 0.3928,
-        "cv_adjacent_acc_mean": 0.768,
-        "cv_unhealthy_recall_mean": 0.7158
+        "cv_macro_f1_mean": 0.2962,
+        "cv_macro_f1_std": 0.0385,
+        "cv_weighted_f1_mean": 0.3994,
+        "cv_accuracy_mean": 0.3888,
+        "cv_adjacent_acc_mean": 0.7622,
+        "cv_unhealthy_recall_mean": 0.7225
       },
       {
         "model": "Random Forest Classifier",
-        "cv_macro_f1_mean": 0.3516,
-        "cv_macro_f1_std": 0.0311,
-        "cv_weighted_f1_mean": 0.4818,
-        "cv_accuracy_mean": 0.5055,
-        "cv_adjacent_acc_mean": 0.7933,
-        "cv_unhealthy_recall_mean": 0.7596
+        "cv_macro_f1_mean": 0.3515,
+        "cv_macro_f1_std": 0.0322,
+        "cv_weighted_f1_mean": 0.4837,
+        "cv_accuracy_mean": 0.506,
+        "cv_adjacent_acc_mean": 0.7905,
+        "cv_unhealthy_recall_mean": 0.7578
       },
       {
         "model": "XGBoost Classifier",
-        "cv_macro_f1_mean": 0.3206,
-        "cv_macro_f1_std": 0.0171,
-        "cv_weighted_f1_mean": 0.4729,
-        "cv_accuracy_mean": 0.5014,
-        "cv_adjacent_acc_mean": 0.7852,
-        "cv_unhealthy_recall_mean": 0.7252
+        "cv_macro_f1_mean": 0.3139,
+        "cv_macro_f1_std": 0.0109,
+        "cv_weighted_f1_mean": 0.4741,
+        "cv_accuracy_mean": 0.503,
+        "cv_adjacent_acc_mean": 0.7849,
+        "cv_unhealthy_recall_mean": 0.7228
       },
       {
         "model": "LightGBM Classifier",
-        "cv_macro_f1_mean": 0.3358,
-        "cv_macro_f1_std": 0.0309,
-        "cv_weighted_f1_mean": 0.4704,
-        "cv_accuracy_mean": 0.4786,
-        "cv_adjacent_acc_mean": 0.7854,
-        "cv_unhealthy_recall_mean": 0.715
+        "cv_macro_f1_mean": 0.3256,
+        "cv_macro_f1_std": 0.0265,
+        "cv_weighted_f1_mean": 0.4604,
+        "cv_accuracy_mean": 0.4696,
+        "cv_adjacent_acc_mean": 0.7811,
+        "cv_unhealthy_recall_mean": 0.7033
       }
     ],
     "error_analysis": {
       "per_class_f1": {
         "Good": 0.0,
-        "Satisfactory": 0.5907,
-        "Moderate": 0.3047,
-        "Poor": 0.2296,
-        "Very Poor": 0.5503,
-        "Severe": 0.4078
+        "Satisfactory": 0.5898,
+        "Moderate": 0.2867,
+        "Poor": 0.2087,
+        "Very Poor": 0.5499,
+        "Severe": 0.4019
       },
-      "adjacent_1_accuracy": 0.7533,
-      "note": "Rare extremes (Good=41 test rows) have lower F1 due to boundary transitions near AQI 50, while adjacent-1 category accuracy remains high."
+      "test_class_counts": {
+        "Good": 41,
+        "Satisfactory": 969,
+        "Moderate": 798,
+        "Poor": 543,
+        "Very Poor": 1025,
+        "Severe": 118
+      },
+      "adjacent_1_accuracy": 0.753,
+      "note": "Rare extremes (Good=41 test rows) have lower F1 due to sharp AQI bucket boundaries, while adjacent-1 category accuracy remains high."
     },
     "limitations": [
-      "6-class CPCB category distribution is imbalanced (Good < 1% of station-days in industrial/urban Beijing), reducing exact Good vs Satisfactory boundary F1.",
-      "Boundary discretization around fixed AQI cutoffs (50, 100, 200, 300, 400) causes minor 1-tier label shifts; numeric AQI prediction should always be inspected alongside category.",
-      "Chronological generalization tested on May 2016\u2013Feb 2017 future window; multi-year air-policy changes require periodic retraining."
+      "6-class CPCB category distribution across 1 Indian States/UTs is imbalanced toward Satisfactory/Moderate days, reducing exact rare-class boundary F1.",
+      "Boundary discretization around fixed AQI cutoffs (50, 100, 200, 300, 400) causes minor 1-tier label shifts; inspect numeric AQI alongside category.",
+      "Chronological generalization evaluated on unseen future window (2016-05-12 -> 2017-02-27); seasonal monsoon/stubble shifts warrant periodic retraining."
     ],
     "artifact_path": "ml/aqi/artifacts/aqi_classifier_bundle.joblib",
-    "trained_at": "2026-11-11T17:23:51.302362+00:00"
+    "trained_at": "2026-11-20T08:47:54.918754+00:00"
   }
 ]
